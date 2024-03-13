@@ -1,4 +1,4 @@
-const parcelSchema = require("../models/parcelSchema");
+const parcelSchema = require("../parcelSchema");
 const express = require("express");
 const router = express.Router();
 const app = express();
