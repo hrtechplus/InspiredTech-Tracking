@@ -10,7 +10,7 @@ router.post("/parcels", async (req, res) => {
       req.body;
 
     // Create a new Parcel instance with the received data
-    const newParcel = new Parcel({
+    const newParcel = new ParcelModel({
       parcelId,
       status,
       handOverDate,

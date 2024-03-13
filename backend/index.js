@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
 const test = require("./trackingParcel/parcelRoutes/routes");
+const saveParcelRoute = require("./trackingParcel/parcelRoutes/saveParcelRoute");
 
 // Middleware section
 app.use(cors());
@@ -27,3 +28,4 @@ app.listen(port, () => {
 });
 
 app.use(test);
+app.use(saveParcelRoute);
