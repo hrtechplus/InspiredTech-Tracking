@@ -4,7 +4,7 @@ const app = express();
 const cors = require("cors");
 
 // middlware section
-app.user(cors());
+app.use(cors());
 app.use(express.json());
 //mongodb connection implement
 
