@@ -1,35 +1,17 @@
-const mongoose = require("mongoose");
-const parcelSchema = require("../models/parcelSchema");
+// POST endpoint to handle incoming parcel data
+app.post("/parcels", async (req, res) => {
+  try {
+    const parcelData = req.body; // Assuming the incoming data is in JSON format
 
-// Connect to MongoDB
-mongoose
-  .connect("mongodb://localhost:27017/your-database-name", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Connected to MongoDB");
-
-    // Create a new Parcel instance
-    const newParcel = new Parcel({
-      parcelId: "ABC123",
-      status: "In Transit",
-      handOverDate: new Date(),
-      deliveryCost: 10.99,
-      trackingNumber: "TRK123456789",
-      // Add more properties if needed
-    });
+    // Create a new Parcel instance with the received data
+    const newParcel = new Parcel(parcelData);
 
     // Save the Parcel instance to the database
-    newParcel
-      .save()
-      .then((savedParcel) => {
-        console.log("Parcel saved successfully:", savedParcel);
-      })
-      .catch((error) => {
-        console.error("Error saving parcel:", error);
-      });
-  })
-  .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
-  });
+    const savedParcel = await newParcel.save();
+
+    res.status(201).json(savedParcel); // Respond with the saved parcel data
+  } catch (error) {
+    console.error("Error saving parcel:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
