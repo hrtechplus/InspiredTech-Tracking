@@ -1,5 +1,9 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const parcelSchema = require("../models/parcelSchema");
+
 // POST endpoint to handle incoming parcel data
-app.post("/parcels", async (req, res) => {
+app.post("/saveparcels", async (req, res) => {
   try {
     const parcelData = req.body; // Assuming the incoming data is in JSON format
 
