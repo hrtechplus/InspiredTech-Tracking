@@ -1,6 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const router = express.Router();
 const parcelSchema = require("../models/parcelSchema");
+
+const app = express();
 
 // POST endpoint to handle incoming parcel data
 app.post("/saveparcels", async (req, res) => {
