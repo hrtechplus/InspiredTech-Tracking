@@ -33,4 +33,17 @@ app.post("/saveparcels", async (req, res) => {
   }
 });
 
+// get the all parcel data
+
+app.get("/getparcels", async (req, res) => {
+  try {
+    const parcels = await parcelSchema.find(); // Retrieve all parcels from the database
+    res.status(200).json(parcels); // Respond with the retrieved parcels
+  } catch (error) {
+    console.error("Error retrieving parcels:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 module.exports = router;
+
+
+
