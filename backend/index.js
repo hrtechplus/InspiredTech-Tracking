@@ -1,3 +1,20 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+
+//mongodb connection implement
+
+mongoose
+  .connect(
+    "mongodb+srv://nipunasachintha0022:<password>@inspiredtech.t0szwrd.mongodb.net/?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => {
+    console.log("MongoDB connected successfully");
+  })
+  .catch((error) => {
+    console.error("MongoDB connection error:", error);
+  });
