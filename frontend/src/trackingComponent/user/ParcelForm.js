@@ -21,6 +21,12 @@ const ParcelForm = () => {
     }
   };
 
+  const handleNewSearch = () => {
+    setParcelData(null);
+    setError(null);
+    setTrackingNumber(""); // Clear the input field
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -34,22 +40,25 @@ const ParcelForm = () => {
       </form>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {parcelData && (
-        <table>
-          <thead>
-            <tr>
-              <th>Parcel ID</th>
-              <th>Status</th>
-              {/* Add more columns as needed */}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{parcelData.parcelId}</td>
-              <td>{parcelData.status}</td>
-              {/* Map other parcel data here */}
-            </tr>
-          </tbody>
-        </table>
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Parcel ID</th>
+                <th>Status</th>
+                {/* Add more columns as needed */}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{parcelData.parcelId}</td>
+                <td>{parcelData.status}</td>
+                {/* Map other parcel data here */}
+              </tr>
+            </tbody>
+          </table>
+          <button onClick={handleNewSearch}>New Search</button>
+        </div>
       )}
     </div>
   );
