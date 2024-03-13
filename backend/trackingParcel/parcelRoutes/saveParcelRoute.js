@@ -29,4 +29,23 @@ router.post("/parcels", async (req, res) => {
   }
 });
 
+// get the specific parcel by tracking number
+router.get("/parcels/:trackingNumber", async (req, res) => {
+  try {
+    const trackingNumber = req.params.trackingNumber;
+
+    // Find the parcel with the given tracking number
+    const parcel = await ParcelModel.findOne({ trackingNumber });
+
+    if (!parcel) {
+      return res.status(404).json({ error: "Parcel not found" });
+    }
+
+    res.status(200).json(parcel);
+  } catch (error) {
+    console.error("Error retrieving parcel:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
