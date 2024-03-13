@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
-const test = require("./trackingParcel/routes");
+const test = require("./trackingParcel/parcelRoutes/routes");
 
 // Middleware section
 app.use(cors());
@@ -25,3 +25,5 @@ const port = 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+app.use(test);
