@@ -8,6 +8,11 @@ app.user(cors());
 app.use(express.json());
 //mongodb connection implement
 
+// backend connection implement start.
+app.listen(5000, () => {
+  console.log("Server is running on port 5000");
+});
+
 mongoose
   .connect(
     "mongodb+srv://nipunasachintha0022:mongotech123@inspiredtech.t0szwrd.mongodb.net/inspiredTech?retryWrites=true&w=majority",
