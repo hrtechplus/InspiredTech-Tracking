@@ -6,7 +6,7 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://nipunasachintha0022:<password>@inspiredtech.t0szwrd.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://nipunasachintha0022:<password>@inspiredtech.t0szwrd.mongodb.net/inspiredTech?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -18,3 +18,4 @@ mongoose
   .catch((error) => {
     console.error("MongoDB connection error:", error);
   });
+// mongodb connection implement end
