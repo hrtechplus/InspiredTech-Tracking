@@ -8,19 +8,6 @@ app.post("/saveparcels", async (req, res) => {
   try {
     const parcelData = req.body; // Assuming the incoming data is in JSON format
 
-    // HERE IS THE SAMPLE JSON FILE
-
-    //     {
-    //   "parcelId": "ABC123", // Unique parcel ID
-    //   "status": "In Transit", // Parcel status (e.g., In Transit, Delivered, Pending)
-    //   "handOverDate": "2024-03-10T14:30:00Z", // Date of handover to delivery company
-    //   "deliveryCost": 25.99, // Delivery cost in your currency
-    //   "trackingNumber": "XYZ789" // Unique tracking number
-    // }
-
-    // SAMPLE JSON FILE END
-
-    // Create a new Parcel instance with the received data
     const newParcel = new parcelSchema(parcelData);
 
     // Save the Parcel instance to the database
@@ -43,7 +30,17 @@ app.get("/getparcels", async (req, res) => {
     console.error("Error retrieving parcels:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
+});
+
+// this one is for the testing
+
+app.get("/test", async (req, res) => {
+  try {
+    res.status(200).json({ message: "Test endpoint works!" });
+  } catch (error) {
+    console.error("Error retrieving parcels:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
-
-
-
