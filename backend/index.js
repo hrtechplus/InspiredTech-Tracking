@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
-const TrackingRoutes = require("./Tracking-Management/routes/parcelRoutes");
+const TrackingRoutes = require("../backend/Tracking-Management/models/routes/ParcelRoutes");
 
 // middlware section
 app.use(cors());
@@ -32,3 +32,4 @@ mongoose
 // mongodb connection implement end.
 
 //Tracking System Routes
+app.use(TrackingRoutes);
