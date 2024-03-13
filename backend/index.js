@@ -2,10 +2,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
+const test = require("./trackingParcel/routes");
 
 // Middleware section
 app.use(cors());
 app.use(express.json());
+app.use(parcelRoutes);
 
 // MongoDB connection implementation
 mongoose
