@@ -9,7 +9,9 @@ const ParcelForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`/parcels/${trackingNumber}`);
+      const response = await axios.get(
+        `http://localhost:5000/parcels/${trackingNumber}`
+      );
       setParcelData(response.data);
     } catch (error) {
       console.error("Error fetching parcel data:", error);
