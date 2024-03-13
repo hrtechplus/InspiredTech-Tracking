@@ -5,6 +5,7 @@ import axios from "axios";
 const ParcelForm = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [parcelData, setParcelData] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,7 +14,9 @@ const ParcelForm = () => {
         `http://localhost:5000/parcels/${trackingNumber}`
       );
       setParcelData(response.data);
+      setError(null); // Clear any previous errors
     } catch (error) {
+      setError("Error fetching parcel data. Please check the tracking number.");
       console.error("Error fetching parcel data:", error);
     }
   };
@@ -29,6 +32,7 @@ const ParcelForm = () => {
         />
         <button type="submit">Search</button>
       </form>
+      {error && <p style={{ color: "red" }}>{error}</p>}
       {parcelData && (
         <table>
           <thead>
