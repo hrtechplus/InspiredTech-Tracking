@@ -1,7 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const cors = require("cors");
 
+// middlware section
+app.user(cors());
+app.use(express.json());
 //mongodb connection implement
 
 mongoose
@@ -19,4 +23,4 @@ mongoose
     console.error("MongoDB connection error:", error);
   });
 
-// mongodb connection implement end
+// mongodb connection implement end.
