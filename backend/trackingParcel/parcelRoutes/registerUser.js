@@ -1,13 +1,13 @@
-const userModel = require("../models/userSchema");
+const UserModel = require("../models/userSchema");
 const express = require("express");
 
-const router = express.Router();
-// Routes
+const router = express.Router(); // Fixed router initialization
 
+// Routes
 router.post("/api/users", async (req, res) => {
   try {
     const userData = req.body;
-    const newUser = new userModel(userData);
+    const newUser = new UserModel(userData); // Corrected model reference
     await newUser.save();
     res
       .status(201)
@@ -18,4 +18,4 @@ router.post("/api/users", async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = router; // Exporting the router
