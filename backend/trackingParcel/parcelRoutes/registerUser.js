@@ -1,10 +1,13 @@
 const userModel = require("../models/userSchema");
+const express = require("express");
+
+const router = express.Router();
 // Routes
 
-app.post("/api/users", async (req, res) => {
+router.post("/api/users", async (req, res) => {
   try {
     const userData = req.body;
-    const newUser = new UserModel(userData);
+    const newUser = new userModel(userData);
     await newUser.save();
     res
       .status(201)
@@ -14,3 +17,5 @@ app.post("/api/users", async (req, res) => {
     res.status(500).json({ error: "Failed to create user" });
   }
 });
+
+module.exports = router;
