@@ -1,3 +1,5 @@
+// backend/models/UserModel.js
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -24,12 +26,10 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["user", "admin", "superadmin"], // Define possible roles
-    default: "user", // Default role for new users
+    enum: ["user", "admin", "superadmin"],
+    default: "user",
   },
 });
-
-// Add any necessary hooks, methods, or middleware here
 
 const UserModel = mongoose.model("User", userSchema);
 
