@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const test = require("./trackingParcel/parcelRoutes/routes");
 const saveParcelRoute = require("./trackingParcel/parcelRoutes/saveParcelRoute");
+const inventoryRoutes = require("./inventoryControl/inventoryRoutes/routes");
 
 // Middleware section
 app.use(cors());
@@ -27,5 +28,7 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+// All the routes
 app.use(test);
 app.use(saveParcelRoute);
+app.use('/inventoryPanel', inventoryRoutes);
