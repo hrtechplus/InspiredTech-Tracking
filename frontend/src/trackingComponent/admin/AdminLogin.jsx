@@ -1,3 +1,5 @@
+// src/components/LoginForm.js
+
 import React, { useState } from "react";
 import {
   Box,
@@ -7,13 +9,12 @@ import {
   Input,
   VStack,
 } from "@chakra-ui/react";
-import { useToast } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ const LoginForm = () => {
       });
       // Assuming the server returns a success message upon successful login
       toast.success(response.data.message);
+      console.log("Login successful:", response.data);
       // Redirect to dashboard or perform any other action upon successful login
     } catch (error) {
       // Display error toast if login fails
