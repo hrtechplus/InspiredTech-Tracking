@@ -1,5 +1,6 @@
 const UserModel = require("../models/userSchema");
 const express = require("express");
+const bcrypt = require("bcrypt");
 
 const router = express.Router(); // Fixed router initialization
 
@@ -7,7 +8,17 @@ const router = express.Router(); // Fixed router initialization
 router.post("/api/users", async (req, res) => {
   try {
     const userData = req.body;
-    const newUser = new UserModel(userData); // Corrected model reference
+
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+
+    const newUser = new UserModel({
+      username: userData.username,
+      email: userData.email,
+      password: hashedPassword, // Save the hashed password
+      role: userData.role,
+    });
+
     await newUser.save();
     res
       .status(201)
