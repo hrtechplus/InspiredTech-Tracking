@@ -9,7 +9,8 @@ const userSchema = new Schema({
     lowercase: true,
     unique: true,
     required: [true, "Username can't be blank"],
-    match: /^[a-zA-Z0-9]+$/,
+    // match: /^[a-zA-Z0-9]+$/, // damata meka ain karla thienne hari format ekata username generate karnna bari nisa
+
     index: true,
   },
   email: {
