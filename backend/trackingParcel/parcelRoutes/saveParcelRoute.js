@@ -58,8 +58,9 @@ router.get("/parcels/:trackingNumber", async (req, res) => {
 
     // Attach user details to the parcel object
     parcel.user = user;
-
-    res.status(200).json(parcel);
+    console.log("Parcel:", parcel.user.address);
+    const responseFinalData = { user, parcel };
+    res.status(200).json(responseFinalData);
   } catch (error) {
     console.error("Error retrieving parcel:", error);
     res.status(500).json({ error: "Internal Server Error" });
