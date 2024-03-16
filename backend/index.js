@@ -5,7 +5,7 @@ const cors = require("cors");
 const test = require("./trackingParcel/parcelRoutes/routes");
 const saveParcelRoute = require("./trackingParcel/parcelRoutes/saveParcelRoute");
 const registerUser = require("./trackingParcel/parcelRoutes/registerUser");
-
+const loginAdmin = require("./trackingParcel/parcelRoutes/loginAdmmin");
 // Middleware section
 app.use(cors());
 app.use(express.json());
@@ -31,3 +31,4 @@ app.listen(port, () => {
 app.use(test);
 app.use(saveParcelRoute);
 app.use(registerUser);
+app.use(loginAdmin);
