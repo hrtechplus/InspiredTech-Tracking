@@ -1,4 +1,3 @@
-import "./App.css";
 import UserTrakingSearch from "./trackingComponent/user/ParcelForm";
 function App() {
   return (
