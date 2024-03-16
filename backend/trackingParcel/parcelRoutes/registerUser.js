@@ -1,4 +1,4 @@
-const UserModel = require("../models/userSchema");
+const UserModel = require("../models/userSchema"); // Update import to match the schema filename
 const express = require("express");
 const bcrypt = require("bcrypt");
 
@@ -17,6 +17,7 @@ router.post("/api/users", async (req, res) => {
       email: userData.email,
       password: hashedPassword, // Save the hashed password
       role: userData.role,
+      address: userData.address, // Include address data
     });
 
     await newUser.save();

@@ -1,33 +1,36 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-// Define the Parcel schema
-const parcelSchema = new mongoose.Schema({
+const parcelSchema = new Schema({
   parcelId: {
     type: String,
-    required: true,
-    unique: true, // Ensures uniqueness of Parcel ID
+    unique: true,
+    required: [true, "Parcel ID can't be blank"],
   },
   status: {
     type: String,
-    required: true,
-    enum: ["In Transit", "Delivered", "Pending"], // Example status values
+    enum: ["In Transit", "Delivered", "Pending"],
+    default: "Pending",
   },
   handOverDate: {
     type: Date,
-    required: true,
+    default: null,
   },
   deliveryCost: {
     type: Number,
-    required: true,
+    required: [true, "Delivery cost can't be blank"],
   },
   trackingNumber: {
     type: String,
+    required: [true, "Tracking number can't be blank"],
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "Users",
     required: true,
   },
-  // You can add more properties as needed (e.g., location, carrier, etc.)
 });
 
-// Create the Parcel model
-const Parcel = mongoose.model("Parcel", parcelSchema);
+const ParcelModel = mongoose.model("Parcel", parcelSchema);
 
-module.exports = Parcel;
+module.exports = ParcelModel;

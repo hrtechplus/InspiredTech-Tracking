@@ -1,5 +1,3 @@
-// backend/models/UserModel.js
-
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -9,8 +7,6 @@ const userSchema = new Schema({
     lowercase: true,
     unique: true,
     required: [true, "Username can't be blank"],
-    // match: /^[a-zA-Z0-9]+$/, // damata meka ain karla thienne hari format ekata username generate karnna bari nisa
-
     index: true,
   },
   email: {
@@ -29,6 +25,13 @@ const userSchema = new Schema({
     type: String,
     enum: ["user", "admin", "superadmin"],
     default: "user",
+  },
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    postalCode: String,
+    country: String,
   },
 });
 

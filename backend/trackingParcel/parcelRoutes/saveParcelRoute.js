@@ -1,13 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const ParcelModel = require("../models/parcelSchema"); // Assuming Parcel model is exported from 'Parcel.js'
+const ParcelModel = require("../models/parcelSchema"); // Update import to match the new schema filename
 
 // POST route to handle incoming parcel data
 router.post("/parcels", async (req, res) => {
   try {
     // Extract parcel data from request body
-    const { parcelId, status, handOverDate, deliveryCost, trackingNumber } =
-      req.body;
+    const {
+      parcelId,
+      status,
+      handOverDate,
+      deliveryCost,
+      trackingNumber,
+      user,
+    } = req.body;
 
     // Create a new Parcel instance with the received data
     const newParcel = new ParcelModel({
@@ -16,6 +22,7 @@ router.post("/parcels", async (req, res) => {
       handOverDate,
       deliveryCost,
       trackingNumber,
+      user, // Include user reference
       // Add more properties as needed
     });
 
@@ -29,13 +36,15 @@ router.post("/parcels", async (req, res) => {
   }
 });
 
-// get the specific parcel by tracking number
+// GET route to retrieve a specific parcel by tracking number
 router.get("/parcels/:trackingNumber", async (req, res) => {
   try {
     const trackingNumber = req.params.trackingNumber;
 
     // Find the parcel with the given tracking number
-    const parcel = await ParcelModel.findOne({ trackingNumber });
+    const parcel = await ParcelModel.findOne({ trackingNumber }).populate(
+      "user"
+    ); // Populate user details
 
     if (!parcel) {
       return res.status(404).json({ error: "Parcel not found" });
