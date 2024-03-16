@@ -4,7 +4,7 @@ const UserModel = require("../models/userSchema"); // Assuming the user model is
 
 const router = express.Router();
 
-router.post("/login", async (req, res) => {
+router.post("/parcel/login", async (req, res) => {
   const { username, password } = req.body;
   try {
     // Check if the user exists in the database
