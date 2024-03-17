@@ -4,6 +4,8 @@ const app = express();
 const cors = require("cors");
 const test = require("./trackingParcel/parcelRoutes/routes");
 const saveParcelRoute = require("./trackingParcel/parcelRoutes/saveParcelRoute");
+const supplierRouter = require('./routes/suppliers.js');
+const orderRouter = require('./routes/orders.js');
 
 // Middleware section
 app.use(cors());
@@ -26,6 +28,9 @@ const port = 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+app.use("/supplier",supplierRouter);
+app.use("/order",orderRouter);
 
 app.use(test);
 app.use(saveParcelRoute);
