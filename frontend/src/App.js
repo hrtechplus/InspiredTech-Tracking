@@ -3,7 +3,7 @@ import AdminLogin from "./trackingComponent/admin/AdminLogin";
 function App() {
   return (
     <div className="App">
-      <AdminLogin />
+      <p>Home page</p>
     </div>
   );
 }
