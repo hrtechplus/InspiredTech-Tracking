@@ -13,7 +13,7 @@ app.use(express.json());
 // MongoDB connection implementation
 mongoose
   .connect(
-    "mongodb+srv://nipunasachintha0022:mongotech123@inspiredtech.t0szwrd.mongodb.net/inspiredTech?retryWrites=true&w=majority"
+    "mongodb+srv://savishkadilshan:in5sDjaq8SnZqcLz@cluster0.pj8muri.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => {
     console.log("MongoDB connected successfully");
