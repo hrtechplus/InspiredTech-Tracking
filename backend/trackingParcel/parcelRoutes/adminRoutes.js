@@ -2,7 +2,6 @@
 const express = require("express");
 const router = express.Router();
 const Parcel = require("../models/parcelSchema"); // Import Parcel model
-const User = require("../models/userSchema"); // Import User model
 
 // GET parcel by tracking number
 router.get("/admin/parcels/:trackingNumber", async (req, res) => {
