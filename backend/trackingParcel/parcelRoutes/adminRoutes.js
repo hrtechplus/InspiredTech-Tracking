@@ -2,13 +2,14 @@
 const express = require("express");
 const router = express.Router();
 const Parcel = require("../models/parcelSchema"); // Import Parcel model
+const User = require("../models/userSchema"); // Import User model
 
 // GET parcel by tracking number
-router.get("admin/parcels/:trackingNumber", async (req, res) => {
+router.get("/admin/parcels/:trackingNumber", async (req, res) => {
   try {
     const trackingNumber = req.params.trackingNumber;
 
-    // Find the parcel with the given tracking number
+    // Find the parcel with the given tracking number and populate the user details
     const parcel = await Parcel.findOne({ trackingNumber }).populate("user");
 
     if (!parcel) {
@@ -22,20 +23,22 @@ router.get("admin/parcels/:trackingNumber", async (req, res) => {
   }
 });
 
-// GET all parcels
-router.get("admin/parcels", async (req, res) => {
+// Route to fetch all parcels with their data
+router.get("/admin/parcels", async (req, res) => {
   try {
+    // Fetch all parcels and populate user details for each parcel
     const parcels = await Parcel.find().populate("user");
     res.status(200).json(parcels);
   } catch (error) {
-    console.error("Error retrieving parcels:", error);
+    console.error("Error fetching parcels:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 // POST create new parcel
-router.post("admin/parcels", async (req, res) => {
+router.post("/admin/parcels", async (req, res) => {
   try {
+    // Create a new parcel using the request body
     const newParcel = await Parcel.create(req.body);
     res.status(201).json(newParcel);
   } catch (error) {
@@ -45,9 +48,10 @@ router.post("admin/parcels", async (req, res) => {
 });
 
 // PUT update parcel by tracking number
-router.put("admin/parcels/:trackingNumber", async (req, res) => {
+router.put("/admin/parcels/:trackingNumber", async (req, res) => {
   try {
     const trackingNumber = req.params.trackingNumber;
+    // Find and update the parcel with the given tracking number
     const updatedParcel = await Parcel.findOneAndUpdate(
       { trackingNumber },
       req.body,
@@ -64,9 +68,10 @@ router.put("admin/parcels/:trackingNumber", async (req, res) => {
 });
 
 // DELETE parcel by tracking number
-router.delete("admin/parcels/:trackingNumber", async (req, res) => {
+router.delete("/admin/parcels/:trackingNumber", async (req, res) => {
   try {
     const trackingNumber = req.params.trackingNumber;
+    // Find and delete the parcel with the given tracking number
     const deletedParcel = await Parcel.findOneAndDelete({ trackingNumber });
     if (!deletedParcel) {
       return res.status(404).json({ error: "Parcel not found" });
