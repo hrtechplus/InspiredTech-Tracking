@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
+
+// Import functionalities to implement routes
 const { createItem, readItems, deleteItem, updateItem } = require('../controllers/inventoryController');
+
 
 // Read a Item
 router.get('/', readItems)

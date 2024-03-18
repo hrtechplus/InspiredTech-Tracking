@@ -47,6 +47,7 @@ const updateItem = async (req, res) => {
     res.status(200).json(item);
 }
 
+// Export all the functionalities
 module.exports = {
     createItem,
     readItems,

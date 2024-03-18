@@ -13,7 +13,7 @@ app.use(express.json());
 // MongoDB connection implementation
 mongoose
   .connect(
-    "mongodb+srv://savishkadilshan:in5sDjaq8SnZqcLz@cluster0.pj8muri.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    "" // remove for now since uplading this file to GitHub
   )
   .then(() => {
     console.log("MongoDB connected successfully");
@@ -31,4 +31,4 @@ app.listen(port, () => {
 // All the routes
 app.use(test);
 app.use(saveParcelRoute);
-app.use('/inventoryPanel', inventoryRoutes);
+app.use('/inventoryPanel', inventoryRoutes); // For all the Inventory Control Panel routes

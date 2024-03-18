@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
+// Database schema definition for Item table
 const itemSchema = new mongoose.Schema({
-    itemID: {
+    itemID: { // Item ID uses for uniquely identifying a particular item
         type: String,
         required: true,
         unique: true, // Ensures uniqueness of Item ID
