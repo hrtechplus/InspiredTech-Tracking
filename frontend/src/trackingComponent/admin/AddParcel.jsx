@@ -52,7 +52,9 @@ const AdminPanel = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`/admin/parcels/${trackingNumber}`);
+      const response = await axios.get(
+        `http://localhost:5000/admin/parcels/${trackingNumber}`
+      );
       setParcels([response.data]);
     } catch (error) {
       console.error("Error searching parcel:", error);
