@@ -11,28 +11,16 @@ import {
   Td,
   Text,
   Tr,
-  useDisclosure,
   IconButton,
-  Icon,
-  DeleteIcon,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerCloseButton,
-  useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
+import { DeleteIcon, SearchIcon } from "@chakra-ui/icons";
 import axios from "axios";
 
 const AdminPanel = () => {
   const [parcels, setParcels] = useState([]);
   const [trackingNumber, setTrackingNumber] = useState("");
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
   useEffect(() => {
     fetchParcels();
@@ -53,8 +41,22 @@ const AdminPanel = () => {
         `http://localhost:5000/admin/parcels/${trackingNumber}`
       );
       fetchParcels();
+      toast({
+        title: "Parcel Deleted",
+        description: "The parcel has been successfully deleted.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error) {
       console.error("Error deleting parcel:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete parcel. Please try again.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -70,20 +72,19 @@ const AdminPanel = () => {
       setParcels([response.data]);
     } catch (error) {
       console.error("Error searching parcel:", error);
+      toast({
+        title: "Error",
+        description: "Failed to search for parcel. Please try again.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
-  const handleViewDetails = (parcel) => {
-    // Implement logic to display detailed information about the parcel
-    // You can use a modal, drawer, or another UI component
-    console.log("View details for parcel:", parcel);
-  };
-
-  const bgColor = useColorModeValue("gray.100", "gray.700");
-
   return (
     <Box p={8}>
-      <Stack spacing={4} mb={8}>
+      <Stack spacing={4} mb={8} direction="row" align="center">
         <FormControl>
           <FormLabel>Search Parcel by Tracking Number</FormLabel>
           <Input
@@ -93,37 +94,17 @@ const AdminPanel = () => {
             onChange={handleInputChange}
           />
         </FormControl>
-        <Button colorScheme="teal" onClick={handleSearch}>
-          <Icon name="SearchIcon" /> Search
+        <Button
+          colorScheme="teal"
+          leftIcon={<SearchIcon />}
+          onClick={handleSearch}
+        >
+          Search
         </Button>
       </Stack>
 
-      <Table variant="simple" bg={bgColor}>
+      <Table variant="simple">
         <Tbody>
-          <Tr>
-            <Td>Parcel ID</Td>
-            <Td>Status</Td>
-            <Td>Hand Over Date</Td>
-            <Td>Delivery Cost</Td>
-            <Td>Tracking Number</Td>
-            <Td isNumeric>
-              <Menu>
-                <MenuButton as={IconButton} icon={<Icon as={DeleteIcon} />}>
-                  Actions
-                </MenuButton>
-                <MenuList>
-                  <MenuItem
-                    onClick={() => handleDeleteParcel(parcel.trackingNumber)}
-                  >
-                    Delete
-                  </MenuItem>
-                  <MenuItem onClick={() => handleViewDetails(parcel)}>
-                    View Details
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-            </Td>
-          </Tr>
           {parcels.map((parcel) => (
             <Tr key={parcel._id}>
               <Td>{parcel.parcelId}</Td>
@@ -131,46 +112,18 @@ const AdminPanel = () => {
               <Td>{parcel.handOverDate}</Td>
               <Td>{parcel.deliveryCost}</Td>
               <Td>{parcel.trackingNumber}</Td>
-              <Td isNumeric>
-                <Menu>
-                  <MenuButton as={IconButton} icon={<Icon as={DeleteIcon} />}>
-                    Actions
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem
-                      onClick={() => handleDeleteParcel(parcel.trackingNumber)}
-                    >
-                      Delete
-                    </MenuItem>
-                    <MenuItem onClick={() => handleViewDetails(parcel)}>
-                      View Details
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
+              <Td>
+                <IconButton
+                  colorScheme="red"
+                  aria-label="Delete parcel"
+                  icon={<DeleteIcon />}
+                  onClick={() => handleDeleteParcel(parcel.trackingNumber)}
+                />
               </Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
-
-      <Drawer isOpen={isOpen} onClose={onClose} placement="right">
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerHeader borderBottomWidth={1}>Parcel Details</DrawerHeader>
-
-          <DrawerBody>
-            {/* Implement detailed information about the selected parcel here */}
-            <Text>Parcel ID: {/* Display parcel ID */}</Text>
-            <Text>Tracking Number: {/* Display tracking number */}</Text>
-            <Text>Status: {/* Display parcel status */}</Text>
-            <Text>Hand Over Date: {/* Display hand over date */}</Text>
-            <Text>Delivery Cost: {/* Display delivery cost */}</Text>
-            {/* You can add more details based on your data structure */}
-          </DrawerBody>
-
-          <DrawerCloseButton />
-        </DrawerContent>
-      </Drawer>
     </Box>
   );
 };
