@@ -2,6 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const Parcel = require("../models/parcelSchema"); // Import Parcel model
+const UserModel = require("../models/userSchema");
 
 // GET parcel by tracking number
 router.get("/admin/parcels/:trackingNumber", async (req, res) => {
@@ -9,7 +10,7 @@ router.get("/admin/parcels/:trackingNumber", async (req, res) => {
     const trackingNumber = req.params.trackingNumber;
 
     // Find the parcel with the given tracking number and populate the user details
-    const parcel = await Parcel.findOne({ trackingNumber }).populate("user");
+    const parcel = await Parcel.findOne({ trackingNumber });
 
     if (!parcel) {
       return res.status(404).json({ error: "Parcel not found" });
