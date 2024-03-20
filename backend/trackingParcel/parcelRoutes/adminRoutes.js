@@ -27,7 +27,7 @@ router.get("/admin/parcels/:trackingNumber", async (req, res) => {
 router.get("/admin/parcels", async (req, res) => {
   try {
     // Fetch all parcels and populate user details for each parcel
-    const parcels = await Parcel.find().populate("user");
+    const parcels = await Parcel.find();
     res.status(200).json(parcels);
   } catch (error) {
     console.error("Error fetching parcels:", error);
