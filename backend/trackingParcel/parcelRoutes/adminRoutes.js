@@ -51,15 +51,15 @@ router.post("/admin/parcels", async (req, res) => {
 router.put("/admin/parcels/:trackingNumber", async (req, res) => {
   try {
     const trackingNumber = req.params.trackingNumber;
-    // Find and update the parcel with the given tracking number
-    const updatedParcel = await Parcel.findOneAndUpdate(
-      { trackingNumber },
-      req.body,
-      { new: true }
-    );
-    if (!updatedParcel) {
+    // Find the parcel with the given tracking number
+    const parcel = await Parcel.findOne({ trackingNumber });
+    if (!parcel) {
       return res.status(404).json({ error: "Parcel not found" });
     }
+    // Update the parcel data with the request body
+    Object.assign(parcel, req.body);
+    // Save the updated parcel
+    const updatedParcel = await parcel.save();
     res.status(200).json(updatedParcel);
   } catch (error) {
     console.error("Error updating parcel:", error);
