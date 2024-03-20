@@ -13,7 +13,6 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import axios from "axios";
-import AddParcel from "./AddParcel";
 
 const AdminPanel = () => {
   const [parcels, setParcels] = useState([]);
@@ -97,7 +96,6 @@ const AdminPanel = () => {
           ))}
         </Tbody>
       </Table>
-      <AddParcel />
     </Box>
   );
 };
