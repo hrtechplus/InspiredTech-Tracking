@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import {
   Box,
-  Flex,
-  Heading,
-  Stat,
-  StatLabel,
-  StatNumber,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
   Stack,
   Table,
   Tbody,
@@ -14,79 +12,88 @@ import {
   Text,
   Tr,
 } from "@chakra-ui/react";
+import axios from "axios";
 
-const Dashboard = () => {
-  const [parcelStats, setParcelStats] = useState({});
+const AdminPanel = () => {
   const [parcels, setParcels] = useState([]);
+  const [trackingNumber, setTrackingNumber] = useState("");
 
   useEffect(() => {
-    // Fetch parcel statistics
-    axios
-      .get("/admin/parcels/stats")
-      .then((response) => {
-        setParcelStats(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching parcel statistics:", error);
-      });
-
-    // Fetch list of parcels
-    axios
-      .get("/admin/parcels")
-      .then((response) => {
-        setParcels(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching parcels:", error);
-      });
+    fetchParcels();
   }, []);
+
+  const fetchParcels = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/admin/parcels");
+      setParcels(response.data);
+    } catch (error) {
+      console.error("Error fetching parcels:", error);
+    }
+  };
+
+  const handleDeleteParcel = async (trackingNumber) => {
+    try {
+      await axios.delete(`/admin/parcels/${trackingNumber}`);
+      fetchParcels();
+    } catch (error) {
+      console.error("Error deleting parcel:", error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setTrackingNumber(e.target.value);
+  };
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(`/admin/parcels/${trackingNumber}`);
+      setParcels([response.data]);
+    } catch (error) {
+      console.error("Error searching parcel:", error);
+    }
+  };
 
   return (
     <Box p={8}>
-      <Heading as="h1" size="xl" mb={6}>
-        Dashboard
-      </Heading>
-
-      <Flex justify="space-between" mb={8}>
-        <Stat>
-          <StatLabel>Total Parcels</StatLabel>
-          <StatNumber>{parcelStats.totalParcels}</StatNumber>
-        </Stat>
-        <Stat>
-          <StatLabel>In Transit</StatLabel>
-          <StatNumber>{parcelStats.inTransit}</StatNumber>
-        </Stat>
-        <Stat>
-          <StatLabel>Delivered</StatLabel>
-          <StatNumber>{parcelStats.delivered}</StatNumber>
-        </Stat>
-        <Stat>
-          <StatLabel>Pending</StatLabel>
-          <StatNumber>{parcelStats.pending}</StatNumber>
-        </Stat>
-      </Flex>
-
-      <Stack spacing={6}>
-        <Heading as="h2" size="lg" mb={4}>
-          Parcels
-        </Heading>
-        <Table variant="simple">
-          <Tbody>
-            {parcels.map((parcel) => (
-              <Tr key={parcel._id}>
-                <Td>{parcel.trackingNumber}</Td>
-                <Td>{parcel.status}</Td>
-                <Td>{parcel.deliveryCost}</Td>
-                <Td>{parcel.handOverDate}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
+      <Stack spacing={4} mb={8}>
+        <FormControl>
+          <FormLabel>Search Parcel by Tracking Number</FormLabel>
+          <Input
+            type="text"
+            placeholder="Enter tracking number"
+            value={trackingNumber}
+            onChange={handleInputChange}
+          />
+        </FormControl>
+        <Button colorScheme="teal" onClick={handleSearch}>
+          Search
+        </Button>
       </Stack>
 
-      {/* Add form for creating new parcels */}
+      <Table variant="simple">
+        <Tbody>
+          {parcels.map((parcel) => (
+            <Tr key={parcel._id}>
+              <Td>{parcel.parcelId}</Td>
+              <Td>{parcel.status}</Td>
+              <Td>{parcel.handOverDate}</Td>
+              <Td>{parcel.deliveryCost}</Td>
+              <Td>{parcel.trackingNumber}</Td>
+              <Td>
+                <Button
+                  colorScheme="red"
+                  size="sm"
+                  onClick={() => handleDeleteParcel(parcel.trackingNumber)}
+                >
+                  Delete
+                </Button>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
     </Box>
   );
 };
 
-export default Dashboard;
+export default AdminPanel;
