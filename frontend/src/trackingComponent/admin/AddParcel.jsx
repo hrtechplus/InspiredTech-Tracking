@@ -68,7 +68,7 @@ const AdminPanel = () => {
 
   const handleAddParcel = async () => {
     try {
-      await axios.post("/admin/parcels", newParcelData);
+      await axios.post("http://localhost:5000/admin/parcels", newParcelData);
       fetchParcels();
       setNewParcelData({
         parcelId: "",
