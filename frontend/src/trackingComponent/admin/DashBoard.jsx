@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
+  Center,
   FormControl,
   FormLabel,
   Input,
@@ -10,11 +11,13 @@ import {
   Tbody,
   Td,
   Text,
+  Th,
+  Thead,
   Tr,
   IconButton,
   useToast,
 } from "@chakra-ui/react";
-import { DeleteIcon, SearchIcon } from "@chakra-ui/icons";
+import { SearchIcon, RepeatIcon, DeleteIcon } from "@chakra-ui/icons";
 import axios from "axios";
 
 const AdminPanel = () => {
@@ -60,6 +63,10 @@ const AdminPanel = () => {
     }
   };
 
+  const handleRefresh = () => {
+    fetchParcels();
+  };
+
   const handleInputChange = (e) => {
     setTrackingNumber(e.target.value);
   };
@@ -83,48 +90,75 @@ const AdminPanel = () => {
   };
 
   return (
-    <Box p={8}>
-      <Stack spacing={4} mb={8} direction="row" align="center">
-        <FormControl>
-          <FormLabel>Search Parcel by Tracking Number</FormLabel>
-          <Input
-            type="text"
-            placeholder="Enter tracking number"
-            value={trackingNumber}
-            onChange={handleInputChange}
+    <Center h="100vh">
+      <Box
+        p={8}
+        boxShadow="md"
+        borderRadius="xl"
+        m={4}
+        width="70%"
+        overflowY="auto"
+        mt={8}
+        mb={8}
+      >
+        <Stack spacing={4} mb={8} direction="row" align="center">
+          <FormControl>
+            <FormLabel>Search Parcel by Tracking Number</FormLabel>
+            <Input
+              type="text"
+              placeholder="Enter tracking number"
+              value={trackingNumber}
+              onChange={handleInputChange}
+            />
+          </FormControl>
+          <Button
+            colorScheme="teal"
+            leftIcon={<SearchIcon />}
+            onClick={handleSearch}
+          >
+            Search
+          </Button>
+          <IconButton
+            colorScheme="teal"
+            aria-label="Refresh parcels"
+            icon={<RepeatIcon />}
+            onClick={handleRefresh}
           />
-        </FormControl>
-        <Button
-          colorScheme="teal"
-          leftIcon={<SearchIcon />}
-          onClick={handleSearch}
-        >
-          Search
-        </Button>
-      </Stack>
+        </Stack>
 
-      <Table variant="simple">
-        <Tbody>
-          {parcels.map((parcel) => (
-            <Tr key={parcel._id}>
-              <Td>{parcel.parcelId}</Td>
-              <Td>{parcel.status}</Td>
-              <Td>{parcel.handOverDate}</Td>
-              <Td>{parcel.deliveryCost}</Td>
-              <Td>{parcel.trackingNumber}</Td>
-              <Td>
-                <IconButton
-                  colorScheme="red"
-                  aria-label="Delete parcel"
-                  icon={<DeleteIcon />}
-                  onClick={() => handleDeleteParcel(parcel.trackingNumber)}
-                />
-              </Td>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>Parcel ID</Th>
+              <Th>Status</Th>
+              <Th>Hand Over Date</Th>
+              <Th>Delivery Cost</Th>
+              <Th>Tracking Number</Th>
+              <Th>Actions</Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </Box>
+          </Thead>
+          <Tbody>
+            {parcels.map((parcel) => (
+              <Tr key={parcel._id}>
+                <Td>{parcel.parcelId}</Td>
+                <Td>{parcel.status}</Td>
+                <Td>{parcel.handOverDate}</Td>
+                <Td>{parcel.deliveryCost}</Td>
+                <Td>{parcel.trackingNumber}</Td>
+                <Td>
+                  <IconButton
+                    colorScheme="red"
+                    aria-label="Delete parcel"
+                    icon={<DeleteIcon />}
+                    onClick={() => handleDeleteParcel(parcel.trackingNumber)}
+                  />
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </Box>
+    </Center>
   );
 };
 
