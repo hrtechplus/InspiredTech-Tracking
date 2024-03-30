@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
 // Components
-import NavBar from '../Components/NavBar' //this is test purpose navbar
 import ItemDetailsDisplay from '../Components/itemDetailsDisplay'
-import { Container } from '@chakra-ui/react'
+import SlideBar from '../Components/SlideBar'
+import { Container, Heading } from '@chakra-ui/react'
 
 function Home() {
+  // States
   const [items, setItems] = useState(null)
 
   // fetch items data from server
@@ -23,11 +24,9 @@ function Home() {
 
   return (
     <>
-      <NavBar />
-      <h1>You're now in Inventory Control Panel</h1>
-      <br />
-      
+      <SlideBar />
       <Container>
+        <Heading paddingTop='24px' paddingBottom='24px'>All Added Items</Heading>
         <div className="itemsDetailsSection">
           {items && items.map((item) => (
             <ItemDetailsDisplay key={item.itemID} item={item} /> //ItemDetailsDisplay component
