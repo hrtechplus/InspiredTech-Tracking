@@ -32,7 +32,11 @@ const itemSchema = new mongoose.Schema({
         required: true
     },
     warranty: {
-        type: Number
+        type: String
+    },
+    imgURL: {
+        type: String,
+        required: true
     }
 }, {timestamps: true})
 
