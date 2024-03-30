@@ -11,7 +11,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 
-const LoginForm = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
