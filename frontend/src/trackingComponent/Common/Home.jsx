@@ -1,5 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
+// define routes and the to other traking routes
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <h1>Menu</h1>
+      <br />
+      <Link to="/login">Login(admin)</Link>
+      <br />
+      <Link to="/register">Register</Link>
+      <br />
+      <Link to="/parcel">Login</Link>
+    </div>
+  );
 }
