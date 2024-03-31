@@ -1,0 +1,41 @@
+/* EditParcel admin componnent css */
+
+.btn {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: blueviolet;
+  margin: 0 5px 0 5px;
+}
+.search-btn {
+  background-color: #3d3b40;
+}
+.refresh-btn {
+  background: #3d3b40;
+}
+.edit_btn {
+  background: #6200f5;
+}
+.searc .formLabel {
+  color: #3d3b40;
+  font-weight: 800;
+}
+body {
+  background: linear-gradient(to left, #5755fe, #6a74ff, #8b93ff);
+}
+
+.adminPanel {
+  background: rgba(74, 144, 226, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.adminPanel_backGround {
+  background: url(https://images.unsplash.com/photo-1557683316-973673baf926);
+}
+.table_body {
+  overflow-y: auto;
+  height: 100px;
+}

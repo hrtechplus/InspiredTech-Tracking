@@ -167,18 +167,21 @@ const AdminPanel = () => {
   };
 
   return (
-    <Center h="100vh">
+    <Center h="100vh" className="adminPanel_backGround">
       <Box
         p={8}
-        boxShadow="md"
+        boxShadow="2xl"
         borderRadius="xl"
         m={4}
         width="70%"
-        overflowY="auto"
-        mt={8}
-        mb={8}
+        mt={16}
+        mb={16}
+        className="adminPanel"
       >
-        <FormLabel>Search Parcel by Tracking Number</FormLabel>
+        <FormLabel className="formLabel" fontSize="4xl">
+          Search Parcel by Tracking Number
+          <br />
+        </FormLabel>
         <Stack spacing={4} mb={8} direction="row" align="center">
           <FormControl>
             <Input
@@ -189,24 +192,24 @@ const AdminPanel = () => {
             />
           </FormControl>
           <Button
-            colorScheme="teal"
+            className="btn search-btn"
             leftIcon={<SearchIcon />}
             onClick={handleSearch}
           >
             Search
           </Button>
           <IconButton
-            colorScheme="teal"
+            className="btn refresh-btn"
             aria-label="Refresh parcels"
             icon={<RepeatIcon />}
             onClick={handleRefresh}
           />
         </Stack>
 
-        <Box height="75%" overflow={"scroll"}>
+        <Box height="75%">
           <Table variant="simple">
             <Thead>
-              <Tr>
+              <Tr boxShadow="md">
                 <Th>Parcel ID</Th>
                 <Th>Status</Th>
                 <Th>Hand Over Date</Th>
@@ -215,9 +218,9 @@ const AdminPanel = () => {
                 <Th>Actions</Th>
               </Tr>
             </Thead>
-            <Tbody>
+            <Tbody className=" table_body">
               {parcels.map((parcel) => (
-                <Tr key={parcel._id}>
+                <Tr key={parcel._id} boxShadow="xs" rounded="md">
                   <Td>{parcel.parcelId}</Td>
                   <Td>{parcel.status}</Td>
                   <Td>{parcel.handOverDate}</Td>
@@ -225,15 +228,15 @@ const AdminPanel = () => {
                   <Td>{parcel.trackingNumber}</Td>
                   <Td>
                     <IconButton
-                      colorScheme="blue"
+                      className=" btn edit_btn"
                       aria-label="Edit parcel"
-                      icon={<EditIcon />}
+                      icon={<EditIcon color={"#525CEB"} />}
                       onClick={() => handleEditParcel(parcel)}
                     />
                     <IconButton
-                      colorScheme="red"
+                      className="btn delete-btn"
                       aria-label="Delete parcel"
-                      icon={<DeleteIcon />}
+                      icon={<DeleteIcon color={"#B31312"} />}
                       onClick={() =>
                         handleDeleteConfirmation(parcel.trackingNumber)
                       }
