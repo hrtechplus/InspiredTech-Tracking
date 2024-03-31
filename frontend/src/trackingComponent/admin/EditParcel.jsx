@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
+  Center,
   FormControl,
   FormLabel,
   Input,
@@ -9,16 +10,38 @@ import {
   Table,
   Tbody,
   Td,
+  Text,
+  Th,
+  Thead,
   Tr,
+  IconButton,
+  useToast,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
 } from "@chakra-ui/react";
+import { SearchIcon, RepeatIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import axios from "axios";
 
-const EditParcel = () => {
+const AdminPanel = () => {
   const [parcels, setParcels] = useState([]);
-  const [user, setUser] = useState({});
   const [trackingNumber, setTrackingNumber] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [editParcel, setEditParcel] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
+  const [deleteParcelId, setDeleteParcelId] = useState(null);
+  const toast = useToast();
 
   useEffect(() => {
     fetchParcels();
@@ -33,9 +56,61 @@ const EditParcel = () => {
     }
   };
 
+  const handleDeleteParcel = async (trackingNumber) => {
+    try {
+      await axios.delete(
+        `http://localhost:5000/admin/parcels/${trackingNumber}`
+      );
+      fetchParcels();
+      toast({
+        title: "Parcel Deleted",
+        description: "The parcel has been successfully deleted.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error("Error deleting parcel:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete parcel. Please try again.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const handleRefresh = () => {
+    fetchParcels();
+  };
+
+  const handleInputChange = (e) => {
+    setTrackingNumber(e.target.value);
+  };
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/admin/parcels/${trackingNumber}`
+      );
+      setParcels([response.data]);
+    } catch (error) {
+      console.error("Error searching parcel:", error);
+      toast({
+        title: "Error",
+        description: "Failed to search for parcel. Please try again.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
   const handleEditParcel = (parcel) => {
     setEditMode(true);
-    setEditParcel(parcel, user);
+    setEditParcel(parcel);
+    setIsModalOpen(true);
   };
 
   const handleSaveEdit = async () => {
@@ -46,123 +121,201 @@ const EditParcel = () => {
       );
       setEditMode(false);
       fetchParcels();
+      setIsModalOpen(false);
+      toast({
+        title: "Parcel Updated",
+        description: "The parcel has been successfully updated.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error) {
       console.error("Error updating parcel:", error);
     }
   };
 
-  const handleInputChange = (e, key) => {
+  const handleEditInputChange = (e, key) => {
     setEditParcel({
       ...editParcel,
       [key]: e.target.value,
     });
   };
 
+  const handleDeleteConfirmation = (trackingNumber) => {
+    setIsDeleteAlertOpen(true);
+    setDeleteParcelId(trackingNumber);
+  };
+
+  const handleDeleteCancel = () => {
+    setIsDeleteAlertOpen(false);
+    setDeleteParcelId(null);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (deleteParcelId) {
+      await handleDeleteParcel(deleteParcelId);
+      setIsDeleteAlertOpen(false);
+    }
+  };
+
   return (
-    <Box p={8}>
-      {!editMode ? (
-        <>
-          <Stack spacing={4} mb={8}>
-            <FormControl>
-              <FormLabel>Search Parcel by Tracking Number</FormLabel>
+    <Center h="100vh">
+      <Box
+        p={8}
+        boxShadow="md"
+        borderRadius="xl"
+        m={4}
+        width="70%"
+        overflowY="auto"
+        mt={8}
+        mb={8}
+      >
+        <FormLabel>Search Parcel by Tracking Number</FormLabel>
+        <Stack spacing={4} mb={8} direction="row" align="center">
+          <FormControl>
+            <Input
+              type="text"
+              placeholder="Enter tracking number"
+              value={trackingNumber}
+              onChange={handleInputChange}
+            />
+          </FormControl>
+          <Button
+            colorScheme="teal"
+            leftIcon={<SearchIcon />}
+            onClick={handleSearch}
+          >
+            Search
+          </Button>
+          <IconButton
+            colorScheme="teal"
+            aria-label="Refresh parcels"
+            icon={<RepeatIcon />}
+            onClick={handleRefresh}
+          />
+        </Stack>
+
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>Parcel ID</Th>
+              <Th>Status</Th>
+              <Th>Hand Over Date</Th>
+              <Th>Delivery Cost</Th>
+              <Th>Tracking Number</Th>
+              <Th>Actions</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {parcels.map((parcel) => (
+              <Tr key={parcel._id}>
+                <Td>{parcel.parcelId}</Td>
+                <Td>{parcel.status}</Td>
+                <Td>{parcel.handOverDate}</Td>
+                <Td>{parcel.deliveryCost}</Td>
+                <Td>{parcel.trackingNumber}</Td>
+                <Td>
+                  <IconButton
+                    colorScheme="blue"
+                    aria-label="Edit parcel"
+                    icon={<EditIcon />}
+                    onClick={() => handleEditParcel(parcel)}
+                  />
+                  <IconButton
+                    colorScheme="red"
+                    aria-label="Delete parcel"
+                    icon={<DeleteIcon />}
+                    onClick={() =>
+                      handleDeleteConfirmation(parcel.trackingNumber)
+                    }
+                  />
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </Box>
+
+      {/* Edit Parcel Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Edit Parcel</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl mb={4}>
+              <FormLabel>Parcel ID</FormLabel>
               <Input
                 type="text"
-                placeholder="Enter tracking number"
-                value={trackingNumber}
-                onChange={(e) => setTrackingNumber(e.target.value)}
+                value={editParcel?.parcelId}
+                onChange={(e) => handleEditInputChange(e, "parcelId")}
               />
             </FormControl>
-            <Button
-              colorScheme="teal"
-              onClick={async () => {
-                try {
-                  const response = await axios.get(
-                    `http://localhost:5000/admin/parcels/${trackingNumber}`
-                  );
-                  setParcels([response.data]);
-                  setUser([response.data.user]);
-                } catch (error) {
-                  console.error("Error searching parcel:", error);
-                }
-              }}
-            >
-              Search
+            <FormControl mb={4}>
+              <FormLabel>Status</FormLabel>
+              <Input
+                type="text"
+                value={editParcel?.status}
+                onChange={(e) => handleEditInputChange(e, "status")}
+                placeholder="In Transit, Delivered, Pending"
+              />
+            </FormControl>
+            <FormControl mb={4}>
+              <FormLabel>Hand Over Date</FormLabel>
+              <Input
+                type="date"
+                value={editParcel?.handOverDate}
+                onChange={(e) => handleEditInputChange(e, "handOverDate")}
+              />
+            </FormControl>
+            <FormControl mb={4}>
+              <FormLabel>Delivery Cost</FormLabel>
+              <Input
+                type="number"
+                value={editParcel?.deliveryCost}
+                onChange={(e) => handleEditInputChange(e, "deliveryCost")}
+              />
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="teal" onClick={handleSaveEdit}>
+              Save
             </Button>
-          </Stack>
+            <Button
+              colorScheme="gray"
+              ml={3}
+              onClick={() => setIsModalOpen(false)}
+            >
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
-          <Table variant="simple">
-            <Tbody>
-              {parcels.map((parcel) => (
-                <Tr key={parcel.trackingNumber}>
-                  <Td>{parcel.parcelId}</Td>
-                  <Td>{parcel.status}</Td>
-                  <Td>{parcel.handOverDate}</Td>
-                  <Td>{parcel.deliveryCost}</Td>
-                  <Td>{parcel.trackingNumber}</Td>
-                  <Td>
-                    <Button
-                      colorScheme="blue"
-                      size="sm"
-                      onClick={() => handleEditParcel(parcel)}
-                    >
-                      Edit
-                    </Button>
-                  </Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </>
-      ) : (
-        <Box>
-          <FormControl mb={4}>
-            <FormLabel>Parcel ID</FormLabel>
-            <Input
-              type="text"
-              value={editParcel.parcelId}
-              onChange={(e) => handleInputChange(e, "parcelId")}
-            />
-          </FormControl>
-          <FormControl mb={4}>
-            <FormLabel>Status</FormLabel>
-            <Input
-              type="text"
-              value={editParcel.status}
-              onChange={(e) => handleInputChange(e, "status")}
-            />
-          </FormControl>
-          <FormControl mb={4}>
-            <FormLabel>Hand Over Date</FormLabel>
-            <Input
-              type="date"
-              value={editParcel.handOverDate}
-              onChange={(e) => handleInputChange(e, "handOverDate")}
-            />
-          </FormControl>
-          <FormControl mb={4}>
-            <FormLabel>Delivery Cost</FormLabel>
-            <Input
-              type="number"
-              value={editParcel.deliveryCost}
-              onChange={(e) => handleInputChange(e, "deliveryCost")}
-            />
-          </FormControl>
-          <Button colorScheme="teal" onClick={handleSaveEdit} mr={2}>
-            Save
-          </Button>
-          <Button
-            colorScheme="gray"
-            onClick={() => {
-              setEditMode(false);
-              setEditParcel(null);
-            }}
-          >
-            Cancel
-          </Button>
-        </Box>
-      )}
-    </Box>
+      {/* Delete Parcel Confirmation Dialog */}
+      <AlertDialog
+        isOpen={isDeleteAlertOpen}
+        leastDestructiveRef={undefined}
+        onClose={handleDeleteCancel}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader>Delete Parcel</AlertDialogHeader>
+            <AlertDialogBody>
+              Are you sure you want to delete this parcel? This action cannot be
+              undone.
+            </AlertDialogBody>
+            <AlertDialogFooter>
+              <Button colorScheme="red" onClick={handleDeleteConfirm}>
+                Delete
+              </Button>
+              <Button onClick={handleDeleteCancel}>Cancel</Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+    </Center>
   );
 };
 
-export default EditParcel;
+export default AdminPanel;
