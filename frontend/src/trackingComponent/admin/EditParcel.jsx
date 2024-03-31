@@ -5,6 +5,7 @@ import {
   Center,
   FormControl,
   FormLabel,
+  Flex,
   Input,
   Stack,
   Table,
@@ -29,6 +30,7 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
+  Collapse,
 } from "@chakra-ui/react";
 import { SearchIcon, RepeatIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import axios from "axios";
@@ -41,6 +43,7 @@ const AdminPanel = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
   const [deleteParcelId, setDeleteParcelId] = useState(null);
+  const [showFooter, setShowFooter] = useState(true);
   const toast = useToast();
 
   useEffect(() => {
@@ -158,6 +161,10 @@ const AdminPanel = () => {
     }
   };
 
+  const toggleFooter = () => {
+    setShowFooter(!showFooter);
+  };
+
   return (
     <Center h="100vh">
       <Box
@@ -195,45 +202,57 @@ const AdminPanel = () => {
           />
         </Stack>
 
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>Parcel ID</Th>
-              <Th>Status</Th>
-              <Th>Hand Over Date</Th>
-              <Th>Delivery Cost</Th>
-              <Th>Tracking Number</Th>
-              <Th>Actions</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {parcels.map((parcel) => (
-              <Tr key={parcel._id}>
-                <Td>{parcel.parcelId}</Td>
-                <Td>{parcel.status}</Td>
-                <Td>{parcel.handOverDate}</Td>
-                <Td>{parcel.deliveryCost}</Td>
-                <Td>{parcel.trackingNumber}</Td>
-                <Td>
-                  <IconButton
-                    colorScheme="blue"
-                    aria-label="Edit parcel"
-                    icon={<EditIcon />}
-                    onClick={() => handleEditParcel(parcel)}
-                  />
-                  <IconButton
-                    colorScheme="red"
-                    aria-label="Delete parcel"
-                    icon={<DeleteIcon />}
-                    onClick={() =>
-                      handleDeleteConfirmation(parcel.trackingNumber)
-                    }
-                  />
-                </Td>
+        <Box height="75%" overflow={"scroll"}>
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+                <Th>Parcel ID</Th>
+                <Th>Status</Th>
+                <Th>Hand Over Date</Th>
+                <Th>Delivery Cost</Th>
+                <Th>Tracking Number</Th>
+                <Th>Actions</Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
+            </Thead>
+            <Tbody>
+              {parcels.map((parcel) => (
+                <Tr key={parcel._id}>
+                  <Td>{parcel.parcelId}</Td>
+                  <Td>{parcel.status}</Td>
+                  <Td>{parcel.handOverDate}</Td>
+                  <Td>{parcel.deliveryCost}</Td>
+                  <Td>{parcel.trackingNumber}</Td>
+                  <Td>
+                    <IconButton
+                      colorScheme="blue"
+                      aria-label="Edit parcel"
+                      icon={<EditIcon />}
+                      onClick={() => handleEditParcel(parcel)}
+                    />
+                    <IconButton
+                      colorScheme="red"
+                      aria-label="Delete parcel"
+                      icon={<DeleteIcon />}
+                      onClick={() =>
+                        handleDeleteConfirmation(parcel.trackingNumber)
+                      }
+                    />
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
+
+        <Collapse in={showFooter} animateOpacity>
+          <Box mt={4} p={4} bg="gray.100" borderRadius="md">
+            <Text fontWeight="bold" mb={2}>
+              Developer Details:
+            </Text>
+            <Text>Name: John Doe</Text>
+            <Text>Email: john.doe@example.com</Text>
+          </Box>
+        </Collapse>
       </Box>
 
       {/* Edit Parcel Modal */}
