@@ -63,7 +63,7 @@ router.put("/admin/parcels/:trackingNumber", async (req, res) => {
     res.status(200).json(updatedParcel);
   } catch (error) {
     console.error("Error updating parcel:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Errors" });
   }
 });
 

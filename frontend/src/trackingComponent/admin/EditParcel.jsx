@@ -14,10 +14,12 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 
-const AdminPanel = () => {
+const EditParcel = () => {
   const [parcels, setParcels] = useState([]);
-  const [selectedParcel, setSelectedParcel] = useState(null);
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [user, setUser] = useState({});
+  const [trackingNumber, setTrackingNumber] = useState("");
+  const [editMode, setEditMode] = useState(false);
+  const [editParcel, setEditParcel] = useState(null);
 
   useEffect(() => {
     fetchParcels();
@@ -32,61 +34,136 @@ const AdminPanel = () => {
     }
   };
 
-  const handleDeleteParcel = async (trackingNumber) => {
-    try {
-      await axios.delete(
-        `http://localhost:5000/admin/parcels/${trackingNumber}`
-      );
-      fetchParcels();
-    } catch (error) {
-      console.error("Error deleting parcel:", error);
-    }
+  const handleEditParcel = (parcel) => {
+    setEditMode(true);
+    setEditParcel(parcel, user);
   };
 
-  const handleParcelClick = (parcel) => {
-    setSelectedParcel(parcel);
-    setShowUpdateForm(true);
-  };
-
-  const handleUpdateParcel = async () => {
+  const handleSaveEdit = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/admin/parcels/${selectedParcel.trackingNumber}`,
-        selectedParcel
+        `http://localhost:5000/admin/parcels/${editParcel.trackingNumber}`,
+        editParcel
       );
+      setEditMode(false);
       fetchParcels();
-      setShowUpdateForm(false);
     } catch (error) {
       console.error("Error updating parcel:", error);
     }
   };
 
+  const handleInputChange = (e, key) => {
+    setEditParcel({
+      ...editParcel,
+      [key]: e.target.value,
+    });
+  };
+
   return (
     <Box p={8}>
-      <Stack spacing={4} mb={8}>
-        {/* Search form */}
-        {/* Refresh button */}
-      </Stack>
+      {!editMode ? (
+        <>
+          <Stack spacing={4} mb={8}>
+            <FormControl>
+              <FormLabel>Search Parcel by Tracking Number</FormLabel>
+              <Input
+                type="text"
+                placeholder="Enter tracking number"
+                value={trackingNumber}
+                onChange={(e) => setTrackingNumber(e.target.value)}
+              />
+            </FormControl>
+            <Button
+              colorScheme="teal"
+              onClick={async () => {
+                try {
+                  const response = await axios.get(
+                    `http://localhost:5000/admin/parcels/${trackingNumber}`
+                  );
+                  setParcels([response.data]);
+                  setUser([response.data.user]);
+                } catch (error) {
+                  console.error("Error searching parcel:", error);
+                }
+              }}
+            >
+              Search
+            </Button>
+          </Stack>
 
-      <Table variant="simple">
-        <Tbody>
-          {parcels.map((parcel) => (
-            <Tr key={parcel._id} onClick={() => handleParcelClick(parcel)}>
-              {/* Table cells */}
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-
-      {/* Update form */}
-      {showUpdateForm && (
-        <Box mt={4}>
-          {/* Input fields to display and update parcel data */}
-          {/* Update button */}
+          <Table variant="simple">
+            <Tbody>
+              {parcels.map((parcel) => (
+                <Tr key={parcel.trackingNumber}>
+                  <Td>{parcel.parcelId}</Td>
+                  <Td>{parcel.status}</Td>
+                  <Td>{parcel.handOverDate}</Td>
+                  <Td>{parcel.deliveryCost}</Td>
+                  <Td>{parcel.trackingNumber}</Td>
+                  <Td>
+                    <Button
+                      colorScheme="blue"
+                      size="sm"
+                      onClick={() => handleEditParcel(parcel)}
+                    >
+                      Edit
+                    </Button>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </>
+      ) : (
+        <Box>
+          <FormControl>
+            <FormLabel>Parcel ID</FormLabel>
+            <Input
+              type="text"
+              value={editParcel.parcelId}
+              onChange={(e) => handleInputChange(e, "parcelId")}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Status</FormLabel>
+            <Input
+              type="text"
+              value={editParcel.status}
+              onChange={(e) => handleInputChange(e, "status")}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Hand Over Date</FormLabel>
+            <Input
+              type="date"
+              value={editParcel.handOverDate}
+              onChange={(e) => handleInputChange(e, "handOverDate")}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Delivery Cost</FormLabel>
+            <Input
+              type="number"
+              value={editParcel.deliveryCost}
+              onChange={(e) => handleInputChange(e, "deliveryCost")}
+            />
+          </FormControl>
+          <Button colorScheme="teal" onClick={handleSaveEdit}>
+            Save
+          </Button>
+          <Button
+            colorScheme="gray"
+            onClick={() => {
+              setEditMode(false);
+              setEditParcel(null);
+            }}
+          >
+            Cancel
+          </Button>
         </Box>
       )}
     </Box>
   );
 };
 
-export default AdminPanel;
+export default EditParcel;
