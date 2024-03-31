@@ -9,7 +9,6 @@ import {
   Table,
   Tbody,
   Td,
-  Text,
   Tr,
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -116,7 +115,7 @@ const EditParcel = () => {
         </>
       ) : (
         <Box>
-          <FormControl>
+          <FormControl mb={4}>
             <FormLabel>Parcel ID</FormLabel>
             <Input
               type="text"
@@ -124,7 +123,7 @@ const EditParcel = () => {
               onChange={(e) => handleInputChange(e, "parcelId")}
             />
           </FormControl>
-          <FormControl>
+          <FormControl mb={4}>
             <FormLabel>Status</FormLabel>
             <Input
               type="text"
@@ -132,7 +131,7 @@ const EditParcel = () => {
               onChange={(e) => handleInputChange(e, "status")}
             />
           </FormControl>
-          <FormControl>
+          <FormControl mb={4}>
             <FormLabel>Hand Over Date</FormLabel>
             <Input
               type="date"
@@ -140,7 +139,7 @@ const EditParcel = () => {
               onChange={(e) => handleInputChange(e, "handOverDate")}
             />
           </FormControl>
-          <FormControl>
+          <FormControl mb={4}>
             <FormLabel>Delivery Cost</FormLabel>
             <Input
               type="number"
@@ -148,7 +147,7 @@ const EditParcel = () => {
               onChange={(e) => handleInputChange(e, "deliveryCost")}
             />
           </FormControl>
-          <Button colorScheme="teal" onClick={handleSaveEdit}>
+          <Button colorScheme="teal" onClick={handleSaveEdit} mr={2}>
             Save
           </Button>
           <Button
