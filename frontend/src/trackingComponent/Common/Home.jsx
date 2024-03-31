@@ -11,7 +11,7 @@ export default function Home() {
       <br />
       <Link to="/register">Register</Link>
       <br />
-      <Link to="/parcel">Login</Link>
+      <Link to="/parcel">Track Your paarcel</Link>
     </div>
   );
 }
