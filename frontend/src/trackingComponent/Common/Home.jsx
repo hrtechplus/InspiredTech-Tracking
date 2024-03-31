@@ -12,6 +12,8 @@ export default function Home() {
       <Link to="/register">Register</Link>
       <br />
       <Link to="/parcel">Track Your paarcel</Link>
+      <br />
+      <Link to="/edit">edit parcel data</Link>
     </div>
   );
 }
