@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./css/style.css";
 import {
+  Image,
   Box,
   Button,
   Center,
@@ -181,7 +182,6 @@ const AdminPanel = () => {
       >
         <FormLabel className="formLabel" fontSize="4xl">
           Search Parcel by Tracking Number
-          <br />
         </FormLabel>
         <Stack spacing={4} mb={8} direction="row" align="center">
           <FormControl>
