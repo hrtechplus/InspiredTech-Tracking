@@ -248,7 +248,9 @@ const AdminPanel = () => {
                       }
                     />
                   </Td>
-                  <Td fontSize={"sm"}>{parcel.handOverDate}</Td>
+                  <Td fontSize={"sm"}>
+                    {new Date(parcel.handOverDate).toISOString().split("T")[0]}
+                  </Td>
                   <Td>{parcel.deliveryCost}</Td>
                   <Td>{parcel.trackingNumber}</Td>
                   <Td>
