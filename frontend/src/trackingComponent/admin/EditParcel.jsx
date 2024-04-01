@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./css/style.css";
+import logo from "../assest/img/InspiredTech-Logo.png";
 import {
+  Badge,
   Image,
   Box,
   Button,
@@ -170,6 +172,7 @@ const AdminPanel = () => {
 
   return (
     <Center h="100vh" className="adminPanel_backGround">
+      <Box>hr</Box>
       <Box
         p={8}
         boxShadow="2xl"
@@ -180,9 +183,6 @@ const AdminPanel = () => {
         mb={16}
         className="adminPanel"
       >
-        <FormLabel className="formLabel" fontSize="4xl">
-          Search Parcel by Tracking Number
-        </FormLabel>
         <Stack spacing={4} mb={8} direction="row" align="center">
           <FormControl>
             <Input
@@ -222,7 +222,10 @@ const AdminPanel = () => {
             <Tbody className=" table_body">
               {parcels.map((parcel) => (
                 <Tr key={parcel._id} boxShadow="xs" rounded="md">
-                  <Td>{parcel.parcelId}</Td>
+                  <Td>
+                    {" "}
+                    <Badge>{parcel.parcelId}</Badge>
+                  </Td>
 
                   <Td>
                     {parcel.status}{" "}
