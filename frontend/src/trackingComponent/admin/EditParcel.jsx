@@ -214,7 +214,7 @@ const AdminPanel = () => {
                 <Th>Parcel ID</Th>
                 <Th>Status</Th>
                 <Th>Hand Over Date</Th>
-                <Th>Delivery Cost</Th>
+                <Th>Delivery Fee</Th>
                 <Th>Tracking Number</Th>
                 <Th>Actions</Th>
               </Tr>
@@ -248,7 +248,7 @@ const AdminPanel = () => {
                       }
                     />
                   </Td>
-                  <Td>{parcel.handOverDate}</Td>
+                  <Td fontSize={"sm"}>{parcel.handOverDate}</Td>
                   <Td>{parcel.deliveryCost}</Td>
                   <Td>{parcel.trackingNumber}</Td>
                   <Td>

@@ -34,3 +34,7 @@ body {
   overflow-y: auto;
   height: 100px;
 }
+
+Td {
+  color: #31363f;
+}
