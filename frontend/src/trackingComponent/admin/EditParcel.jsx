@@ -32,6 +32,7 @@ import {
   AlertDialogBody,
   AlertDialogFooter,
   Collapse,
+  Progress,
 } from "@chakra-ui/react";
 import { SearchIcon, RepeatIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import axios from "axios";
@@ -222,7 +223,31 @@ const AdminPanel = () => {
               {parcels.map((parcel) => (
                 <Tr key={parcel._id} boxShadow="xs" rounded="md">
                   <Td>{parcel.parcelId}</Td>
-                  <Td>{parcel.status}</Td>
+
+                  <Td>
+                    {parcel.status}{" "}
+                    <Progress
+                      value={
+                        parcel.status === "Delivered"
+                          ? 100
+                          : parcel.status === "In Transit"
+                          ? 50
+                          : parcel.status === "Pending"
+                          ? 10
+                          : 0
+                      }
+                      size="xs"
+                      colorScheme={
+                        parcel.status === "Delivered"
+                          ? "green"
+                          : parcel.status === "In Transit"
+                          ? "orange"
+                          : parcel.status === "Pending"
+                          ? "yellow"
+                          : 0
+                      }
+                    />
+                  </Td>
                   <Td>{parcel.handOverDate}</Td>
                   <Td>{parcel.deliveryCost}</Td>
                   <Td>{parcel.trackingNumber}</Td>
