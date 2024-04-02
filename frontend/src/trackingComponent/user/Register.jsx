@@ -35,7 +35,11 @@ const RegisterForm = () => {
           email: formData.email,
         }
       );
-      setEmailError(response.data.message);
+      if (response.data.message === "Email is already registered") {
+        setEmailError(response.data.message);
+      } else {
+        setEmailError("");
+      }
     } catch (error) {
       console.error("Error checking email:", error);
     }

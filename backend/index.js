@@ -8,6 +8,9 @@ const registerUser = require("./trackingParcel/parcelRoutes/registerUser");
 const loginAdmin = require("./trackingParcel/parcelRoutes/loginAdmmin");
 const adminRoutes = require("./trackingParcel/parcelRoutes/adminRoutes");
 
+// middle ware
+const checkEmailMiddleware = require("./trackingParcel/Middleware/checkEmailMiddleware");
+
 // Middleware section
 app.use(cors());
 app.use(express.json());
@@ -32,6 +35,6 @@ app.listen(port, () => {
 
 app.use(test);
 app.use(saveParcelRoute);
-app.use(registerUser);
+app.use(checkEmailMiddleware, registerUser);
 app.use(loginAdmin);
 app.use(adminRoutes);

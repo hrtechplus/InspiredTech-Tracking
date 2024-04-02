@@ -4,17 +4,6 @@ const bcrypt = require("bcrypt");
 
 const app = express.Router(); // Fixed router initialization
 
-// Check if email is already registered
-app.post("/api/checkEmail", async (req, res) => {
-  const { email } = req.body;
-  const existingUser = await UserModel.findOne({ email });
-  if (existingUser) {
-    res.status(409).json({ message: "Email is already registered" });
-  } else {
-    res.status(200).json({ message: "Email is available" });
-  }
-});
-
 // User registration
 app.post("/api/register", async (req, res) => {
   const { username, email, password, role } = req.body;
