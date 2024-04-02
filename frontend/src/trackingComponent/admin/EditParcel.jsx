@@ -176,12 +176,10 @@ const AdminPanel = () => {
 
   return (
     <Grid
-      templateAreas={`"
-                  "nav main"
-                  `}
-      gridTemplateRows={"50px 1fr "}
-      gridTemplateColumns={"150px 1fr"}
-      h="200px"
+      templateAreas={`"nav main"`}
+      gridTemplateRows={"1fr"}
+      gridTemplateColumns={"250px 1fr"}
+      h="100vh"
       gap="1"
     >
       <GridItem pl="2" area={"nav"}>
@@ -189,18 +187,17 @@ const AdminPanel = () => {
       </GridItem>
 
       <GridItem pl="2" area={"main"}>
-        <Center h="100vh" className="adminPanel_backGround">
+        <Center h="100%">
           <Box
             p={8}
             boxShadow="2xl"
             borderRadius="xl"
             m={4}
-            width="90%"
-            mt={16}
-            mb={16}
+            width="100%"
             className="adminPanel"
+            overflow="hidden"
           >
-            <Stack spacing={4} mb={8} direction="row" align="center">
+            <Stack spacing={4} mb={4} direction="row" align="center">
               <FormControl>
                 <Input
                   type="text"
@@ -224,7 +221,7 @@ const AdminPanel = () => {
               />
             </Stack>
 
-            <Box height="75%">
+            <Box height="calc(100% - 120px)" overflowY="auto">
               <Table variant="simple">
                 <Thead>
                   <Tr boxShadow="md">
@@ -236,7 +233,7 @@ const AdminPanel = () => {
                     <Th>Actions</Th>
                   </Tr>
                 </Thead>
-                <Tbody className=" table_body">
+                <Tbody className="table_body">
                   {parcels.map((parcel) => (
                     <Tr key={parcel._id} boxShadow="xs" rounded="md">
                       <Td>

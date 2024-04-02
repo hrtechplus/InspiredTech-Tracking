@@ -3,16 +3,7 @@ import { Box, Flex, Text, Button, Spacer } from "@chakra-ui/react";
 
 const Sidebar = () => {
   return (
-    <Box
-      pos="fixed"
-      left={0}
-      top={0}
-      h="100%"
-      w="250px"
-      bg="gray.800"
-      color="white"
-      p={4}
-    >
+    <Box h="100%" w="250px" bg="gray.800" color="white" p={4} overflow="hidden">
       <Flex direction="column" h="100%">
         <Box>
           <Text fontSize="xl" fontWeight="bold" mb={4}>
@@ -28,7 +19,7 @@ const Sidebar = () => {
         <Spacer />
         <Box mt="auto">
           <Button colorScheme="red" variant="outline">
-            Logouts
+            Logout
           </Button>
         </Box>
       </Flex>
