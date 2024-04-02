@@ -183,6 +183,9 @@ const AdminPanel = () => {
       h="200px"
       gap="1"
     >
+      <GridItem pl="2" area={"header"}>
+        Header
+      </GridItem>
       <GridItem pl="2" area={"nav"}>
         <SideNavigation />
       </GridItem>
@@ -193,7 +196,7 @@ const AdminPanel = () => {
             boxShadow="2xl"
             borderRadius="xl"
             m={4}
-            width="70%"
+            width="90%"
             mt={16}
             mb={16}
             className="adminPanel"
@@ -388,7 +391,7 @@ const AdminPanel = () => {
           </AlertDialog>
         </Center>
       </GridItem>
-      <GridItem pl="2" bg="blue.300" area={"footer"}>
+      <GridItem pl="2" area={"footer"}>
         Footer
       </GridItem>
     </Grid>
