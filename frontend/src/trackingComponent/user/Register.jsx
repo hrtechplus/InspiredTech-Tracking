@@ -11,6 +11,7 @@ import {
   Text,
   Alert,
   AlertIcon,
+  Link,
 } from "@chakra-ui/react";
 
 const RegisterForm = () => {
@@ -51,46 +52,75 @@ const RegisterForm = () => {
   };
 
   return (
-    <VStack spacing={4} align="flex-start" w="100%">
-      <FormControl>
-        <FormLabel>Username</FormLabel>
-        <Input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Email</FormLabel>
-        <Input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          onBlur={handleCheckEmail}
-        />
-        {emailError && (
-          <Alert status="error" variant="subtle">
-            <AlertIcon />
-            {emailError}
-          </Alert>
-        )}
-      </FormControl>
-      <FormControl>
-        <FormLabel>Password</FormLabel>
-        <Input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-      </FormControl>
+    <div
+      style={{
+        backgroundImage: `url('https://source.unsplash.com/random')`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <VStack
+        spacing={4}
+        align="flex-start"
+        w="90%"
+        maxW="400px"
+        bg="white"
+        p={8}
+        borderRadius="xl"
+        boxShadow="lg"
+      >
+        <FormControl>
+          <FormLabel>Username</FormLabel>
+          <Input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Email</FormLabel>
+          <Input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            onBlur={handleCheckEmail}
+          />
+          {emailError && (
+            <Alert status="error" variant="subtle">
+              <AlertIcon />
+              {emailError}
+            </Alert>
+          )}
+        </FormControl>
+        <FormControl>
+          <FormLabel>Password</FormLabel>
+          <Input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </FormControl>
 
-      <Button colorScheme="blue" onClick={handleSubmit}>
-        Register
-      </Button>
-    </VStack>
+        <Button colorScheme="blue" onClick={handleSubmit}>
+          Register
+        </Button>
+
+        <Text mt={4}>
+          Already registered?{" "}
+          <Link href="/login" color="blue">
+            Login
+          </Link>
+        </Text>
+      </VStack>
+    </div>
   );
 };
 
