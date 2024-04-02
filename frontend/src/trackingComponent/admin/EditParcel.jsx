@@ -39,6 +39,7 @@ import {
   AlertDialogFooter,
   Collapse,
   Progress,
+  Spacer,
 } from "@chakra-ui/react";
 import { SearchIcon, RepeatIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import axios from "axios";
@@ -175,20 +176,18 @@ const AdminPanel = () => {
 
   return (
     <Grid
-      templateAreas={`"header header"
+      templateAreas={`"
                   "nav main"
-                  "nav footer"`}
-      gridTemplateRows={"50px 1fr 30px"}
+                  `}
+      gridTemplateRows={"50px 1fr "}
       gridTemplateColumns={"150px 1fr"}
       h="200px"
       gap="1"
     >
-      <GridItem pl="2" area={"header"}>
-        Header
-      </GridItem>
       <GridItem pl="2" area={"nav"}>
         <SideNavigation />
       </GridItem>
+
       <GridItem pl="2" area={"main"}>
         <Center h="100vh" className="adminPanel_backGround">
           <Box
@@ -390,9 +389,6 @@ const AdminPanel = () => {
             </AlertDialogOverlay>
           </AlertDialog>
         </Center>
-      </GridItem>
-      <GridItem pl="2" area={"footer"}>
-        Footer
       </GridItem>
     </Grid>
   );
