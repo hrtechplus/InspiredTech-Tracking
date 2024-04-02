@@ -14,6 +14,8 @@ export default function Home() {
       <Link to="/parcel">Track Your paarcel</Link>
       <br />
       <Link to="/edit">edit parcel data</Link>
+      <br />
+      <Link to="/test">Test screen for the grid layout</Link>
     </div>
   );
 }

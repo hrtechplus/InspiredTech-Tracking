@@ -4,6 +4,8 @@ import logo from "../assest/img/InspiredTech-Logo.png";
 import {
   Badge,
   Image,
+  Grid,
+  GridItem,
   Box,
   Button,
   Center,
@@ -171,203 +173,227 @@ const AdminPanel = () => {
   };
 
   return (
-    <Center h="100vh" className="adminPanel_backGround">
-      <Box>hr</Box>
-      <Box
-        p={8}
-        boxShadow="2xl"
-        borderRadius="xl"
-        m={4}
-        width="70%"
-        mt={16}
-        mb={16}
-        className="adminPanel"
-      >
-        <Stack spacing={4} mb={8} direction="row" align="center">
-          <FormControl>
-            <Input
-              type="text"
-              placeholder="Enter tracking number"
-              value={trackingNumber}
-              onChange={handleInputChange}
-            />
-          </FormControl>
-          <Button
-            className="btn search-btn"
-            leftIcon={<SearchIcon />}
-            onClick={handleSearch}
+    <Grid
+      templateAreas={`"header header"
+                  "nav main"
+                  "nav footer"`}
+      gridTemplateRows={"50px 1fr 30px"}
+      gridTemplateColumns={"150px 1fr"}
+      h="200px"
+      gap="1"
+    >
+      <GridItem pl="2" bg="orange.300" area={"header"}>
+        Header
+      </GridItem>
+      <GridItem pl="2" bg="pink.300" area={"nav"}>
+        <Box>hr</Box>
+      </GridItem>
+      <GridItem pl="2" bg="green.300" area={"main"}>
+        <Center h="100vh" className="adminPanel_backGround">
+          <Box
+            p={8}
+            boxShadow="2xl"
+            borderRadius="xl"
+            m={4}
+            width="70%"
+            mt={16}
+            mb={16}
+            className="adminPanel"
           >
-            Search
-          </Button>
-          <IconButton
-            className="btn refresh-btn"
-            aria-label="Refresh parcels"
-            icon={<RepeatIcon />}
-            onClick={handleRefresh}
-          />
-        </Stack>
-
-        <Box height="75%">
-          <Table variant="simple">
-            <Thead>
-              <Tr boxShadow="md">
-                <Th>Parcel ID</Th>
-                <Th>Status</Th>
-                <Th>Hand Over Date</Th>
-                <Th>Delivery Fee</Th>
-                <Th>Tracking Number</Th>
-                <Th>Actions</Th>
-              </Tr>
-            </Thead>
-            <Tbody className=" table_body">
-              {parcels.map((parcel) => (
-                <Tr key={parcel._id} boxShadow="xs" rounded="md">
-                  <Td>
-                    {" "}
-                    <Badge>{parcel.parcelId}</Badge>
-                  </Td>
-
-                  <Td>
-                    {parcel.status}{" "}
-                    <Progress
-                      value={
-                        parcel.status === "Delivered"
-                          ? 100
-                          : parcel.status === "In Transit"
-                          ? 50
-                          : parcel.status === "Pending"
-                          ? 10
-                          : 0
-                      }
-                      size="xs"
-                      colorScheme={
-                        parcel.status === "Delivered"
-                          ? "green"
-                          : parcel.status === "In Transit"
-                          ? "orange"
-                          : parcel.status === "Pending"
-                          ? "yellow"
-                          : 0
-                      }
-                    />
-                  </Td>
-                  <Td fontSize={"sm"}>
-                    {new Date(parcel.handOverDate).toISOString().split("T")[0]}
-                  </Td>
-                  <Td>{parcel.deliveryCost}</Td>
-                  <Td>{parcel.trackingNumber}</Td>
-                  <Td>
-                    <IconButton
-                      className=" btn edit_btn"
-                      aria-label="Edit parcel"
-                      icon={<EditIcon color={"#525CEB"} />}
-                      onClick={() => handleEditParcel(parcel)}
-                    />
-                    <IconButton
-                      className="btn delete-btn"
-                      aria-label="Delete parcel"
-                      icon={<DeleteIcon color={"#B31312"} />}
-                      onClick={() =>
-                        handleDeleteConfirmation(parcel.trackingNumber)
-                      }
-                    />
-                  </Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </Box>
-
-        <Collapse in={showFooter} animateOpacity>
-          <Box mt={4} p={4} bg="gray.100" borderRadius="md">
-            <Text fontWeight="bold" mb={2}>
-              Developer Details:
-            </Text>
-            <Text>Name: John Doe</Text>
-            <Text>Email: john.doe@example.com</Text>
-          </Box>
-        </Collapse>
-      </Box>
-
-      {/* Edit Parcel Modal */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Edit Parcel</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <FormControl mb={4}>
-              <FormLabel>Parcel ID</FormLabel>
-              <Input
-                type="text"
-                value={editParcel?.parcelId}
-                onChange={(e) => handleEditInputChange(e, "parcelId")}
-              />
-            </FormControl>
-            <FormControl mb={4}>
-              <FormLabel>Status</FormLabel>
-              <Input
-                type="text"
-                value={editParcel?.status}
-                onChange={(e) => handleEditInputChange(e, "status")}
-                placeholder="In Transit, Delivered, Pending"
-              />
-            </FormControl>
-            <FormControl mb={4}>
-              <FormLabel>Hand Over Date</FormLabel>
-              <Input
-                type="date"
-                value={editParcel?.handOverDate}
-                onChange={(e) => handleEditInputChange(e, "handOverDate")}
-              />
-            </FormControl>
-            <FormControl mb={4}>
-              <FormLabel>Delivery Cost</FormLabel>
-              <Input
-                type="number"
-                value={editParcel?.deliveryCost}
-                onChange={(e) => handleEditInputChange(e, "deliveryCost")}
-              />
-            </FormControl>
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="teal" onClick={handleSaveEdit}>
-              Save
-            </Button>
-            <Button
-              colorScheme="gray"
-              ml={3}
-              onClick={() => setIsModalOpen(false)}
-            >
-              Cancel
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-
-      {/* Delete Parcel Confirmation Dialog */}
-      <AlertDialog
-        isOpen={isDeleteAlertOpen}
-        leastDestructiveRef={undefined}
-        onClose={handleDeleteCancel}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader>Delete Parcel</AlertDialogHeader>
-            <AlertDialogBody>
-              Are you sure you want to delete this parcel? This action cannot be
-              undone.
-            </AlertDialogBody>
-            <AlertDialogFooter>
-              <Button colorScheme="red" onClick={handleDeleteConfirm}>
-                Delete
+            <Stack spacing={4} mb={8} direction="row" align="center">
+              <FormControl>
+                <Input
+                  type="text"
+                  placeholder="Enter tracking number"
+                  value={trackingNumber}
+                  onChange={handleInputChange}
+                />
+              </FormControl>
+              <Button
+                className="btn search-btn"
+                leftIcon={<SearchIcon />}
+                onClick={handleSearch}
+              >
+                Search
               </Button>
-              <Button onClick={handleDeleteCancel}>Cancel</Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-    </Center>
+              <IconButton
+                className="btn refresh-btn"
+                aria-label="Refresh parcels"
+                icon={<RepeatIcon />}
+                onClick={handleRefresh}
+              />
+            </Stack>
+
+            <Box height="75%">
+              <Table variant="simple">
+                <Thead>
+                  <Tr boxShadow="md">
+                    <Th>Parcel ID</Th>
+                    <Th>Status</Th>
+                    <Th>Hand Over Date</Th>
+                    <Th>Delivery Fee</Th>
+                    <Th>Tracking Number</Th>
+                    <Th>Actions</Th>
+                  </Tr>
+                </Thead>
+                <Tbody className=" table_body">
+                  {parcels.map((parcel) => (
+                    <Tr key={parcel._id} boxShadow="xs" rounded="md">
+                      <Td>
+                        {" "}
+                        <Badge>{parcel.parcelId}</Badge>
+                      </Td>
+
+                      <Td>
+                        {parcel.status}{" "}
+                        <Progress
+                          value={
+                            parcel.status === "Delivered"
+                              ? 100
+                              : parcel.status === "In Transit"
+                              ? 50
+                              : parcel.status === "Pending"
+                              ? 10
+                              : 0
+                          }
+                          size="xs"
+                          colorScheme={
+                            parcel.status === "Delivered"
+                              ? "green"
+                              : parcel.status === "In Transit"
+                              ? "orange"
+                              : parcel.status === "Pending"
+                              ? "yellow"
+                              : 0
+                          }
+                        />
+                      </Td>
+                      <Td fontSize={"sm"}>
+                        {
+                          new Date(parcel.handOverDate)
+                            .toISOString()
+                            .split("T")[0]
+                        }
+                      </Td>
+                      <Td>{parcel.deliveryCost}</Td>
+                      <Td>{parcel.trackingNumber}</Td>
+                      <Td>
+                        <IconButton
+                          className=" btn edit_btn"
+                          aria-label="Edit parcel"
+                          icon={<EditIcon color={"#525CEB"} />}
+                          onClick={() => handleEditParcel(parcel)}
+                        />
+                        <IconButton
+                          className="btn delete-btn"
+                          aria-label="Delete parcel"
+                          icon={<DeleteIcon color={"#B31312"} />}
+                          onClick={() =>
+                            handleDeleteConfirmation(parcel.trackingNumber)
+                          }
+                        />
+                      </Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            </Box>
+
+            <Collapse in={showFooter} animateOpacity>
+              <Box mt={4} p={4} bg="gray.100" borderRadius="md">
+                <Text fontWeight="bold" mb={2}>
+                  Developer Details:
+                </Text>
+                <Text>Name: John Doe</Text>
+                <Text>Email: john.doe@example.com</Text>
+              </Box>
+            </Collapse>
+          </Box>
+
+          {/* Edit Parcel Modal */}
+          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Edit Parcel</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <FormControl mb={4}>
+                  <FormLabel>Parcel ID</FormLabel>
+                  <Input
+                    type="text"
+                    value={editParcel?.parcelId}
+                    onChange={(e) => handleEditInputChange(e, "parcelId")}
+                  />
+                </FormControl>
+                <FormControl mb={4}>
+                  <FormLabel>Status</FormLabel>
+                  <Input
+                    type="text"
+                    value={editParcel?.status}
+                    onChange={(e) => handleEditInputChange(e, "status")}
+                    placeholder="In Transit, Delivered, Pending"
+                  />
+                </FormControl>
+                <FormControl mb={4}>
+                  <FormLabel>Hand Over Date</FormLabel>
+                  <Input
+                    type="date"
+                    value={editParcel?.handOverDate}
+                    onChange={(e) => handleEditInputChange(e, "handOverDate")}
+                  />
+                </FormControl>
+                <FormControl mb={4}>
+                  <FormLabel>Delivery Cost</FormLabel>
+                  <Input
+                    type="number"
+                    value={editParcel?.deliveryCost}
+                    onChange={(e) => handleEditInputChange(e, "deliveryCost")}
+                  />
+                </FormControl>
+              </ModalBody>
+              <ModalFooter>
+                <Button colorScheme="teal" onClick={handleSaveEdit}>
+                  Save
+                </Button>
+                <Button
+                  colorScheme="gray"
+                  ml={3}
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+
+          {/* Delete Parcel Confirmation Dialog */}
+          <AlertDialog
+            isOpen={isDeleteAlertOpen}
+            leastDestructiveRef={undefined}
+            onClose={handleDeleteCancel}
+          >
+            <AlertDialogOverlay>
+              <AlertDialogContent>
+                <AlertDialogHeader>Delete Parcel</AlertDialogHeader>
+                <AlertDialogBody>
+                  Are you sure you want to delete this parcel? This action
+                  cannot be undone.
+                </AlertDialogBody>
+                <AlertDialogFooter>
+                  <Button colorScheme="red" onClick={handleDeleteConfirm}>
+                    Delete
+                  </Button>
+                  <Button onClick={handleDeleteCancel}>Cancel</Button>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialogOverlay>
+          </AlertDialog>
+        </Center>
+      </GridItem>
+      <GridItem pl="2" bg="blue.300" area={"footer"}>
+        Footer
+      </GridItem>
+    </Grid>
   );
 };
 
