@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./css/style.css";
 import logo from "../assest/img/InspiredTech-Logo.png";
+import SideNavigation from "./Component/SideNavigation";
 import {
   Badge,
   Image,
@@ -182,13 +183,13 @@ const AdminPanel = () => {
       h="200px"
       gap="1"
     >
-      <GridItem pl="2" bg="orange.300" area={"header"}>
+      <GridItem pl="2" area={"header"}>
         Header
       </GridItem>
-      <GridItem pl="2" bg="pink.300" area={"nav"}>
-        <Box>hr</Box>
+      <GridItem pl="2" area={"nav"}>
+        <SideNavigation />
       </GridItem>
-      <GridItem pl="2" bg="green.300" area={"main"}>
+      <GridItem pl="2" area={"main"}>
         <Center h="100vh" className="adminPanel_backGround">
           <Box
             p={8}
