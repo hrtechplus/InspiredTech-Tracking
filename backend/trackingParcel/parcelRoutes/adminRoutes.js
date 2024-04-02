@@ -135,4 +135,39 @@ router.get("/api/user/:email", async (req, res) => {
   }
 });
 
+// POST route to add a new parcel
+router.post("/addparcels", async (req, res) => {
+  try {
+    // Extract parcel data from the request body
+    const {
+      parcelId,
+      status,
+      handOverDate,
+      deliveryCost,
+      trackingNumber,
+      user,
+    } = req.body;
+
+    // Create a new parcel instance
+    const newParcel = new Parcel({
+      parcelId,
+      status,
+      handOverDate,
+      deliveryCost,
+      trackingNumber,
+      user, // If userId is required, otherwise remove this line
+    });
+
+    // Save the new parcel to the database
+    await newParcel.save();
+
+    res
+      .status(201)
+      .json({ message: "Parcel added successfully", parcel: newParcel });
+  } catch (error) {
+    console.error("Error adding parcel:", error);
+    res.status(500).json({ error: "Failed to add parcel" });
+  }
+});
+
 module.exports = router;
