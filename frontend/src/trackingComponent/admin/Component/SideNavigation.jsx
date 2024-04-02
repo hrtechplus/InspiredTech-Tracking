@@ -1,18 +1,40 @@
 import React from "react";
-import { Box, Flex, Text, Button, Spacer } from "@chakra-ui/react";
-
+import {
+  Box,
+  Flex,
+  Text,
+  Button,
+  Spacer,
+  ListItem,
+  ListIcon,
+  List,
+  Image,
+  Divider,
+} from "@chakra-ui/react";
+import logo from "../Component/img/assest/logo.png";
+import { Link } from "react-router-dom";
 const Sidebar = () => {
   return (
-    <Box h="100%" w="250px" bg="gray.800" color="white" p={4} overflow="hidden">
+    <Box h="100%" w="250px" color="black" p={4} overflow="hidden">
       <Flex direction="column" h="100%">
         <Box>
-          <Text fontSize="xl" fontWeight="bold" mb={4}>
-            Sidebar Menu
+          <Image src={logo} alt="logo" mb={8} />
+
+          <Text fontSize="2xl" mb={4}>
+            Menu
           </Text>
           <Box>
-            <Text>Link 1</Text>
-            <Text>Link 2</Text>
-            <Text>Link 3</Text>
+            <List spacing={3}>
+              <ListItem>
+                <Link to="/AdminDashBoard">Dashboard</Link>
+              </ListItem>
+              <Divider></Divider>
+              <ListItem>How to Use</ListItem>
+              <Divider></Divider>
+              <ListItem>About</ListItem>
+
+              {/* You can also use custom icons from react-icons */}
+            </List>
             {/* Add more links here */}
           </Box>
         </Box>

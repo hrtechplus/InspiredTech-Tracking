@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./css/style.css";
-import logo from "../assest/img/InspiredTech-Logo.png";
 import SideNavigation from "./Component/SideNavigation";
 import {
   Badge,
@@ -186,7 +185,7 @@ const AdminPanel = () => {
         <SideNavigation />
       </GridItem>
 
-      <GridItem pl="2" area={"main"}>
+      <GridItem pl="2" area={"main"} className="grid_second">
         <Center h="100%">
           <Box
             p={8}

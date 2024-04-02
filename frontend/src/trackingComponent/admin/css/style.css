@@ -37,8 +37,10 @@ body {
 .adminPanel {
   background: linear-gradient(to left, #fff7fc, #f7f7f7, #f7f7f7);
 }
-
-.table_body {
+.grid_second {
+  background: linear-gradient(to left, #5755fe, #6a74ff, #8b93ff);
+}
+.admi .table_body {
   overflow-y: auto;
   height: 100px;
 }
