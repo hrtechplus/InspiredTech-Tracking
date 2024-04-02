@@ -40,7 +40,13 @@ import {
   Progress,
   Spacer,
 } from "@chakra-ui/react";
-import { SearchIcon, RepeatIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import {
+  SearchIcon,
+  RepeatIcon,
+  DeleteIcon,
+  EditIcon,
+  AddIcon,
+} from "@chakra-ui/icons";
 import axios from "axios";
 
 const AdminPanel = () => {
@@ -122,6 +128,14 @@ const AdminPanel = () => {
     setEditMode(true);
     setEditParcel(parcel);
     setIsModalOpen(true);
+  };
+  const handleUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/user/:email");
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
   };
 
   const handleSaveEdit = async () => {
@@ -205,19 +219,25 @@ const AdminPanel = () => {
                   onChange={handleInputChange}
                 />
               </FormControl>
-              <Button
+              <IconButton
                 className="btn search-btn"
-                leftIcon={<SearchIcon />}
+                icon={<SearchIcon />}
                 onClick={handleSearch}
-              >
-                Search
-              </Button>
+              ></IconButton>
+
               <IconButton
                 className="btn refresh-btn"
                 aria-label="Refresh parcels"
                 icon={<RepeatIcon />}
                 onClick={handleRefresh}
               />
+              <Button
+                className="btn search-btn"
+                leftIcon={<AddIcon />}
+                onClick={handleUsers}
+              >
+                Add
+              </Button>
             </Stack>
 
             <Box height="calc(100% - 120px)" overflowY="auto">

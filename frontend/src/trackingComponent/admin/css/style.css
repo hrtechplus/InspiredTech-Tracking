@@ -12,13 +12,13 @@
   background: #5356ff;
 }
 .search-btn:hover {
-  background-color: #3d40ff;
+  background: #3d40ff;
 }
 .refresh-btn {
   background: rgb(80, 80, 80);
 }
 .refresh-btn:hover {
-  background-color: rgb(52, 52, 52);
+  background: rgb(52, 52, 52);
 }
 .edit_btn {
   background: #c0b4eb1c;
@@ -29,9 +29,6 @@
 .search .formLabel {
   color: #3d3b40;
   font-weight: 800;
-}
-body {
-  background: linear-gradient(to left, #5755fe, #6a74ff, #8b93ff);
 }
 
 .adminPanel {
