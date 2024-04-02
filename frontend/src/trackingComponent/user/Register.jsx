@@ -18,7 +18,7 @@ const RegisterForm = () => {
     username: "",
     email: "",
     password: "",
-    role: "User",
+    role: "user",
   });
   const [emailError, setEmailError] = useState("");
 
