@@ -183,9 +183,6 @@ const AdminPanel = () => {
       h="200px"
       gap="1"
     >
-      <GridItem pl="2" area={"header"}>
-        Header
-      </GridItem>
       <GridItem pl="2" area={"nav"}>
         <SideNavigation />
       </GridItem>
