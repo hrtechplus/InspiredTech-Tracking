@@ -15,10 +15,21 @@ const createItem = async (req, res) => {
     }
 }
 
-// Create a new Item
+// Read items
 const readItems = async (req, res) => {
     const items = await ItemSchema.find({});
     res.status(200).json(items);
+}
+
+// Read a Item by ID
+const readItemById = async (req, res) => {
+    const { id } = req.params;
+    const item = await ItemSchema.findOne({itemID: id});
+
+    if(!item) {
+        return res.status(404).json({error: 'No such an item found :('});
+    }
+    res.status(200).json(item);
 }
 
 // Delete a Item
@@ -52,5 +63,6 @@ module.exports = {
     createItem,
     readItems,
     deleteItem,
-    updateItem
+    updateItem,
+    readItemById
 }

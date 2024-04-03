@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Button, Heading, Text, Image, Stack } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
 function itemDetailsDisplay({ item }) {
 
@@ -39,8 +40,10 @@ function itemDetailsDisplay({ item }) {
               <Text fontSize='md'>Price : Rs.{item.itemPrice}</Text>
               <Text fontSize='md'>Available Stocks : {item.stockCount}</Text>
               <Text fontSize='md'>Added Date : {item.createdAt}</Text>
+              {/* <Text fontSize='md'>Last Updated Date : {item.updatedAt}</Text> */}
               
-              <Button colorScheme='red' size='sm' marginTop='6px' onClick={handleDelete}>Delete</Button>
+              <Link className='edit-btn' to={`/inventoryPanel/item/${item.itemID}`}>Edit</Link>
+              <Button colorScheme='red' size='sm' marginTop='6px' onClick={handleDelete}>Remove</Button>
             </div>
           </Stack>
         </Box>

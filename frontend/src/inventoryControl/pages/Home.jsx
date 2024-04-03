@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { Container, Heading } from '@chakra-ui/react'
 
 // Components
-import ItemDetailsDisplay from '../Components/itemDetailsDisplay'
+import ItemDetailsDisplay from '../Components/ItemDetailsDisplay'
 import SlideBar from '../Components/SlideBar'
-import { Container, Heading } from '@chakra-ui/react'
+
 
 function Home() {
   // States

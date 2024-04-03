@@ -2,11 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 // Import functionalities to implement routes
-const { createItem, readItems, deleteItem, updateItem } = require('../controllers/inventoryController');
+const { createItem, readItems, deleteItem, updateItem, readItemById } = require('../controllers/inventoryController');
 
 
-// Read a Item
+// Read Items
 router.get('/', readItems)
+
+// Read a item
+router.get('/:id', readItemById)
 
 router.get('/addItems', (req, res) => {
     res.send('Adding items...');

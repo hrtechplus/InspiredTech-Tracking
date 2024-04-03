@@ -31,3 +31,19 @@
     background: #f6fbff;
     font-weight: 600;
 }
+
+.edit-btn {
+    display: inline-block;
+    margin-top: 6px;
+    margin-right: 14px;
+    border-radius: 5px;
+    padding: 4px 24px;
+    background: #3182CE;
+    color: #ffffff;
+    transition: 0.2s;
+}
+
+.edit-btn:hover {
+    background: rgb(48, 137, 214);
+    color: white;
+}
