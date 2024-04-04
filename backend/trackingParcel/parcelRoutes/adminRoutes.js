@@ -170,4 +170,30 @@ router.post("/addparcels", async (req, res) => {
   }
 });
 
+// get specific routes from the email address
+
+router.get("/user/:email", async (req, res) => {
+  try {
+    // Extract the email address from the request parameters
+    const { email } = req.params;
+
+    // Query the database to find the user by email address
+    const user = await UserModel.findOne({ email });
+
+    // get the id of the user
+    const userId = user._id;
+
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // If user exists, return user data
+    res.json(userId);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 module.exports = router;
