@@ -46,3 +46,6 @@
 Td {
   color: #31363f;
 }
+.table_body {
+  overflow-y: auto;
+}

@@ -55,10 +55,22 @@ const AdminPanel = () => {
   const [editMode, setEditMode] = useState(false);
   const [editParcel, setEditParcel] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
   const [deleteParcelId, setDeleteParcelId] = useState(null);
   const [showFooter, setShowFooter] = useState(true);
   const toast = useToast();
+
+  // Inside the AdminPanel component
+
+  const [newParcel, setNewParcel] = useState({
+    parcelId: "",
+    status: "",
+    handOverDate: "",
+    deliveryCost: "",
+    trackingNumber: "",
+    user: "",
+  });
 
   useEffect(() => {
     fetchParcels();
@@ -130,12 +142,45 @@ const AdminPanel = () => {
     setIsModalOpen(true);
   };
   const handleUsers = async () => {
+    setIsAddModalOpen(true);
     try {
       const response = await axios.get("http://localhost:5000/api/user/:email");
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
+  };
+
+  const handleAddParcelInputChange = (e, key) => {
+    setNewParcel({
+      ...newParcel,
+      [key]: e.target.value,
+    });
+  };
+
+  const handleAddParcel = async () => {
+    try {
+      await axios.post("http://localhost:5000/admin/parcels", newParcel);
+      fetchParcels();
+      setIsModalOpen(false);
+      toast({
+        title: "Parcel Added",
+        description: "The parcel has been successfully added.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error("Error adding parcel:", error);
+      toast({
+        title: "Error",
+        description: "Failed to add parcel. Please try again.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+    setNewParcel({}); // Clear the form fields
   };
 
   const handleSaveEdit = async () => {
@@ -325,7 +370,6 @@ const AdminPanel = () => {
               </Box>
             </Collapse>
           </Box>
-
           {/* Edit Parcel Modal */}
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <ModalOverlay />
@@ -381,7 +425,87 @@ const AdminPanel = () => {
               </ModalFooter>
             </ModalContent>
           </Modal>
+          {/* Add parcel model */}
 
+          <Modal
+            isOpen={isAddModalOpen}
+            onClose={() => setIsAddModalOpen(false)}
+          >
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Add Parcel</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <FormControl mb={4}>
+                  <FormLabel>Parcel ID</FormLabel>
+                  <Input
+                    type="text"
+                    value={newParcel.parcelId}
+                    onChange={(e) => handleAddParcelInputChange(e, "parcelId")}
+                  />
+                </FormControl>
+                <FormControl mb={4}>
+                  <FormLabel>Status</FormLabel>
+                  <Input
+                    type="text"
+                    value={newParcel.status}
+                    onChange={(e) => handleAddParcelInputChange(e, "status")}
+                    placeholder="In Transit, Delivered, Pending"
+                  />
+                </FormControl>
+                <FormControl mb={4}>
+                  <FormLabel>Hand Over Date</FormLabel>
+                  <Input
+                    type="date"
+                    value={newParcel.handOverDate}
+                    onChange={(e) =>
+                      handleAddParcelInputChange(e, "handOverDate")
+                    }
+                  />
+                </FormControl>
+                <FormControl mb={4}>
+                  <FormLabel>Delivery Cost</FormLabel>
+                  <Input
+                    type="number"
+                    value={newParcel.deliveryCost}
+                    onChange={(e) =>
+                      handleAddParcelInputChange(e, "deliveryCost")
+                    }
+                  />
+                </FormControl>
+                <FormControl mb={4}>
+                  <FormLabel>Tracking Number</FormLabel>
+                  <Input
+                    type="text"
+                    value={newParcel.trackingNumber}
+                    onChange={(e) =>
+                      handleAddParcelInputChange(e, "trackingNumber")
+                    }
+                  />
+                </FormControl>
+                <FormControl mb={4}>
+                  <FormLabel>User</FormLabel>
+                  <Input
+                    type="text"
+                    value={newParcel.user}
+                    onChange={(e) => handleAddParcelInputChange(e, "user")}
+                  />
+                </FormControl>
+              </ModalBody>
+              <ModalFooter>
+                <Button colorScheme="teal" onClick={handleAddParcel}>
+                  Add
+                </Button>
+                <Button
+                  colorScheme="gray"
+                  ml={3}
+                  onClick={() => setIsAddModalOpen(false)}
+                >
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
           {/* Delete Parcel Confirmation Dialog */}
           <AlertDialog
             isOpen={isDeleteAlertOpen}
