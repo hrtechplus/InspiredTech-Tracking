@@ -66,7 +66,7 @@ const AdminPanel = () => {
 
   const [newParcel, setNewParcel] = useState({
     parcelId: "",
-    status: "",
+    status: "Pending",
     handOverDate: "",
     deliveryCost: "",
     trackingNumber: "",
@@ -296,7 +296,7 @@ const AdminPanel = () => {
                     <Th>Parcel ID</Th>
                     <Th>Status</Th>
                     <Th>Hand Over Date</Th>
-                    <Th>Delivery Fee</Th>
+                    <Th>Delivery Fee </Th>
                     <Th>Tracking Number</Th>
                     <Th>Actions</Th>
                   </Tr>
@@ -421,7 +421,11 @@ const AdminPanel = () => {
                 </FormControl>
               </ModalBody>
               <ModalFooter>
-                <Button colorScheme="teal" onClick={handleSaveEdit}>
+                <Button
+                  colorScheme="blue.500"
+                  className="btn add-btn"
+                  onClick={handleSaveEdit}
+                >
                   Save
                 </Button>
                 <Button
@@ -453,15 +457,7 @@ const AdminPanel = () => {
                     onChange={(e) => handleAddParcelInputChange(e, "parcelId")}
                   />
                 </FormControl>
-                <FormControl mb={4}>
-                  <FormLabel>Status</FormLabel>
-                  <Input
-                    type="text"
-                    value={newParcel.status}
-                    onChange={(e) => handleAddParcelInputChange(e, "status")}
-                    placeholder="In Transit, Delivered, Pending"
-                  />
-                </FormControl>
+
                 <FormControl mb={4}>
                   <FormLabel>Hand Over Date</FormLabel>
                   <Input
