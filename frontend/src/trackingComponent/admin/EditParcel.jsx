@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import "../css/style.css";
 import SideNavigation from "./Component/SideNavigation";
 import {
@@ -480,7 +481,7 @@ const AdminPanel = () => {
                   <FormLabel>Parcel ID</FormLabel>
                   <Input
                     type="text"
-                    value={newParcel.parcelId}
+                    value={"HR" + uuidv4().substr(0, 4).toUpperCase()}
                     onChange={(e) => handleAddParcelInputChange(e, "parcelId")}
                   />
                 </FormControl>
