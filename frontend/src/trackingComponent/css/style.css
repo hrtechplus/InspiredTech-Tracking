@@ -1,32 +1,40 @@
-/* EditParcel admin componnent css */
+/* EditParcel admin component CSS */
 
 .btn {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
   color: #f7f7f7;
-
   margin: 0 5px 5px 5px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
-.search-btn {
+
+.add-btn {
   background: #5356ff;
 }
-.search-btn:hover {
+
+.add-btn:hover {
   background: #3d40ff;
 }
-.refresh-btn {
+
+.refresh-btn,
+.search-btn {
   background: rgb(80, 80, 80);
+  margin: 0 5px 5px 0px;
 }
+
 .refresh-btn:hover {
   background: rgb(52, 52, 52);
 }
-.edit_btn {
+
+.edit-btn {
   background: #c0b4eb1c;
 }
+
 .delete-btn {
   background: #ff00001c;
 }
+
 .search .formLabel {
   color: #3d3b40;
   font-weight: 800;
@@ -35,17 +43,21 @@
 .adminPanel {
   background: linear-gradient(to left, #fff7fc, #f7f7f7, #f7f7f7);
 }
+
 .grid_second {
   background: linear-gradient(to left, #5755fe, #6a74ff, #8b93ff);
 }
-.admi .table_body {
+
+.adminPanel .table-body {
   overflow-y: auto;
   height: 100px;
 }
 
-Td {
-  color: #31363f;
-}
-.table_body {
+.adminPanel .table-body {
   overflow-y: auto;
+  height: 50vh;
+}
+
+.Td {
+  color: #31363f;
 }

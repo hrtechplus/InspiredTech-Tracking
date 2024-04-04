@@ -266,19 +266,22 @@ const AdminPanel = () => {
                 />
               </FormControl>
               <IconButton
+                colorScheme="gray.900"
                 className="btn search-btn"
                 icon={<SearchIcon />}
                 onClick={handleSearch}
               ></IconButton>
 
               <IconButton
+                colorScheme="gray.900"
                 className="btn refresh-btn"
                 aria-label="Refresh parcels"
                 icon={<RepeatIcon />}
                 onClick={handleRefresh}
               />
               <Button
-                className="btn search-btn"
+                colorScheme="blue.500"
+                className="btn add-btn"
                 leftIcon={<AddIcon />}
                 onClick={handleUsers}
               >
@@ -298,7 +301,8 @@ const AdminPanel = () => {
                     <Th>Actions</Th>
                   </Tr>
                 </Thead>
-                <Tbody className="table_body">
+
+                <Tbody className="table_body" boxSize="sm">
                   {parcels.map((parcel) => (
                     <Tr key={parcel._id} boxShadow="xs" rounded="md">
                       <Td>
