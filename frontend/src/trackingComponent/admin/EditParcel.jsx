@@ -60,6 +60,7 @@ const AdminPanel = () => {
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
   const [deleteParcelId, setDeleteParcelId] = useState(null);
   const [showFooter, setShowFooter] = useState(true);
+  const [user, setUser] = useState(""); // user for the Add parcel
   const toast = useToast();
 
   // Inside the AdminPanel component
@@ -152,7 +153,14 @@ const AdminPanel = () => {
     }
   };
 
-  const handleAddParcelInputChange = (e, key) => {
+  const handleAddParcelInputChange = async (e, key) => {
+    try {
+      const userID = await axios.get(`http://localhost:5000/api/user/${email}`);
+      return userID.data; // Assuming the user data is returned as JSON
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      throw error; // Throw the error for handling in the calling code
+    }
     setNewParcel({
       ...newParcel,
       [key]: e.target.value,
@@ -489,7 +497,9 @@ const AdminPanel = () => {
                   />
                 </FormControl>
                 <FormControl mb={4}>
-                  <FormLabel>User</FormLabel>
+                  <FormLabel>
+                    User<Text>{user}</Text>
+                  </FormLabel>
                   <Input
                     type="text"
                     value={newParcel.user}
@@ -498,7 +508,11 @@ const AdminPanel = () => {
                 </FormControl>
               </ModalBody>
               <ModalFooter>
-                <Button colorScheme="teal" onClick={handleAddParcel}>
+                <Button
+                  className=" add-btn"
+                  colorScheme="blue.500"
+                  onClick={handleAddParcel}
+                >
                   Add
                 </Button>
                 <Button
