@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
+
 import "../css/style.css";
+import toast, { Toaster } from "react-hot-toast";
 import SideNavigation from "./Component/SideNavigation";
 import {
   Badge,
-  Image,
   Grid,
   GridItem,
   Box,
@@ -12,7 +12,6 @@ import {
   Center,
   FormControl,
   FormLabel,
-  Flex,
   Input,
   Stack,
   Table,
@@ -39,7 +38,6 @@ import {
   AlertDialogFooter,
   Collapse,
   Progress,
-  Spacer,
 } from "@chakra-ui/react";
 import {
   SearchIcon,
@@ -94,6 +92,7 @@ const AdminPanel = () => {
         `http://localhost:5000/admin/parcels/${trackingNumber}`
       );
       fetchParcels();
+
       toast({
         title: "Parcel Deleted",
         description: "The parcel has been successfully deleted.",
@@ -103,6 +102,7 @@ const AdminPanel = () => {
       });
     } catch (error) {
       console.error("Error deleting parcel:", error);
+
       toast({
         title: "Error",
         description: "Failed to delete parcel. Please try again.",

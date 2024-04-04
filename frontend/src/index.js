@@ -28,7 +28,7 @@ root.render(
         <Route path="/test" element={<AdminDashBoard />} />
       </Routes>
     </BrowserRouter>
-    <Toaster />
+    <Toaster position="bottom-center" reverseOrder={false} />
   </ChakraProvider>
 );
 
