@@ -168,6 +168,7 @@ const AdminPanel = () => {
     const value = e.target.value;
     if (key === "user") {
       try {
+        setUser(value); // Update user state in real-time
         const userData = await fetchUserByEmail(value);
         setNewParcel({
           ...newParcel,
@@ -521,7 +522,7 @@ const AdminPanel = () => {
                   <Input
                     type="text"
                     placeholder="Enter user email"
-                    value={""}
+                    value={user}
                     onChange={(e) => handleAddParcelInputChange(e, "user")}
                   />
                 </FormControl>
