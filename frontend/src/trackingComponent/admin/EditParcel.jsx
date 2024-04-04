@@ -481,7 +481,7 @@ const AdminPanel = () => {
                   <FormLabel>Parcel ID</FormLabel>
                   <Input
                     type="text"
-                    value={"HR" + uuidv4().substr(0, 4).toUpperCase()}
+                    value={newParcel.parcelId}
                     onChange={(e) => handleAddParcelInputChange(e, "parcelId")}
                   />
                 </FormControl>
