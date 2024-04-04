@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import "../css/style.css";
-import toast, { Toaster } from "react-hot-toast";
 import SideNavigation from "./Component/SideNavigation";
 import {
   Badge,
