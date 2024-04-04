@@ -49,6 +49,7 @@ import {
 } from "@chakra-ui/icons";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { set } from "mongoose";
 
 const AdminPanel = () => {
   const [parcels, setParcels] = useState([]);
@@ -157,14 +158,15 @@ const AdminPanel = () => {
     try {
       const userID = await axios.get(`http://localhost:5000/api/user/${email}`);
       return userID.data; // Assuming the user data is returned as JSON
+      setUser(userID.data);
+      setNewParcel({
+        ...newParcel,
+        [key]: e.target.value,
+      });
     } catch (error) {
       console.error("Error fetching user:", error);
       throw error; // Throw the error for handling in the calling code
     }
-    setNewParcel({
-      ...newParcel,
-      [key]: e.target.value,
-    });
   };
 
   const handleAddParcel = async () => {
