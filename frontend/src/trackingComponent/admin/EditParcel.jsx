@@ -49,7 +49,6 @@ import {
 } from "@chakra-ui/icons";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { set } from "mongoose";
 
 const AdminPanel = () => {
   const [parcels, setParcels] = useState([]);
@@ -153,19 +152,36 @@ const AdminPanel = () => {
       console.error("Error fetching users:", error);
     }
   };
-
-  const handleAddParcelInputChange = async (e, key) => {
+  const fetchUserByEmail = async (email) => {
     try {
-      const userID = await axios.get(`http://localhost:5000/api/user/${email}`);
-      return userID.data; // Assuming the user data is returned as JSON
-      setUser(userID.data);
-      setNewParcel({
-        ...newParcel,
-        [key]: e.target.value,
-      });
+      const response = await axios.get(
+        `http://localhost:5000/api/user/${email}`
+      );
+      return response.data; // Assuming the user data is returned as JSON
     } catch (error) {
       console.error("Error fetching user:", error);
       throw error; // Throw the error for handling in the calling code
+    }
+  };
+
+  const handleAddParcelInputChange = async (e, key) => {
+    const value = e.target.value;
+    if (key === "user") {
+      try {
+        const userData = await fetchUserByEmail(value);
+        setNewParcel({
+          ...newParcel,
+          [key]: userData._id,
+        });
+      } catch (error) {
+        console.error("Error setting user:", error);
+        // Handle error (e.g., display error message)
+      }
+    } else {
+      setNewParcel({
+        ...newParcel,
+        [key]: value,
+      });
     }
   };
 
@@ -173,7 +189,7 @@ const AdminPanel = () => {
     try {
       await axios.post("http://localhost:5000/admin/parcels", newParcel);
       fetchParcels();
-      setIsModalOpen(false);
+      setIsAddModalOpen(false);
       toast({
         title: "Parcel Added",
         description: "The parcel has been successfully added.",
@@ -191,7 +207,7 @@ const AdminPanel = () => {
         isClosable: true,
       });
     }
-    setNewParcel({}); // Clear the form fields
+    setNewParcel({});
   };
 
   const handleSaveEdit = async () => {
@@ -500,11 +516,12 @@ const AdminPanel = () => {
                 </FormControl>
                 <FormControl mb={4}>
                   <FormLabel>
-                    User<Text>{user}</Text>
+                    User<Text fontSize={"xs"}>{newParcel.user}</Text>
                   </FormLabel>
                   <Input
                     type="text"
-                    value={newParcel.user}
+                    placeholder="Enter user email"
+                    value={""}
                     onChange={(e) => handleAddParcelInputChange(e, "user")}
                   />
                 </FormControl>
