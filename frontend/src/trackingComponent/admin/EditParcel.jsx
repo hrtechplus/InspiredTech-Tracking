@@ -48,6 +48,7 @@ import {
   AddIcon,
 } from "@chakra-ui/icons";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const AdminPanel = () => {
   const [parcels, setParcels] = useState([]);
@@ -365,8 +366,12 @@ const AdminPanel = () => {
                 <Text fontWeight="bold" mb={2}>
                   Developer Details:
                 </Text>
-                <Text>Name: John Doe</Text>
-                <Text>Email: john.doe@example.com</Text>
+                <Text>Name: Hasindu Rangika</Text>
+                <Link to="https://www.hasindu.me/">
+                  <Text fontSize={"xs"} color="blue.500">
+                    www.hasindu.me
+                  </Text>
+                </Link>
               </Box>
             </Collapse>
           </Box>
