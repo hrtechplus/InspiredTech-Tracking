@@ -11,6 +11,7 @@ import Admin_DashBoard from "./trackingComponent/admin/DashBoard";
 import TrackingPage from "./trackingComponent/user/ParcelForm";
 import Home from "./trackingComponent/Common/Home";
 import EditParcel from "./trackingComponent/admin/EditParcel";
+import HowToUse from "./trackingComponent/admin/Component/HowToUse";
 
 import { Toaster } from "react-hot-toast";
 //comment
@@ -26,6 +27,7 @@ root.render(
         <Route path="/parcel" element={<TrackingPage />} />
         <Route path="/edit" element={<EditParcel />} />
         <Route path="/test" element={<AdminDashBoard />} />
+        <Route path="/howto" element={<HowToUse />} />
       </Routes>
     </BrowserRouter>
     <Toaster position="bottom-center" reverseOrder={false} />

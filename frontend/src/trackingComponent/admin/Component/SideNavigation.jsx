@@ -26,10 +26,13 @@ const Sidebar = () => {
           <Box>
             <List spacing={3}>
               <ListItem>
-                <Link to="/AdminDashBoard">Dashboard</Link>
+                <Link to="/edit">Dashboard</Link>
               </ListItem>
               <Divider></Divider>
-              <ListItem>How to Use</ListItem>
+              <ListItem>
+                {" "}
+                <Link to="/howto">How to Use</Link>
+              </ListItem>
               <Divider></Divider>
               <ListItem>About</ListItem>
 

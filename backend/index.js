@@ -35,6 +35,6 @@ app.listen(port, () => {
 
 app.use(test);
 app.use(saveParcelRoute);
-app.use(checkEmailMiddleware, registerUser);
+
 app.use(loginAdmin);
 app.use(adminRoutes);
