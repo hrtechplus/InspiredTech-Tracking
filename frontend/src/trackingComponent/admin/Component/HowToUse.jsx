@@ -1,9 +1,22 @@
 import React from "react";
 import SideNavigation from "./SideNavigation";
 import "./css/style.css";
-import { Grid, GridItem, Box, Text, Center } from "@chakra-ui/react";
-
+import { Grid, GridItem, Box, Text, Center, Button } from "@chakra-ui/react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import toast, { Toaster } from "react-hot-toast";
 const HowToUse = () => {
+  const notify = () => toast("Here is your toast.");
+
+  const App = () => {
+    return (
+      <div>
+        <button onClick={notify}>Make me a toast</button>
+        <Toaster />
+      </div>
+    );
+  };
+  AOS.init();
   return (
     <Grid
       templateAreas={`"nav main"`}
@@ -19,6 +32,8 @@ const HowToUse = () => {
       <GridItem pl="2" area={"main"} className="grid_second">
         <Center>
           <Box
+            data-aos="fade-up"
+            data-aos-duration="500"
             p={8}
             boxShadow="2xl"
             borderRadius="xl"
@@ -54,6 +69,7 @@ const HowToUse = () => {
               the Admin Panel.
             </Text>
           </Box>
+          <Button onClick={notify}>Ok</Button>
         </Center>
       </GridItem>
     </Grid>

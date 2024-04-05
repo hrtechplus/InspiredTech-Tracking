@@ -46,6 +46,7 @@ import {
   AddIcon,
 } from "@chakra-ui/icons";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const AdminPanel = () => {
@@ -191,6 +192,7 @@ const AdminPanel = () => {
       await axios.post("http://localhost:5000/admin/parcels", newParcel);
       fetchParcels();
       setIsAddModalOpen(false);
+      toast.success("Parcel Added");
       toast({
         title: "Parcel Added",
         description: "The parcel has been successfully added.",
@@ -217,6 +219,7 @@ const AdminPanel = () => {
         `http://localhost:5000/admin/parcels/${editParcel.trackingNumber}`,
         editParcel
       );
+
       setEditMode(false);
       fetchParcels();
       setIsModalOpen(false);
