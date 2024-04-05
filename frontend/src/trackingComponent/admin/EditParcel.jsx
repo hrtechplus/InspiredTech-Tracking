@@ -256,10 +256,6 @@ const AdminPanel = () => {
     }
   };
 
-  const toggleFooter = () => {
-    setShowFooter(!showFooter);
-  };
-
   return (
     <Grid
       templateAreas={`"nav main"`}
