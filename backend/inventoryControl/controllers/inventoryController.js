@@ -17,7 +17,9 @@ const createItem = async (req, res) => {
 
 // Read items
 const readItems = async (req, res) => {
-    const items = await ItemSchema.find({});
+    const items = await ItemSchema.aggregate([
+        { $sort: {createdAt: -1} } // sort by created time (recently added one first return)
+    ]);
     res.status(200).json(items);
 }
 

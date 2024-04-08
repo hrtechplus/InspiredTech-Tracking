@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Form, useNavigate } from 'react-router-dom'
-import { Box, Button, Container, FormControl, FormLabel, Input, Select, Textarea, Image } from '@chakra-ui/react'
+import { Box, Button, Container, FormControl, FormLabel, Input, Select, Textarea, Image, FormHelperText } from '@chakra-ui/react'
 
 function ItemUpdateForm({ item }) {
 
@@ -63,6 +63,7 @@ function ItemUpdateForm({ item }) {
                                 defaultValue={item.itemID}
                                 readOnly
                             />
+                            <FormHelperText>You can't change Item ID</FormHelperText>
                         </FormControl>
 
                         <FormControl marginBottom='12px'>
@@ -73,6 +74,7 @@ function ItemUpdateForm({ item }) {
                                 defaultValue={item.itemName}
                                 readOnly
                             />
+                            <FormHelperText>You can't change Item Name</FormHelperText>
                         </FormControl>
 
                         <FormControl marginBottom='12px'>
@@ -83,6 +85,7 @@ function ItemUpdateForm({ item }) {
                                 defaultValue={item.itemBrand}
                                 readOnly
                             />
+                            <FormHelperText>You can't change Item Brand</FormHelperText>
                         </FormControl>
 
                         <FormControl marginBottom='12px' isRequired>
@@ -121,6 +124,7 @@ function ItemUpdateForm({ item }) {
                                 <option value='smartphone'>Smartphone</option>
                                 <option value='smartwatch'>Smart Watch</option>
                             </Select>
+                            <FormHelperText>You can't change Item Catagory</FormHelperText>
                         </FormControl>
 
                         <FormControl marginBottom='12px'>
@@ -135,6 +139,7 @@ function ItemUpdateForm({ item }) {
                                 <option value='oneYear'>1 Year</option>
                                 <option value='twoYear'>2 Year</option>
                             </Select>
+                            <FormHelperText>You can't change Item Warranty</FormHelperText>
                         </FormControl>
 
                         <FormControl marginBottom='12px'>

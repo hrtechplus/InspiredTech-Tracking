@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Button, Container, FormControl, FormLabel, Input, Select, Textarea } from '@chakra-ui/react'
+import { Box, Button, Container, FormControl, FormHelperText, FormLabel, Input, Select, Textarea } from '@chakra-ui/react'
 import { Form } from 'react-router-dom'
 import { storage } from '../firebase'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
@@ -90,8 +90,10 @@ function AddItems() {
               <Input 
                 type='file' 
                 name='image'
+                accept='image/jpeg, image/png'
                 onChange={(e) => setItemImage(e.target.files[0])}
                  />
+              <FormHelperText>Only JPEG and PNG files</FormHelperText>
             </FormControl>
             
             <FormControl marginBottom='12px' isRequired>

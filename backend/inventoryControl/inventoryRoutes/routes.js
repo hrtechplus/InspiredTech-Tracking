@@ -11,10 +11,6 @@ router.get('/', readItems)
 // Read a item
 router.get('/:id', readItemById)
 
-router.get('/addItems', (req, res) => {
-    res.send('Adding items...');
-})
-
 // Create a new Item
 router.post('/addItems', createItem)
 
