@@ -16,7 +16,7 @@ import {
 import { LuPackageSearch } from "react-icons/lu";
 import { FaCircle } from "react-icons/fa";
 import "./css/style.css";
-
+import { GrClearOption } from "react-icons/gr";
 const ParcelForm = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [parcelData, setParcelData] = useState(null);
@@ -170,8 +170,18 @@ const ParcelForm = () => {
                 </Text>
                 <Text>Parcel ID: {parcelData.parcelId}</Text>
                 <Flex alignItems={"center"} justifyContent={"center"} gap={2}>
-                  <FaCircle />
                   <Text>Status: {parcelData.status}</Text>
+                  <FaCircle
+                    color={
+                      parcelData.status === "Delivered"
+                        ? "green"
+                        : parcelData.status === "In Transit"
+                        ? "yellow"
+                        : parcelData.status === "Pending"
+                        ? "red"
+                        : "gray"
+                    }
+                  />
                 </Flex>
                 {parcelData.user && (
                   <Box mt={4}>
@@ -182,8 +192,14 @@ const ParcelForm = () => {
                     <Text>Email: {parcelData.user.email}</Text>
                   </Box>
                 )}
-                <Button mt={4} className="btn" onClick={handleNewSearch}>
-                  New Search
+                <Button
+                  mt={4}
+                  colorScheme={"red.500"}
+                  className="btn"
+                  onClick={handleNewSearch}
+                >
+                  <GrClearOption /> <Spacer mr={2} />
+                  Clear
                 </Button>
               </Box>
             )}
