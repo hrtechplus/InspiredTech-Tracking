@@ -169,7 +169,7 @@ const ParcelForm = () => {
                   Parcel Details:
                 </Text>
                 <Text>Parcel ID: {parcelData.parcelId}</Text>
-                <Flex>
+                <Flex alignItems={"center"} justifyContent={"center"} gap={2}>
                   <FaCircle />
                   <Text>Status: {parcelData.status}</Text>
                 </Flex>
