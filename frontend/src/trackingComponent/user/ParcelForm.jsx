@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Center,
+  Flex,
   Box,
   Button,
   FormControl,
@@ -9,14 +10,18 @@ import {
   Input,
   VStack,
   Text,
+  Spacer,
+  Link,
 } from "@chakra-ui/react";
-import { PhoneIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
+import { LuPackageSearch } from "react-icons/lu";
 import { FaCircle } from "react-icons/fa";
+import "./css/style.css";
 
 const ParcelForm = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [parcelData, setParcelData] = useState(null);
   const [error, setError] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState("");
 
   useEffect(() => {
     if (parcelData && parcelData.user) {
@@ -30,6 +35,9 @@ const ParcelForm = () => {
         );
         setParcelData(response.data.parcel);
         setError(null); // Clear any previous errors
+
+        // Set background image URL after fetching parcel data
+        setBackgroundImage(await getRandomImageUrl());
 
         // Retrieve user details concurrently
         const userResponse = await axios.get(
@@ -51,6 +59,19 @@ const ParcelForm = () => {
       fetchData(); // Fetch data only if tracking number is provided
     }
   }, [trackingNumber, parcelData]);
+
+  const getRandomImageUrl = async () => {
+    try {
+      // Fetch a specific image URL from Unsplash
+      const response = await axios.get(
+        "https://source.unsplash.com/1600x900/?parcel"
+      );
+      return response.request.responseURL;
+    } catch (error) {
+      console.error("Error fetching random image:", error);
+      return ""; // Return empty string in case of error
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,71 +95,102 @@ const ParcelForm = () => {
   };
 
   return (
-    <Center>
+    <>
       <Box
-        w="400px"
-        p="20px"
-        bg="gray.100"
-        borderRadius="lg"
-        boxShadow="lg"
-        mt="50px" // Add margin-top
+        sticky="top"
+        w="100%"
+        className="navbar-background"
+        p="4"
+        color="white"
+        textAlign="center"
+        mb="0"
       >
-        <VStack spacing={4} align="center">
-          <form onSubmit={handleSubmit}>
-            <FormControl>
-              <FormLabel>Enter Tracking Number</FormLabel>
-              <Input
-                type="text"
-                placeholder="Enter Tracking Number"
-                value={trackingNumber}
-                onChange={handleInputChange}
-                onKeyPress={handleKeyPress} // Trigger handleSubmit on Enter key press
-              />
-            </FormControl>
-            <Button colorScheme="teal" type="submit">
-              Search
-            </Button>
-          </form>
-          {error && <Text color="red">{error}</Text>}
-          {parcelData && (
-            <Box>
-              <Text fontSize="lg" fontWeight="bold">
-                Parcel Details:
-              </Text>
-              <Text>Parcel ID: {parcelData.parcelId}</Text>
-              <Text>
-                Status: {parcelData.status}
-                {
-                  <FaCircle
-                    color={
-                      parcelData.status === "Delivered"
-                        ? "green"
-                        : parcelData.status === "In Transit"
-                        ? "yellow"
-                        : parcelData.status === "Pending"
-                        ? "gray"
-                        : "red"
-                    }
-                  />
-                }
-              </Text>
-              {parcelData.user && (
-                <Box mt={4}>
-                  <Text fontSize="lg" fontWeight="bold">
-                    User Details:
-                  </Text>
-                  <Text>Username: {parcelData.user.username}</Text>
-                  <Text>Email: {parcelData.user.email}</Text>
-                </Box>
-              )}
-              <Button mt={4} colorScheme="teal" onClick={handleNewSearch}>
-                New Search
-              </Button>
-            </Box>
-          )}
-        </VStack>
+        <Link href="#" mr="4">
+          Home
+        </Link>
+        <Link href="#" mr="4">
+          About
+        </Link>
+        <Link href="#" mr="4">
+          Contact
+        </Link>
       </Box>
-    </Center>
+      <Center
+        h="95vh"
+        className="parcelForm-background"
+        bgSize="cover"
+        bgPosition="center"
+      >
+        <Box
+          boxShadow={"lg"}
+          rounded={"lg"}
+          w="100%"
+          maxW="800px"
+          p="4"
+          borderRadius="lg"
+          bgColor="rgba(255, 255, 255, 0.8)"
+          textAlign="center"
+        >
+          <VStack spacing={4}>
+            <Text fontSize="3xl" fontWeight="bold">
+              Track Your Parcel
+            </Text>
+            <Text fontSize="lg" color="gray.600">
+              Enter the tracking number below to check the status of your
+              parcel.
+            </Text>
+            <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+              <Flex>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Enter Tracking Number"
+                    value={trackingNumber}
+                    onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
+                  />
+                </FormControl>
+                <Button
+                  colorScheme={"blue.500"}
+                  type="submit"
+                  className="btn"
+                  ml={2}
+                >
+                  <LuPackageSearch colorScheme={"white"} />
+                  <Spacer mr={2} />
+                  Track Package
+                </Button>
+              </Flex>
+            </form>
+            {error && <Text color="red">{error}</Text>}
+            {parcelData && (
+              <Box>
+                <Text fontSize="lg" fontWeight="bold">
+                  Parcel Details:
+                </Text>
+                <Text>Parcel ID: {parcelData.parcelId}</Text>
+                <Flex>
+                  <FaCircle />
+                  <Text>Status: {parcelData.status}</Text>
+                </Flex>
+                {parcelData.user && (
+                  <Box mt={4}>
+                    <Text fontSize="lg" fontWeight="bold">
+                      User Details:
+                    </Text>
+                    <Text>Username: {parcelData.user.username}</Text>
+                    <Text>Email: {parcelData.user.email}</Text>
+                  </Box>
+                )}
+                <Button mt={4} className="btn" onClick={handleNewSearch}>
+                  New Search
+                </Button>
+              </Box>
+            )}
+          </VStack>
+        </Box>
+      </Center>
+    </>
   );
 };
 
