@@ -17,6 +17,7 @@ import { LuPackageSearch } from "react-icons/lu";
 import { FaCircle } from "react-icons/fa";
 import "./css/style.css";
 import { GrClearOption } from "react-icons/gr";
+import logo from "../admin/Component/img/assest/logo.png";
 const ParcelForm = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [parcelData, setParcelData] = useState(null);
@@ -108,19 +109,18 @@ const ParcelForm = () => {
         alignItems="center"
         mb="0"
       >
+        <Flex gap={2}>
+          <LuPackageSearch w={4} /> <Text> InspiredTech Tracking</Text>
+        </Flex>
         <Box>
-          <img src="path_to_your_image" alt="Logo" width="50" height="50" />
-        </Box>
-        <Box>
-          <Link href="#" mr="4">
-            Home
-          </Link>
           <Link href="#" mr="4">
             About
           </Link>
-          <Link href="#" mr="4">
-            Contact
-          </Link>
+          <Button>
+            <Link href="/register" mr="">
+              Log In
+            </Link>
+          </Button>
         </Box>
       </Box>
 
