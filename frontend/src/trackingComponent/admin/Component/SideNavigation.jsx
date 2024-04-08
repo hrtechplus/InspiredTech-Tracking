@@ -1,4 +1,5 @@
 import React from "react";
+import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import {
   Box,
   Flex,
@@ -26,7 +27,7 @@ const Sidebar = () => {
           <Box>
             <List spacing={3}>
               <ListItem>
-                <Link to="/edit">Dashboard</Link>
+                <Link to="/edit"> Dashboard</Link>
               </ListItem>
               <Divider></Divider>
               <ListItem>

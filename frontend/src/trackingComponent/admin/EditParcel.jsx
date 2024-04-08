@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "../css/style.css";
 import SideNavigation from "./Component/SideNavigation";
 import {
@@ -72,6 +73,8 @@ const AdminPanel = () => {
     trackingNumber: "",
     user: "",
   });
+
+  AOS.init();
 
   useEffect(() => {
     fetchParcels();
@@ -272,7 +275,13 @@ const AdminPanel = () => {
       </GridItem>
 
       <GridItem pl="2" area={"main"} className="grid_second">
-        <Center h="100%">
+        <Center
+          h="100%"
+          data-aos="fade-zoom-in"
+          data-aos-easing="ease-in-back"
+          data-aos-delay="100"
+          data-aos-offset="0"
+        >
           <Box
             p={8}
             boxShadow="2xl"
