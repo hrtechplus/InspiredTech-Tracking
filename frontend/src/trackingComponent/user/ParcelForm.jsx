@@ -18,6 +18,7 @@ import { FaCircle } from "react-icons/fa";
 import "./css/style.css";
 import { GrClearOption } from "react-icons/gr";
 import logo from "../admin/Component/img/assest/logo.png";
+import NavigationBar from "./Conponent/NavigationBar";
 const ParcelForm = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [parcelData, setParcelData] = useState(null);
@@ -97,33 +98,7 @@ const ParcelForm = () => {
 
   return (
     <>
-      <Box
-        sticky="top"
-        w="100%"
-        className="navbar-background"
-        p="4"
-        color="white"
-        textAlign="center"
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        mb="0"
-      >
-        <Flex gap={2}>
-          <LuPackageSearch w={4} /> <Text> InspiredTech Tracking</Text>
-        </Flex>
-        <Box>
-          <Link href="#" mr="4">
-            About
-          </Link>
-          <Button>
-            <Link href="/register" mr="">
-              Log In
-            </Link>
-          </Button>
-        </Box>
-      </Box>
-
+      <NavigationBar />
       <Center
         h="95vh"
         className="parcelForm-background"
