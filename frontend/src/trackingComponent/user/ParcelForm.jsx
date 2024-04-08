@@ -103,18 +103,27 @@ const ParcelForm = () => {
         p="4"
         color="white"
         textAlign="center"
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
         mb="0"
       >
-        <Link href="#" mr="4">
-          Home
-        </Link>
-        <Link href="#" mr="4">
-          About
-        </Link>
-        <Link href="#" mr="4">
-          Contact
-        </Link>
+        <Box>
+          <img src="path_to_your_image" alt="Logo" width="50" height="50" />
+        </Box>
+        <Box>
+          <Link href="#" mr="4">
+            Home
+          </Link>
+          <Link href="#" mr="4">
+            About
+          </Link>
+          <Link href="#" mr="4">
+            Contact
+          </Link>
+        </Box>
       </Box>
+
       <Center
         h="95vh"
         className="parcelForm-background"
@@ -156,7 +165,7 @@ const ParcelForm = () => {
                   className="btn"
                   ml={2}
                 >
-                  <LuPackageSearch colorScheme={"white"} />
+                  <LuPackageSearch />
                   <Spacer mr={2} />
                   Track Package
                 </Button>
