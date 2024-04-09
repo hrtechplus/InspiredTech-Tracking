@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Flex, Text, Button, Link } from "@chakra-ui/react";
 import { LuPackageSearch } from "react-icons/lu";
 
-export default function NavigationBar() {
+export default function NavigationBar({ title, path }) {
   return (
     <Box
       sticky="top"
@@ -24,8 +24,8 @@ export default function NavigationBar() {
           About
         </Link>
         <Button>
-          <Link href="/register" mr="">
-            Log In
+          <Link href={path} mr="">
+            {title}
           </Link>
         </Button>
       </Box>

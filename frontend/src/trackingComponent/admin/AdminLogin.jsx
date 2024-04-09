@@ -43,7 +43,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <NavigationBar />
+      <NavigationBar path={"/register"} title={"SignUp"} />
 
       <Center
         h="100vh"
@@ -72,7 +72,12 @@ const LoginForm = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </FormControl>
-              <Button colorScheme="teal" type="submit" mt={2} className="btn">
+              <Button
+                type="submit"
+                mt={2}
+                colorScheme="blue.500"
+                className="btn"
+              >
                 Login
               </Button>
             </form>
