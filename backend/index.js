@@ -33,6 +33,8 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+//middle ware functions
+
 app.use(test);
 app.use(saveParcelRoute);
 app.use(checkEmailMiddleware, registerUser);
