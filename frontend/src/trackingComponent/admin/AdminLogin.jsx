@@ -15,11 +15,12 @@ import {
 import toast from "react-hot-toast";
 import axios from "axios";
 import "./Component/css/style.css";
+import { useNavigate } from "react-router";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -32,8 +33,8 @@ const LoginForm = () => {
       toast.success(response.data.message);
       console.log("Login successful:", response.data);
 
-      // Redirect to dashboard upon successful login
-      // history.push("/dashboard"); // Uncomment if using React Router
+      sessionStorage.setItem("accessToken", response.data.accessToken);
+      navigate("/edit");
     } catch (error) {
       // Display error toast if login fails
       toast.error("Login failed. Please check your credentials.");
