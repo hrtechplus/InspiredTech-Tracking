@@ -5,51 +5,6 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 
-const posts = [
-  {
-    username: "Kyle",
-    title: "Post 1",
-  },
-  {
-    username: "Jim",
-    title: "Post 2",
-  },
-];
-
-// middlware to check the authenticationa of the user
-
-function authenticateMiddleware(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const accessToken = "Hasindu";
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token == null) return res.sendStatus(401);
-
-  jwt.verify(token, accessToken, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-}
-
-router.get("/jwt", authenticateMiddleware, (req, res) => {
-  res.json({ dfjddfa: "niothitngi" });
-});
-
-router.post("/jwtlogin", async (req, res) => {
-  const payload = { user: "user" }; // Define the payload
-  const secretKey = "Hasindu"; // Define the secret key
-  jwt.sign(payload, secretKey, (err, token) => {
-    if (err) {
-      // Handle error if token generation fails
-      console.error("Error generating JWT token:", err);
-      res.status(500).json({ error: "Internal server error" });
-    } else {
-      // Send the generated token in the response
-      res.json({ accessToken: token });
-    }
-  });
-});
-
 router.post("/parcel/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -75,6 +30,7 @@ router.post("/parcel/login", async (req, res) => {
       );
 
       // If the credentials are correct, redirect to the dashboard or send a success message
+
       res.status(200).json({ message: "Login successful", accessToken });
     } else {
       return res

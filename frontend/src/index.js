@@ -22,10 +22,12 @@ root.render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/AdminDashBoard" element={<Admin_DashBoard />} />
-        <Route path="/login" element={<AdminLogin />} />
+
         <Route path="/register" element={<UserRegister />} />
         <Route path="/parcel" element={<TrackingPage />} />
-        <Route path="/edit" element={<EditParcel />} />
+        <Route path="/edit" element={<EditParcel />}>
+          <Route path="/login" element={<AdminLogin />} />
+        </Route>
         <Route path="/test" element={<AdminDashBoard />} />
         <Route path="/howto" element={<HowToUse />} />
       </Routes>

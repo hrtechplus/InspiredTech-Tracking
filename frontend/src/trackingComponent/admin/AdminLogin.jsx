@@ -26,6 +26,7 @@ const LoginForm = () => {
       // Assuming the server returns a success message upon successful login
       toast.success(response.data.message);
       console.log("Login successful:", response.data);
+      sessionStorage.setItem("accessToken", response.data.accessToken);
       // Redirect to dashboard or perform any other action upon successful login
     } catch (error) {
       // Display error toast if login fails
