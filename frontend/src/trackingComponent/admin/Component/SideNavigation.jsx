@@ -14,6 +14,8 @@ import {
 } from "@chakra-ui/react";
 import logo from "../Component/img/assest/logo.png";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import "./css/style.css";
 const Sidebar = () => {
   return (
     <Box h="100%" w="250px" color="black" p={4} overflow="hidden">
@@ -45,11 +47,14 @@ const Sidebar = () => {
         <Spacer />
         <Box mt="auto">
           <Button
+            className="btn logout-btn"
             colorScheme="red"
             variant="outline"
             onClick={() => {
               sessionStorage.removeItem("accessToken");
+
               window.location.reload();
+              toast.success("Logged out sucessfully !");
             }}
           >
             Logout
