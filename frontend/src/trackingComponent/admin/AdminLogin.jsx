@@ -1,6 +1,7 @@
 // src/components/LoginForm.js
 
 import React, { useState } from "react";
+import NavigationBar from "../user/Component/NavigationBar";
 import {
   Box,
   Button,
@@ -8,15 +9,17 @@ import {
   FormLabel,
   Input,
   VStack,
+  Link,
+  Center,
 } from "@chakra-ui/react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import "./Component/css/style.css";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const nagivate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -24,12 +27,13 @@ const LoginForm = () => {
         username,
         password,
       });
+
       // Assuming the server returns a success message upon successful login
       toast.success(response.data.message);
       console.log("Login successful:", response.data);
-      sessionStorage.setItem("accessToken", response.data.accessToken);
-      nagivate("/edit");
-      // Redirect to dashboard or perform any other action upon successful login
+
+      // Redirect to dashboard upon successful login
+      // history.push("/dashboard"); // Uncomment if using React Router
     } catch (error) {
       // Display error toast if login fails
       toast.error("Login failed. Please check your credentials.");
@@ -38,34 +42,54 @@ const LoginForm = () => {
   };
 
   return (
-    <Box w="400px" p="20px" bg="gray.100" borderRadius="lg" boxShadow="lg">
-      <VStack spacing={4} align="center">
-        <form onSubmit={handleSubmit}>
-          <FormControl>
-            <FormLabel>Username</FormLabel>
-            <Input
-              type="text"
-              placeholder="Enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </FormControl>
-          <Button colorScheme="teal" type="submit">
-            Login
-          </Button>
-        </form>
-      </VStack>
-    </Box>
+    <>
+      <NavigationBar />
+
+      <Center
+        h="100vh"
+        bgImage={`url(${getRandomBackgroundImageUrl()})`}
+        bgSize="cover"
+        bgPosition="center"
+      >
+        <Box w="400px" p="20px" bg="gray.100" borderRadius="lg" boxShadow="lg">
+          <VStack spacing={4} align="center">
+            <form onSubmit={handleSubmit}>
+              <FormControl>
+                <FormLabel>Username</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Password</FormLabel>
+                <Input
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </FormControl>
+              <Button colorScheme="teal" type="submit" mt={2} className="btn">
+                Login
+              </Button>
+            </form>
+            <Link href="#" color="teal.500">
+              Forgot Password?
+            </Link>
+          </VStack>
+        </Box>
+      </Center>
+    </>
   );
+};
+
+// Function to get a random background image URL
+const getRandomBackgroundImageUrl = () => {
+  // Replace with your logic to fetch random background image URL
+  return "https://source.unsplash.com/1600x900/?nature";
 };
 
 export default LoginForm;

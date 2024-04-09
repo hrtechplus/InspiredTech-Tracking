@@ -52,6 +52,7 @@ import { Link } from "react-router-dom";
 
 const AdminPanel = () => {
   const [parcels, setParcels] = useState([]);
+  const [userP, setUserP] = useState([]);
   const [trackingNumber, setTrackingNumber] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [editParcel, setEditParcel] = useState(null);
@@ -83,7 +84,8 @@ const AdminPanel = () => {
   const fetchParcels = async () => {
     try {
       const response = await axios.get("http://localhost:5000/admin/parcels");
-      setParcels(response.data);
+      setParcels(response.data.parcels);
+      setUserP(response.data.user);
     } catch (error) {
       console.error("Error fetching parcels:", error);
     }
@@ -338,7 +340,7 @@ const AdminPanel = () => {
                 </Thead>
 
                 <Tbody className="table_body" boxSize="sm">
-                  {parcels.map((parcel) => (
+                  {parcels.map((parcel, userP) => (
                     <Tr key={parcel._id} boxShadow="xs" rounded="md">
                       <Td>
                         {" "}

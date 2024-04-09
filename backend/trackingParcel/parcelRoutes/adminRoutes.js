@@ -28,7 +28,11 @@ router.get("/admin/parcels", async (req, res) => {
   try {
     // Fetch all parcels and populate user details for each parcel
     const parcels = await Parcel.find();
-    res.status(200).json(parcels);
+    // Retrieve user details using user object ID
+    const user = await UserModel.findById(parcels.user);
+
+    res.status(200).json({ parcels, user });
+    console.log("Users:", user);
   } catch (error) {
     console.error("Error fetching parcels:", error);
     res.status(500).json({ error: "Internal Server Error" });

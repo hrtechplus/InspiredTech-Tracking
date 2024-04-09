@@ -18,7 +18,7 @@ import { FaCircle } from "react-icons/fa";
 import "./css/style.css";
 import { GrClearOption } from "react-icons/gr";
 import logo from "../admin/Component/img/assest/logo.png";
-import NavigationBar from "./Conponent/NavigationBar";
+import NavigationBar from "./Component/NavigationBar";
 const ParcelForm = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [parcelData, setParcelData] = useState(null);
