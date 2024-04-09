@@ -10,3 +10,5 @@ const HandleAuth = () => {
 
   return <Outlet />;
 };
+
+export default HandleAuth;

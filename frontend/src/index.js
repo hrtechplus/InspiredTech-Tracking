@@ -12,6 +12,7 @@ import TrackingPage from "./trackingComponent/user/ParcelForm";
 import Home from "./trackingComponent/Common/Home";
 import EditParcel from "./trackingComponent/admin/EditParcel";
 import HowToUse from "./trackingComponent/admin/Component/HowToUse";
+import HandelAuth from "./trackingComponent/Common/auth/HandleAuth";
 
 import { Toaster } from "react-hot-toast";
 //comment
@@ -25,7 +26,7 @@ root.render(
 
         <Route path="/register" element={<UserRegister />} />
         <Route path="/parcel" element={<TrackingPage />} />
-        <Route path="/edit" element={<EditParcel />}>
+        <Route path="/edit" element={<HandelAuth />}>
           <Route path="/login" element={<AdminLogin />} />
         </Route>
         <Route path="/test" element={<AdminDashBoard />} />
