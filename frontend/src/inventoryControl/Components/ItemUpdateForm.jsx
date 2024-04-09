@@ -8,17 +8,18 @@ function ItemUpdateForm({ item }) {
 
     // States
     const [itemValues, setItemValues] = useState({
+        itemName: item.itemName,
         itemPrice: item.itemPrice,
         stockCount: item.stockCount,
         itemDescription: item.itemDescription
     })
 
     // Extract itemValues properties to seperate variable
-    const { itemPrice, stockCount, itemDescription } = itemValues
+    const { itemName, itemPrice, stockCount, itemDescription } = itemValues
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const newItemDetails = { itemPrice, stockCount, itemDescription }
+        const newItemDetails = { itemName, itemPrice, stockCount, itemDescription }
         try {
             const response = await fetch(`/inventoryPanel/${item.itemID}`, {
                 method: 'PATCH',
@@ -72,9 +73,11 @@ function ItemUpdateForm({ item }) {
                                 type='text'
                                 name='itemName'
                                 defaultValue={item.itemName}
-                                readOnly
+                                onChange={(e) => setItemValues({
+                                     ...itemValues,
+                                    itemName: e.target.value
+                                })}
                             />
-                            <FormHelperText>You can't change Item Name</FormHelperText>
                         </FormControl>
 
                         <FormControl marginBottom='12px'>
