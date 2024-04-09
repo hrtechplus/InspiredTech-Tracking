@@ -13,6 +13,7 @@ import {
   AlertIcon,
   Link,
 } from "@chakra-ui/react";
+import "./css/style.css";
 import NavigationBar from "./Component/NavigationBar";
 
 const RegisterForm = () => {
@@ -116,13 +117,13 @@ const RegisterForm = () => {
             />
           </FormControl>
 
-          <Button colorScheme="blue" onClick={handleSubmit}>
+          <Button colorScheme="blue.500" onClick={handleSubmit} className="btn">
             Register
           </Button>
 
           <Text mt={4}>
             Already registered?{" "}
-            <Link href="/login" color="blue">
+            <Link href="/login" color="blue.600">
               Login
             </Link>
           </Text>
