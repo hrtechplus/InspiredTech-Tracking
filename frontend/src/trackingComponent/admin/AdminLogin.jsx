@@ -11,11 +11,12 @@ import {
 } from "@chakra-ui/react";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const nagivate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

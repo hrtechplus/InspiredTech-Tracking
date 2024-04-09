@@ -44,7 +44,14 @@ const Sidebar = () => {
         </Box>
         <Spacer />
         <Box mt="auto">
-          <Button colorScheme="red" variant="outline">
+          <Button
+            colorScheme="red"
+            variant="outline"
+            onClick={() => {
+              sessionStorage.removeItem("accessToken");
+              window.location.reload();
+            }}
+          >
             Logout
           </Button>
         </Box>
