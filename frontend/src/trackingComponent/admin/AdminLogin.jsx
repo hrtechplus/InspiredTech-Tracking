@@ -35,6 +35,8 @@ const LoginForm = () => {
 
       sessionStorage.setItem("accessToken", response.data.accessToken);
       navigate("/edit");
+
+      // added protected routes
     } catch (error) {
       // Display error toast if login fails
       toast.error("Login failed. Please check your credentials.");
