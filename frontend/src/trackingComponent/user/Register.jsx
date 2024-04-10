@@ -14,6 +14,9 @@ import {
 } from "@chakra-ui/react";
 import "./css/style.css";
 import NavigationBar from "./Component/NavigationBar";
+import { RxAvatar } from "react-icons/rx";
+import { MdOutlineEmail } from "react-icons/md";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -93,7 +96,8 @@ const RegisterForm = () => {
             ></Image>
           </div>
           <div style={{ flex: 3 }}>
-            <FormControl>
+            <FormControl mt={4}>
+              <RxAvatar color="gray" boxSize="md" />
               <FormLabel>Username</FormLabel>
               <Input
                 type="text"
@@ -105,7 +109,8 @@ const RegisterForm = () => {
                 size="sm" // Reduced size
               />
             </FormControl>
-            <FormControl>
+            <FormControl mt={4}>
+              <MdOutlineEmail color="gray" />
               <FormLabel>Email</FormLabel>
               <Input
                 type="email"
@@ -124,7 +129,8 @@ const RegisterForm = () => {
                 </Alert>
               )}
             </FormControl>
-            <FormControl>
+            <FormControl mt={4}>
+              <RiLockPasswordLine color="gray" />
               <FormLabel>Password</FormLabel>
               <Input
                 type="password"
