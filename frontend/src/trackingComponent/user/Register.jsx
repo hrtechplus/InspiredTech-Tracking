@@ -1,5 +1,3 @@
-// RegisterForm.jsx
-
 import React, { useState } from "react";
 import axios from "axios";
 import {
@@ -62,20 +60,23 @@ const RegisterForm = () => {
       <NavigationBar path={"/login"} title={"Log In"} />
       <div
         style={{
-          backgroundImage: `url('https://source.unsplash.com/random')`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          width: "100vw",
-          height: "100vh",
           display: "flex",
-          justifyContent: "center",
           alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
         }}
       >
+        <div style={{ width: "50%" }}>
+          <img
+            src="https://source.unsplash.com/random"
+            alt="Random"
+            style={{ width: "100%", height: "auto" }}
+          />
+        </div>
         <VStack
           spacing={4}
           align="flex-start"
-          w="90%"
+          w="50%"
           maxW="400px"
           bg="white"
           p={8}
