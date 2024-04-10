@@ -53,6 +53,19 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if form fields are empty
+    if (
+      formData.username === "" ||
+      formData.email === "" ||
+      formData.password === ""
+    ) {
+      // Handle empty fields
+      toast.error("Form fields cannot be empty");
+      console.error("Error: Form fields cannot be empty");
+      return;
+    }
+
     try {
       await axios.post("http://localhost:5000/api/register", formData);
       toast.success("User registered successfully");
