@@ -9,6 +9,7 @@ import {
   Text,
   Alert,
   AlertIcon,
+  Image,
   Link,
 } from "@chakra-ui/react";
 import "./css/style.css";
@@ -64,70 +65,95 @@ const RegisterForm = () => {
           alignItems: "center",
           justifyContent: "center",
           height: "100vh",
+          background: "linear-gradient(to right, #4facfe, #00f2fe)",
         }}
       >
-        <div style={{ width: "50%" }}>
-          <img
-            src="https://source.unsplash.com/random"
-            alt="Random"
-            style={{ width: "100%", height: "auto" }}
-          />
-        </div>
         <VStack
-          spacing={4}
+          spacing={2} // Reduced spacing between form fields
           align="flex-start"
           w="50%"
-          maxW="400px"
+          h="400px" // Fixed height for 1:1 aspect ratio
           bg="white"
-          p={8}
+          p={6} // Reduced padding
           borderRadius="xl"
           boxShadow="lg"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
         >
-          <FormControl>
-            <FormLabel>Username</FormLabel>
-            <Input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              onBlur={handleCheckEmail}
-            />
-            {emailError && (
-              <Alert status="error" variant="subtle">
-                <AlertIcon />
-                {emailError}
-              </Alert>
-            )}
-          </FormControl>
-          <FormControl>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-          </FormControl>
+          <div style={{ flex: 2, display: "flex", justifyContent: "center" }}>
+            <Image
+              src="https://source.unsplash.com/random"
+              alt="Random"
+              boxSize="200px" // Adjusted image size
+              borderRadius="md"
+              style={{ height: "100%", width: "200px" }} // Adjusted image size
+            ></Image>
+          </div>
+          <div style={{ flex: 3 }}>
+            <FormControl>
+              <FormLabel>Username</FormLabel>
+              <Input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                borderRadius={"md"}
+                placeholder="Enter your username"
+                size="sm" // Reduced size
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Email</FormLabel>
+              <Input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                onBlur={handleCheckEmail}
+                borderRadius={"md"}
+                placeholder="Enter your email"
+                size="sm" // Reduced size
+              />
+              {emailError && (
+                <Alert status="error" variant="subtle">
+                  <AlertIcon />
+                  {emailError}
+                </Alert>
+              )}
+            </FormControl>
+            <FormControl>
+              <FormLabel>Password</FormLabel>
+              <Input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                borderRadius={"md"}
+                placeholder="Enter your password"
+                size="sm" // Reduced size
+              />
+            </FormControl>
 
-          <Button colorScheme="blue.500" onClick={handleSubmit} className="btn">
-            Register
-          </Button>
+            <Button
+              colorScheme="blue.500"
+              onClick={handleSubmit}
+              className="btn"
+              size="sm" // Reduced size
+              mt={4}
+            >
+              Register
+            </Button>
 
-          <Text mt={4}>
-            Already registered?{" "}
-            <Link href="/login" color="blue.600">
-              Login
-            </Link>
-          </Text>
+            <Text mt={2}>
+              Already registered?{" "}
+              <Link href="/login" color="blue.600">
+                Login
+              </Link>
+            </Text>
+          </div>
         </VStack>
       </div>
     </>
