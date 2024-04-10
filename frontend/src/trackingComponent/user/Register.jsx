@@ -17,8 +17,10 @@ import NavigationBar from "./Component/NavigationBar";
 import { RxAvatar } from "react-icons/rx";
 import { MdOutlineEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
-
+import { useNavigate } from "react-router";
+import { toast } from "react-hot-toast";
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -53,7 +55,8 @@ const RegisterForm = () => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:5000/api/register", formData);
-      alert("User registered successfully");
+      toast.success("User registered successfully");
+      navigate("/login");
     } catch (error) {
       console.error("Error registering user:", error);
     }
