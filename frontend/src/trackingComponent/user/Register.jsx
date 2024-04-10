@@ -80,11 +80,12 @@ const RegisterForm = () => {
       <NavigationBar path={"/login"} title={"Log In"} />
       <div
         style={{
+          background: "url(https://source.unsplash.com/random)",
+          backgroundSize: "cover",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           height: "100vh",
-          background: "linear-gradient(to right, #4facfe, #00f2fe)",
         }}
       >
         <VStack
