@@ -1,5 +1,3 @@
-// src/components/LoginForm.js
-
 import React, { useState } from "react";
 import NavigationBar from "../user/Component/NavigationBar";
 import {
@@ -21,6 +19,7 @@ const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -64,6 +63,7 @@ const LoginForm = () => {
                   placeholder="Enter your username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  size="sm" // Reduced input field size
                 />
               </FormControl>
               <FormControl>
@@ -73,6 +73,7 @@ const LoginForm = () => {
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  size="sm" // Reduced input field size
                 />
               </FormControl>
               <Button
@@ -80,11 +81,12 @@ const LoginForm = () => {
                 mt={2}
                 colorScheme="blue.500"
                 className="btn"
+                size="sm" // Reduced button size
               >
                 Login
               </Button>
             </form>
-            <Link href="#" color="blue.500">
+            <Link href="#" color="blue.500" fontSize="sm">
               Forgot Password?
             </Link>
           </VStack>
