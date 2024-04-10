@@ -84,7 +84,7 @@ const LoginForm = () => {
                 Login
               </Button>
             </form>
-            <Link href="#" color="teal.500">
+            <Link href="#" color="blue.500">
               Forgot Password?
             </Link>
           </VStack>
