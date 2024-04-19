@@ -8,7 +8,8 @@ const supplierSchema=new Schema({
     nic:{type:String,unique:true,required:true},
     address:{type:String,required:true},
     mobile:{type:Number,required:true},
-    wname:{type:String,required:false}
+    email:{type:String,required:true},
+    wname:{type:String,required:true}
 
 })
 
