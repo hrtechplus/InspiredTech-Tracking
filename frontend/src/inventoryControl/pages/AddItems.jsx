@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Button, Container, FormControl, FormHelperText, FormLabel, Input, Select, Textarea } from '@chakra-ui/react'
+import { Box, Button, Container, FormControl, FormHelperText, FormLabel, Input, Select, Textarea, Text } from '@chakra-ui/react'
 import { Form } from 'react-router-dom'
 import { storage } from '../firebase'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
@@ -83,6 +83,8 @@ function AddItems() {
     <>
       <SlideBar />
       <Container>
+        <Text fontSize='4xl' paddingTop='24px'>Add an item</Text>
+        <Text fontSize='sm'>(*) mark with fields are required to fill</Text>
         <Box maxWidth='480px' marginBottom='44px' paddingTop='24px' paddingBottom='24px'>
           <Form onSubmit={handleSubmit}>
             <FormControl marginBottom='12px' isRequired>

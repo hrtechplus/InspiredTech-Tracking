@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Form, useNavigate } from 'react-router-dom'
-import { Box, Button, Container, FormControl, FormLabel, Input, Select, Textarea, Image, FormHelperText } from '@chakra-ui/react'
+import { Box, Button, Container, FormControl, FormLabel, Input, Select, Textarea, Image, FormHelperText, Text } from '@chakra-ui/react'
 
 function ItemUpdateForm({ item }) {
 
@@ -45,6 +45,8 @@ function ItemUpdateForm({ item }) {
     return (
         <>
             <Container>
+                <Text fontSize='4xl' paddingTop='24px'>Edit {item.itemID} item</Text>
+                <Text fontSize='sm'>Some fields are restricted to change</Text>
                 <Box maxWidth='480px' marginBottom='44px' paddingTop='24px' paddingBottom='24px'>
 
                     <div className='update-form-img-preview'>
