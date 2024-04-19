@@ -23,7 +23,7 @@ router.route('/add').post((req, res)=>{
          res.json("order submitted")
      }).catch((err)=> {res.status(400).send("unable to submit order")})
 })
-//get all orders
+
 router.route("/").get((req, res) => {
 
    order.find().then((orders)=>{
@@ -57,20 +57,38 @@ router.route("/update/:oid").put(async(req,res)=>{
     }
 })
 
-//delete one order
+
 router.route("/delete/:oid").delete(async(req,res)=>{
 
+   try{
     let orderId=req.params.oid;
-    await order.findOneAndDelete(orderId).then(()=>{
+    const deleteorder = await order.findOneAndDelete({oid:orderId});
 
-        res.status(200).send({status:'order Deleted'});
-
-    }).catch((err)=> {
-        res.status(500).send({status:"Error in order deleting"});
-        console.log(err);
-    })
+    if (deleteorder) {
+        res.status(200).send({ status: 'Deleted' });
+        
+    } else {
+        res.status(404).send({ status: "Supplier not found" });
+    }}
+  catch (err) {
+    res.status(500).send({ status: "Error in deleting" });
+    console.log(err);
+ }
 })
-//get one order
+
+// delete all
+router.route('/delete'). delete(async(req, res) => {
+    try {
+        await order.deleteMany({}); // Delete all documents in the Order collection
+        res.status(200).send({ status: 'All orders deleted' });
+        console.log(res);
+    } catch (err) {
+        res.status(500).send({ status: 'Error in deleting' });
+        console.error(err);
+    }
+});
+
+
 router.route("/get/:oid").get(async(req,res)=>{
     let orderId = req.params.oid; // Corrected variable name
     try {
