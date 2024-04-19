@@ -109,6 +109,7 @@ function AddOrder() {
                             id="supplier"
                             placeholder="Enter Supplier name"
                             value={supplier}
+                            name="supplier"
                             onChange={(e) => setSupplier(e.target.value)}
                         />
                         {errors.supplier && <div className="invalid-feedback">{errors.supplier}</div>}
@@ -130,6 +131,7 @@ function AddOrder() {
                             id="bname"
                             placeholder="Enter Brand Name"
                             value={bname}
+                            name="bname"
                             onChange={(e) => setBname(e.target.value)}
                         />
                         {errors.bname && <div className="invalid-feedback">{errors.bname}</div>}
@@ -142,6 +144,7 @@ function AddOrder() {
                             id="quantity"
                             placeholder="Enter Quantity"
                             value={quantity}
+                            name="quantity"
                             onChange={(e) => setQuantity(e.target.value)}
                         />
                         {errors.quantity && <div className="invalid-feedback">{errors.quantity}</div>}
