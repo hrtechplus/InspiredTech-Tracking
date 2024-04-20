@@ -11,15 +11,16 @@ function ItemUpdateForm({ item }) {
         itemName: item.itemName,
         itemPrice: item.itemPrice,
         stockCount: item.stockCount,
-        itemDescription: item.itemDescription
+        itemDescription: item.itemDescription,
+        warranty: item.warranty
     })
 
     // Extract itemValues properties to seperate variable
-    const { itemName, itemPrice, stockCount, itemDescription } = itemValues
+    const { itemName, itemPrice, stockCount, itemDescription, warranty } = itemValues
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const newItemDetails = { itemName, itemPrice, stockCount, itemDescription }
+        const newItemDetails = { itemName, itemPrice, stockCount, itemDescription, warranty }
         try {
             const response = await fetch(`/inventoryPanel/${item.itemID}`, {
                 method: 'PATCH',
@@ -136,15 +137,17 @@ function ItemUpdateForm({ item }) {
                             <FormLabel>Select a warranty</FormLabel>
                             <Select
                                 placeholder='Warranty Periode'
-                                value={item.warranty}
-                                readOnly
+                                defaultValue={item.warranty}
+                                onChange={(e) => setItemValues({
+                                     ...itemValues,
+                                    warranty: e.target.value
+                                })}
                             >
                                 <option value='noWarranty'>0</option>
                                 <option value='sixMonths'>6 Months</option>
                                 <option value='oneYear'>1 Year</option>
                                 <option value='twoYear'>2 Year</option>
                             </Select>
-                            <FormHelperText>You can't change Item Warranty</FormHelperText>
                         </FormControl>
 
                         <FormControl marginBottom='12px'>
