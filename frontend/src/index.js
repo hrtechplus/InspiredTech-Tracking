@@ -21,7 +21,7 @@ root.render(
   <ChakraProvider>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<TrackingPage />} />
         <Route path="/login" element={<AdminLogin />} />
 
         <Route path="/register" element={<UserRegister />} />

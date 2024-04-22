@@ -109,7 +109,7 @@ const RegisterForm = () => {
               alt="Random"
               boxSize="200px" // Adjusted image size
               borderRadius="md"
-              style={{ height: "100%", width: "200px" }} // Adjusted image size
+              style={{ height: "100%", width: "200px", filter: ` blur("8px")` }} // Adjusted image size
             ></Image>
           </div>
           <div style={{ flex: 3 }}>
