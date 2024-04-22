@@ -197,7 +197,7 @@ const AdminPanel = () => {
       await axios.post("http://localhost:5000/admin/parcels", newParcel);
       fetchParcels();
       setIsAddModalOpen(false);
-      toast.success("Parcel Added");
+
       toast({
         title: "Parcel Added",
         description: "The parcel has been successfully added.",
