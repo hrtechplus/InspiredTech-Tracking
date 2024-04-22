@@ -6,10 +6,16 @@
   },
   "scripts": {
     "client": "npm start --prefix frontend",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "npm start --prefix backend",
     "start": "concurrently \"npm run server \" \"npm run client \""
-  }
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
+  },
+  "homepage": "https://hrtechplus.github.io/InspiredTech"
 }
