@@ -17,7 +17,10 @@ export default function NavigationBar({ title, path }) {
       mb="0"
     >
       <Flex gap={2}>
-        <LuPackageSearch w={4} /> <Text> InspiredTech Tracking</Text>
+        <LuPackageSearch w={4} />{" "}
+        <Text>
+          <Link href="./">InspiredTech Tracking</Link>
+        </Text>
       </Flex>
       <Box>
         <Link href="#" mr="4">
