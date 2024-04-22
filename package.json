@@ -5,11 +5,11 @@
     "react-icons": "^5.0.1"
   },
   "scripts": {
-    "start": "npm start --prefix frontend",
+    "client": "npm start --prefix frontend",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "npm start --prefix backend",
-    "dev": "concurrently \"npm run server \" \"npm start \""
+    "start": "concurrently \"npm run server \" \"npm run client \""
   }
 }
