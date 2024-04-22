@@ -38,6 +38,7 @@ import {
   AlertDialogFooter,
   Collapse,
   Progress,
+  Select,
 } from "@chakra-ui/react";
 import {
   SearchIcon,
@@ -49,12 +50,13 @@ import {
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
+const { v4: uuidv4 } = require("uuid");
 
 const AdminPanel = () => {
   const [parcels, setParcels] = useState([]);
   const [userP, setUserP] = useState([]);
-  const [trackingNumber, setTrackingNumber] = useState("");
   const [editMode, setEditMode] = useState(false);
+  const [trackingNumber, setTrackingNumber] = useState("");
   const [editParcel, setEditParcel] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -63,6 +65,10 @@ const AdminPanel = () => {
   const [showFooter, setShowFooter] = useState(true);
   const [user, setUser] = useState(""); // user for the Add parcel
   const toast = useToast();
+  const [uuidTrackingNumber, setUuidTrackingNumber] = useState("");
+
+  // Generate a UUID
+  const uuid = uuidv4();
 
   // Inside the AdminPanel component
 
@@ -425,6 +431,7 @@ const AdminPanel = () => {
               <ModalBody>
                 <FormControl mb={4}>
                   <FormLabel>Parcel ID</FormLabel>
+
                   <Input
                     type="text"
                     value={editParcel?.parcelId}
@@ -433,12 +440,14 @@ const AdminPanel = () => {
                 </FormControl>
                 <FormControl mb={4}>
                   <FormLabel>Status</FormLabel>
-                  <Input
-                    type="text"
-                    value={editParcel?.status}
+                  <Select
                     onChange={(e) => handleEditInputChange(e, "status")}
-                    placeholder="In Transit, Delivered, Pending"
-                  />
+                    value={editParcel?.status}
+                  >
+                    <option value="In Transit">In Transit</option>
+                    <option value="Delivered">Delivered </option>
+                    <option value="Pending"> Pending</option>
+                  </Select>
                 </FormControl>
                 <FormControl mb={4}>
                   <FormLabel>Hand Over Date</FormLabel>
@@ -479,7 +488,11 @@ const AdminPanel = () => {
 
           <Modal
             isOpen={isAddModalOpen}
-            onClose={() => setIsAddModalOpen(false)}
+            onClose={() => {
+              setIsAddModalOpen(false);
+              newParcel.parcelId = `INP${uuid.substr(0, 8)}`;
+              newParcel.trackingNumber = `TRK${uuid.substr(0, 12)}`;
+            }}
           >
             <ModalOverlay />
             <ModalContent>
@@ -490,6 +503,7 @@ const AdminPanel = () => {
                   <FormLabel>Parcel ID</FormLabel>
                   <Input
                     type="text"
+                    disabled
                     value={newParcel.parcelId}
                     onChange={(e) => handleAddParcelInputChange(e, "parcelId")}
                   />
@@ -519,6 +533,7 @@ const AdminPanel = () => {
                   <FormLabel>Tracking Number</FormLabel>
                   <Input
                     type="text"
+                    disabled
                     value={newParcel.trackingNumber}
                     onChange={(e) =>
                       handleAddParcelInputChange(e, "trackingNumber")
