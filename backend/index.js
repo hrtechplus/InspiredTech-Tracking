@@ -13,7 +13,7 @@ app.use(express.json());
 // MongoDB connection implementation
 mongoose
   .connect(
-    "" // remove for now since uplading this file to GitHub
+    "mongodb+srv://savishkadilshan:in5sDjaq8SnZqcLz@cluster0.pj8muri.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => {
     console.log("MongoDB connected successfully");
