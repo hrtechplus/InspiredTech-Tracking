@@ -60,6 +60,19 @@ function AddItems() {
     }
   }
 
+  // Check whether item image is valid image file or not
+  const handleImageCheck = async(e) => {
+    const file = e.target.files[0]
+    const allowedTypes = ['image/jpeg', 'image/png']
+
+    if(file && allowedTypes.includes(file.type)) {
+      setItemImage(file)
+    }else {
+      setItemImage(null)
+      alert("Please upload a valid JPEG or PNG image file!")
+    }
+  }
+
   // item image upload function
   const imageUpload = async () => {
     // make image store location and make image name unique
@@ -93,8 +106,9 @@ function AddItems() {
                 type='file' 
                 name='image'
                 accept='image/jpeg, image/png'
-                onChange={(e) => setItemImage(e.target.files[0])}
-                 />
+                // onChange={(e) => setItemImage(e.target.files[0])}
+                onChange={handleImageCheck}
+              />
               <FormHelperText>Only JPEG and PNG files</FormHelperText>
             </FormControl>
             
