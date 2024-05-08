@@ -43,6 +43,11 @@ function ItemUpdateForm({ item }) {
         }
     }
 
+    // Navigate back to Home page
+    const handleBackNavigate = () => {
+        pageNavigation('/inventoryPanel')
+    }
+
     return (
         <>
             <Container>
@@ -163,6 +168,7 @@ function ItemUpdateForm({ item }) {
                         </FormControl>
 
                         <Button type='submit' colorScheme='blue'>Save Changes</Button>
+                        <Button type='submit' colorScheme='green' marginLeft='24px' onClick={handleBackNavigate}>Back To Home</Button>
                     </Form>
                 </Box>
             </Container>
