@@ -104,6 +104,17 @@ function AddItems() {
     }
   }
 
+  // Check item stock count is whether negative value or not
+  const handleStockCount = async(e) => {
+    const value = e.target.value
+    if(value < 0) {
+      setStockCount(0)
+      alert("Stock count value should be more than zero")
+    }else {
+      setStockCount(value)
+    }
+  }
+
   return (
     <>
       <SlideBar />
@@ -171,7 +182,8 @@ function AddItems() {
                 type='number' 
                 name='stockCount'
                 value={stockCount}
-                onChange={(e) => setStockCount(e.target.value)} 
+                // onChange={(e) => setStockCount(e.target.value)} 
+                onChange={handleStockCount}
               />
             </FormControl>
 
