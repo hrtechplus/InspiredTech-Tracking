@@ -93,6 +93,17 @@ function AddItems() {
     }
   }
 
+  // Check item price is whether negative value or not
+  const handleItemPrice = async(e) => {
+    const value = e.target.value
+    if(value < 0) {
+      setItemPrice(0)
+      alert("Item price value should be more than zero")
+    }else {
+      setItemPrice(value)
+    }
+  }
+
   return (
     <>
       <SlideBar />
@@ -150,7 +161,7 @@ function AddItems() {
                 type='number' 
                 name='itemPrice' 
                 value={itemPrice}
-                onChange={(e) => setItemPrice(e.target.value)}
+                onChange={handleItemPrice}
               />
             </FormControl>
 
