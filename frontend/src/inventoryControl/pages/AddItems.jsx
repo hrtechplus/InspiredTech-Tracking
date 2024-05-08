@@ -70,6 +70,7 @@ function AddItems() {
     }else {
       setItemImage(null)
       alert("Please upload a valid JPEG or PNG image file!")
+      window.location.reload()
     }
   }
 
