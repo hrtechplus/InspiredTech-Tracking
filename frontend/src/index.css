@@ -11,7 +11,8 @@
 .slide-bar-container {
     display: flex;
     flex-direction: column;
-    background: #e8f5ff;
+    /* background: #e8f5ff; */
+    background: #86BDFF;
     width: 15%;
     height: 100%;
     position: fixed;
@@ -21,6 +22,7 @@
     margin-top: 24px;
     margin-bottom: 36px;
     padding-left: 24px;
+    color: #ffffff;
 }
 
 .slide-bar-container .in-panel-slide-btn {
@@ -28,12 +30,14 @@
     height: 60px;
     padding-top: 12px;
     padding-left: 24px;
+    color: #ffffff;
     /* transition: 0.5s; */
 }
 
 .slide-bar-container .in-panel-slide-btn:hover {
     background: #f6fbff;
     font-weight: 600;
+    color: #000000;
 }
 
 /* Edit Button in Home page */
