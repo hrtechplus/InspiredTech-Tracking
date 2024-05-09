@@ -40,6 +40,15 @@
     color: #000000;
 }
 
+.in-panel-slide-btn-active {
+    background: #f6fbff;
+    font-weight: 600;
+}
+
+.inventory-panel-home-link-active, .inventory-panel-add-item-link-active {
+    color: #000000;
+}
+
 /* Edit Button in Home page */
 .edit-btn {
     display: inline-block;
