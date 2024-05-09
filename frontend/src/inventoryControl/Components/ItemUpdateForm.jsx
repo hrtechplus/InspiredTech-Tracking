@@ -56,6 +56,20 @@ function ItemUpdateForm({ item }) {
         }
     }
 
+    // Validate stock count
+    const handleUpdateStock = async(e) => {
+        const value = e.target.value
+        if(value < 0){
+            alert("Please enter non negative value for stock")
+            e.target.value = item.stockCount
+        }else {
+            setItemValues({
+                ...itemValues,
+                stockCount: value
+            })
+        }
+    }
+
     // Navigate back to Home page
     const handleBackNavigate = () => {
         pageNavigation('/inventoryPanel')
@@ -128,10 +142,7 @@ function ItemUpdateForm({ item }) {
                                 type='number'
                                 name='stockCount'
                                 defaultValue={item.stockCount}
-                                onChange={(e) => setItemValues({
-                                    ...itemValues,
-                                    stockCount: e.target.value
-                                })}
+                                onChange={handleUpdateStock}
                             />
                         </FormControl>
 
