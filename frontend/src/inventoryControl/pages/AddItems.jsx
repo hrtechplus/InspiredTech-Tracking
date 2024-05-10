@@ -141,9 +141,11 @@ function AddItems() {
                 placeholder='ID001' 
                 type='text' 
                 name='itemID'
+                pattern='[A-Z]{1,2}[0-9]{1,9}'
                 value = {itemID}
                 onChange={(e) => setItemID(e.target.value)}
               />
+              <FormHelperText>Item ID Pattern: Two uppercase letters and numbers</FormHelperText>
             </FormControl>
 
             <FormControl marginBottom='12px' isRequired>
