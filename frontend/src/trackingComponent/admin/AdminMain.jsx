@@ -58,7 +58,7 @@ export default function AdminMain() {
 
   const fetchParcels = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/admin/parcels");
+      const response = await axios.get("http://localhost:5001/admin/parcels");
       setParcels(response.data);
     } catch (error) {
       console.error("Error fetching parcels:", error);
@@ -68,7 +68,7 @@ export default function AdminMain() {
   const handleDeleteParcel = async (trackingNumber) => {
     try {
       await axios.delete(
-        `http://localhost:5000/admin/parcels/${trackingNumber}`
+        `http://localhost:5001/admin/parcels/${trackingNumber}`
       );
       fetchParcels();
       toast({
@@ -101,7 +101,7 @@ export default function AdminMain() {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/admin/parcels/${trackingNumber}`
+        `http://localhost:5001/admin/parcels/${trackingNumber}`
       );
       setParcels([response.data]);
     } catch (error) {
@@ -125,7 +125,7 @@ export default function AdminMain() {
   const handleSaveEdit = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/admin/parcels/${editParcel.trackingNumber}`,
+        `http://localhost:5001/admin/parcels/${editParcel.trackingNumber}`,
         editParcel
       );
       setEditMode(false);

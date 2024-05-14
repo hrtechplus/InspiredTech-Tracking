@@ -34,7 +34,7 @@ const ParcelForm = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/parcels/${trackingNumber}`
+          `http://localhost:5001/parcels/${trackingNumber}`
         );
         setParcelData(response.data.parcel);
         setError(null); // Clear any previous errors
@@ -44,7 +44,7 @@ const ParcelForm = () => {
 
         // Retrieve user details concurrently
         const userResponse = await axios.get(
-          `http://localhost:5000/parcels/${trackingNumber}`
+          `http://localhost:5001/parcels/${trackingNumber}`
         );
         setParcelData((prevData) => ({
           ...prevData,

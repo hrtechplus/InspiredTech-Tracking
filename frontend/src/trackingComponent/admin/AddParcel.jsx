@@ -53,7 +53,7 @@ const AdminPanel = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/admin/parcels/${trackingNumber}`
+        `http://localhost:5001/admin/parcels/${trackingNumber}`
       );
       setParcels([response.data]);
     } catch (error) {
@@ -68,7 +68,7 @@ const AdminPanel = () => {
 
   const handleAddParcel = async () => {
     try {
-      await axios.post("http://localhost:5000/admin/parcels", newParcelData);
+      await axios.post("http://localhost:5001/admin/parcels", newParcelData);
       fetchParcels();
       setNewParcelData({
         parcelId: "",

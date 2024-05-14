@@ -36,7 +36,7 @@ const RegisterForm = () => {
   const handleCheckEmail = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/checkEmail",
+        "http://localhost:5001/api/checkEmail",
         {
           email: formData.email,
         }
@@ -67,7 +67,7 @@ const RegisterForm = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/register", formData);
+      await axios.post("http://localhost:5001/api/register", formData);
       toast.success("User registered successfully");
       navigate("/login");
     } catch (error) {

@@ -3,6 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "../css/style.css";
 import SideNavigation from "./Component/SideNavigation";
+import emailjs from "emailjs-com";
 import {
   Badge,
   Grid,
@@ -89,7 +90,7 @@ const AdminPanel = () => {
 
   const fetchParcels = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/admin/parcels");
+      const response = await axios.get("http://localhost:5001/admin/parcels");
       setParcels(response.data.parcels);
       setUserP(response.data.user);
     } catch (error) {
@@ -100,7 +101,7 @@ const AdminPanel = () => {
   const handleDeleteParcel = async (trackingNumber) => {
     try {
       await axios.delete(
-        `http://localhost:5000/admin/parcels/${trackingNumber}`
+        `http://localhost:5001/admin/parcels/${trackingNumber}`
       );
       fetchParcels();
 
@@ -135,7 +136,7 @@ const AdminPanel = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/admin/parcels/${trackingNumber}`
+        `http://localhost:5001/admin/parcels/${trackingNumber}`
       );
       setParcels([response.data]);
     } catch (error) {
@@ -153,12 +154,13 @@ const AdminPanel = () => {
   const handleEditParcel = (parcel) => {
     setEditMode(true);
     setEditParcel(parcel);
+
     setIsModalOpen(true);
   };
   const handleUsers = async () => {
     setIsAddModalOpen(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/user/:email");
+      const response = await axios.get("http://localhost:5001/api/user/:email");
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -167,7 +169,7 @@ const AdminPanel = () => {
   const fetchUserByEmail = async (email) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/user/${email}`
+        `http://localhost:5001/api/user/${email}`
       );
       return response.data; // Assuming the user data is returned as JSON
     } catch (error) {
@@ -178,6 +180,20 @@ const AdminPanel = () => {
 
   const handleAddParcelInputChange = async (e, key) => {
     const value = e.target.value;
+
+    // Check if the key is "deliveryCost" and if the value is negative
+    if (key === "deliveryCost" && parseFloat(value) < 0) {
+      // Show a toast error message
+      toast({
+        title: "Error",
+        description: "Delivery cost cannot be negative.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return; // Exit the function early
+    }
+
     if (key === "user") {
       try {
         setUser(value); // Update user state in real-time
@@ -200,7 +216,7 @@ const AdminPanel = () => {
 
   const handleAddParcel = async () => {
     try {
-      await axios.post("http://localhost:5000/admin/parcels", newParcel);
+      await axios.post("http://localhost:5001/admin/parcels", newParcel);
       fetchParcels();
       setIsAddModalOpen(false);
 
@@ -227,7 +243,7 @@ const AdminPanel = () => {
   const handleSaveEdit = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/admin/parcels/${editParcel.trackingNumber}`,
+        `http://localhost:5001/admin/parcels/${editParcel.trackingNumber}`,
         editParcel
       );
 
@@ -247,6 +263,21 @@ const AdminPanel = () => {
   };
 
   const handleEditInputChange = (e, key) => {
+    // Check if the key is 'deliveryCost' and if the entered value is negative
+    if (key === "deliveryCost" && e.target.value < 0) {
+      // Show a toast error message
+      toast({
+        title: "Error",
+        description: "Delivery cost cannot be negative.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      // Do not update the state if the value is negative
+      return;
+    }
+
+    // Update the state with the new value
     setEditParcel({
       ...editParcel,
       [key]: e.target.value,
@@ -436,6 +467,7 @@ const AdminPanel = () => {
                     type="text"
                     value={editParcel?.parcelId}
                     onChange={(e) => handleEditInputChange(e, "parcelId")}
+                    disabled
                   />
                 </FormControl>
                 <FormControl mb={4}>
@@ -467,6 +499,8 @@ const AdminPanel = () => {
                 </FormControl>
               </ModalBody>
               <ModalFooter>
+                {/* email report send section  */}
+
                 <Button
                   colorScheme="blue.500"
                   className="btn add-btn"
@@ -491,7 +525,7 @@ const AdminPanel = () => {
             onClose={() => {
               setIsAddModalOpen(false);
               newParcel.parcelId = `INP${uuid.substr(0, 8)}`;
-              newParcel.trackingNumber = `TRK${uuid.substr(0, 12)}`;
+              newParcel.trackingNumber = `TRK${uuid.substr(0, 12)}`; // generate tracking number
             }}
           >
             <ModalOverlay />

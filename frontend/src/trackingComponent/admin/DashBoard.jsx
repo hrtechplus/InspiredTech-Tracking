@@ -31,7 +31,7 @@ const AdminPanel = () => {
 
   const fetchParcels = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/admin/parcels");
+      const response = await axios.get("http://localhost:5001/admin/parcels");
       setParcels(response.data);
     } catch (error) {
       console.error("Error fetching parcels:", error);
@@ -41,7 +41,7 @@ const AdminPanel = () => {
   const handleDeleteParcel = async (trackingNumber) => {
     try {
       await axios.delete(
-        `http://localhost:5000/admin/parcels/${trackingNumber}`
+        `http://localhost:5001/admin/parcels/${trackingNumber}`
       );
       fetchParcels();
       toast({

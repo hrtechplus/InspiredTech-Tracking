@@ -10,6 +10,13 @@ const adminRoutes = require("./trackingParcel/parcelRoutes/adminRoutes");
 
 // middle ware
 const checkEmailMiddleware = require("./trackingParcel/Middleware/checkEmailMiddleware");
+// savishkas
+const inventoryRoutes = require("./inventoryControl/inventoryRoutes/routes");
+const supplierRouter = require("./supplierPanel/routes/suppliers.js");
+const orderRouter = require("./supplierPanel/routes/orders.js");
+const feedbackRoter = require("./feedbackPanel/routes/FeedbackRoute.js");
+const questionRouter = require("./feedbackPanel/routes/questionRoute.js");
+const promotionRouter = require("./marketingPanel/routes/promotionRoute.js");
 
 // Middleware section
 app.use(cors());
@@ -28,7 +35,7 @@ mongoose
   });
 
 // Start the server
-const port = 5000;
+const port = 5001;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
@@ -40,3 +47,12 @@ app.use(saveParcelRoute);
 app.use(checkEmailMiddleware, registerUser);
 app.use(loginAdmin);
 app.use(adminRoutes);
+
+//  savishkas all routes
+// All the routes
+app.use("/inventoryPanel", inventoryRoutes); // For all the Inventory Control Panel routes
+app.use("/supplier", supplierRouter);
+app.use("/order", orderRouter);
+app.use("/api/user", feedbackRoter);
+app.use("/api/question", questionRouter);
+app.use("/api/userpromo", promotionRouter);

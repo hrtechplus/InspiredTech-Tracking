@@ -34,10 +34,12 @@ const Sidebar = () => {
               <Divider></Divider>
               <ListItem>
                 {" "}
-                <Link to="/howto">How to Use</Link>
+                <Link to="/report">Report</Link>
               </ListItem>
               <Divider></Divider>
-              <ListItem>About</ListItem>
+              <ListItem>
+                <Link to="/howto"> How To</Link>
+              </ListItem>
 
               {/* You can also use custom icons from react-icons */}
             </List>
