@@ -9,7 +9,7 @@ import {
 import Home from './inventoryControl/pages/Home';
 import AddItems from './inventoryControl/pages/AddItems';
 import UpdateItemPage from './inventoryControl/pages/UpdateItemPage';
-import NotificationPage from './inventoryControl/pages/Notification'
+import NotificationPage from './inventoryControl/pages/Notification';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
