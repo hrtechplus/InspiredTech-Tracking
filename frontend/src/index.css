@@ -45,7 +45,7 @@
     font-weight: 600;
 }
 
-.inventory-panel-home-link-active, .inventory-panel-add-item-link-active {
+.inventory-panel-home-link-active, .inventory-panel-add-item-link-active, .inventory-panel-notification-link-active {
     color: #000000;
 }
 
