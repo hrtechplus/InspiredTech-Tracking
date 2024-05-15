@@ -17,10 +17,16 @@ function AddSupp() {
         const errors = {};
         if (!name.trim()) {
             errors.name = "Name is required";
+        } else if (!/^[a-zA-Z\s]+$/.test(name.trim())) {
+            errors.name = "Name must contain only letters and spaces";
         }
+        
         if (!nic.trim()) {
             errors.nic = "NIC is required";
+        } else if (!/^\d{12}$/.test(nic)) {
+            errors.nic = "NIC should be 12 digits";
         }
+        
         if (!address.trim()) {
             errors.address = "Address is required";
         }
@@ -61,8 +67,9 @@ function AddSupp() {
     }
 
     return (
+        <div style={{background:'radial-gradient(circle, rgba(234,234,234,1) 28%, rgba(94,137,255,1) 100%)'}}>
         <div style={{marginLeft:'100px' ,display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}} className="container">
-            <div style={{ width: '400px' ,border:'2px solid rgba(0, 0, 0, 0.2)',padding: '60px 50px', boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',borderRadius:'10px' }}>
+            <div style={{ width: '600px',border:'2px solid rgba(0, 0, 0, 0.2)',padding: '50px 50px', boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',borderRadius:'10px',background:'white' }}>
             <form onSubmit={sendData}>
                 <h1 style={{fontSize:'28px',fontFamily:'Times New Roman',fontWeight:'bold'}}>Add New Supplier</h1>
                 <div className="form-group">
@@ -124,7 +131,7 @@ function AddSupp() {
                         type="text" 
                         className={`form-control ${errors.email && 'is-invalid'}`} 
                         id="name"  
-                        placeholder="Enter Mobile"
+                        placeholder="Enter Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
@@ -143,9 +150,10 @@ function AddSupp() {
                     />
                     {errors.wname && <div className="invalid-feedback">{errors.wname}</div>}
                 </div>
-                <button style={{cursor:'pointer',width:'100%',marginTop:'20px',fontWeight:'bold'}} type="submit" className="btn-primary">Submit</button>
+                <button style={{cursor:'pointer',width:'100%',padding:'8px',borderRadius:'8px', marginTop:'20px',fontWeight:'bold'}} type="submit" className="btn-primary">Submit</button>
             </form>
             </div>
+        </div>
         </div>
         
     );

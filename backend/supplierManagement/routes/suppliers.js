@@ -1,4 +1,6 @@
 const router= require( 'express').Router();
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 let supplier=require('../models/supplier')
 
 router.route('/add').post((req, res)=>{
@@ -7,7 +9,8 @@ router.route('/add').post((req, res)=>{
     const nic =req.body.nic;
     const address = req.body.address;
     const mobile = Number(req.body.mobile);
-    const wname = req.body.wname ;
+    const email= req.body.email;
+    const wname = req.body.wname;
 
     const newSupplier=new supplier({
 
@@ -15,17 +18,16 @@ router.route('/add').post((req, res)=>{
         nic,
         address,
         mobile,
+        email,
         wname
     })
-
+  
     newSupplier.save()
      .then(()=>{
          res.json("Supplier added")
      }).catch((err)=> {res.status(400).send("unable to add Supplier")})
 })
 
-/***************************** */
-//to get all the data from database
 router.route("/").get((req, res) => {
 
    supplier.find().then((suppliers)=>{
@@ -37,17 +39,18 @@ router.route("/").get((req, res) => {
 })
 
 
-//update  a specific record in the database
+
 router.route("/update/:nic").put(async(req,res)=>{
 
     let userNic=req.params.nic;
-    const{name,nic,address,mobile,wname}=req.body;
+    const{name,nic,address,mobile,email,wname}=req.body;
 
     const updateSupplier={
         name,
         nic,
         address,
         mobile,
+        email,
         wname
     }
     const update=await supplier.findOneAndUpdate({ nic: userNic }, updateSupplier, { new: true });
@@ -59,20 +62,28 @@ router.route("/update/:nic").put(async(req,res)=>{
     }
 })
 
-//delete  a specific record from the database
-router.route("/delete/:nic").delete(async(req,res)=>{
 
-    let userNic=req.params.nic;
-    await supplier.findOneAndDelete(userNic).then(()=>{
+router.route("/delete/:nic").delete(async (req, res) => {
+    try {
+        const userNic = req.params.nic;
+        
+        const deletedSupplier = await supplier.findOneAndDelete({ nic: userNic });
 
-        res.status(200).send({status:'Deleted'});
-
-    }).catch((err)=> {
-        res.status(500).send({status:"Error in deleting"});
+        if (deletedSupplier) {
+            res.status(200).send({ status: 'Deleted' });
+            
+        } else {
+            res.status(404).send({ status: "Supplier not found" });
+        }
+    } catch (err) {
+        res.status(500).send({ status: "Error in deleting" });
         console.log(err);
-    })
-})
-//get one supplier details
+    }
+});
+
+
+
+
 router.route("/get/:nic").get(async(req,res)=>{
     let userId = req.params.nic; 
     try {
@@ -88,4 +99,40 @@ router.route("/get/:nic").get(async(req,res)=>{
         return res.status(500).send({ status: "Error in fetch", error: error.message });
     }
 });
+
+
+
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS
+    }
+  });
+  
+  router.route("/Sendmail").post(async(req, res) => {
+    const { name, email, message } = req.body;
+  
+    const mailOptions = {
+      from: process.env.GMAIL_USER,
+      to: email, 
+      subject: 'New message from your website contact form',
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+    };
+  
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+        console.error('Error sending email:', error);
+        res.status(500).send('Error sending email');
+      } else {
+        console.log('Email sent successfully:', info.response);
+        res.status(200).send('Email sent successfully');
+      }
+    });
+  });
 module.exports=router;

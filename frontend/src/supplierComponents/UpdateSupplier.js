@@ -79,8 +79,9 @@ function UpdateSupplier() {
     }
 
     return (
+        <div style={{background:' radial-gradient(circle, rgba(234,234,234,1) 56%, rgba(125,232,133,1) 100%)'}}>
         <div style={{marginLeft:'100px' ,display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}} className="container">
-            <div style={{ backgroundColor:'#ededed',width: '400px' ,border:'2px solid rgba(0, 0, 0, 0.2)',padding: '60px 50px', boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',borderRadius:'10px' }}>
+            <div style={{ marginTop:"-20px",backgroundColor:'#ededed',width: '500px' ,border:'2px solid rgba(0, 0, 0, 0.2)',padding: '30px 50px', boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',borderRadius:'10px' }}>
             <h1 style={{fontFamily:'serif',fontWeight:'bold',textAlign:'center'}}>Update Supplier Details</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -152,6 +153,7 @@ function UpdateSupplier() {
                 <button style={{backgroundColor:'green',width:'100%'}} type="submit" className="btn btn-primary">Update</button>
             </form>
             </div>
+        </div>
         </div>
     );
 }

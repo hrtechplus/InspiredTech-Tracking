@@ -14,6 +14,7 @@ function AddOrder() {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [errors, setErrors] = useState({});
     const form = useRef();
+    
 
     // Function to send data to the server
 
@@ -71,7 +72,10 @@ function AddOrder() {
         const errors = {};
         if (!oid.trim()) {
             errors.oid = "Order ID is required";
+        } else if (isNaN(oid.trim())) {
+            errors.oid = "Order ID must be a number";
         }
+        
         if (!supplier.trim()) {
             errors.supplier = "Supplier name is required";
         }
@@ -80,13 +84,16 @@ function AddOrder() {
         }
         if (!quantity.trim()) {
             errors.quantity = "Quantity is required";
+        } else if (parseInt(quantity) <= 0) {
+            errors.quantity = "Quantity should not be a negative value";
         }
         return errors;
     };
 
     return (
+        <div style={{background:'radial-gradient(circle, rgba(234,234,234,1) 28%, rgba(94,137,255,1) 100%)'}}>
         <div style={{ marginLeft: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }} className="container">
-            <div style={{ width: '400px', border: '2px solid rgba(0, 0, 0, 0.2)', padding: '60px 50px', boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)', borderRadius: '10px' }}>
+            <div style={{ width: '600px', border: '2px solid rgba(0, 0, 0, 0.2)', padding: '60px 50px', boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)', borderRadius: '10px',background:'white' }}>
                 <form ref={form} onSubmit={handleSubmit}>
                     <h1 style={{ fontSize: '28px', fontFamily: 'Times New Roman', fontWeight: 'bold' }}>Add New Order</h1>
                     <div className="form-group">
@@ -121,6 +128,7 @@ function AddOrder() {
                             onChange={date => setSelectedDate(date)}
                             dateFormat="dd/MM/yyyy"
                             className="form-control"
+                            minDate={new Date()}
                         />
                     </div>
                     <div className="form-group">
@@ -152,6 +160,7 @@ function AddOrder() {
                     <button style={{ cursor: 'pointer', width: '100%', marginTop: '20px' }} type="submit" className="btn btn-primary" >Submit</button>
                 </form>
             </div>
+        </div>
         </div>
     );
 }

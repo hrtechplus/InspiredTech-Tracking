@@ -53,17 +53,17 @@ import { Link } from "react-router-dom";
     return(
 
         <div className="container"> 
-            <h2 style={{fontSize:'28px',fontFamily:'Times New Roman',fontWeight:'bold'}}>All Suppliers</h2>
-            <button  style={{float:"right",fontWeight:"bold",color:"blue",cursor:"pointer",borderRadius:"5px",padding:"5px"}}><Link to={'/add'}>Add Supplier</Link></button>
+            <h2 style={{fontSize:'28px',fontFamily:'Times New Roman',fontWeight:'bold',marginTop:'20px'}}>All Suppliers</h2>
+            <button  style={{float:"right",backgroundColor:"white",fontWeight:"bold",color:"white",cursor:"pointer",borderRadius:"5px",padding:"5px"}}><Link to={'/add'}>Add Supplier</Link></button>
             <div style={{alignItems:'center',marginBottom:'20px'}}>
             <input style={{border:'1px solid #ccc',outline:'none',flex:'1',padding:'0px 8px',fontSize:'16px',borderRadius:'5px',marginRight:'5px'}} onChange={(e)=>setSearchQuery(e.target.value)}
             type="text"
             name="search"
             placeholder="Search Supplier"></input>
 
-            <button style={{backgroundColor:'blue',border:'none',cursor:'pointer',color:'white',borderRadius:'8px',padding:'3px',fontSize:'15px',fontWeight:'bold'}} onClick={handleSearch}>Search</button>
+            <button style={{backgroundColor:'blue',border:'none',cursor:'pointer',color:'white',borderRadius:'8px',padding:'4px',fontSize:'13px',fontWeight:'bold'}} onClick={handleSearch}>Search</button>
             </div >
-            <div style={{ width: '1300px' ,border:'2px solid rgba(0, 0, 0, 0.2)',padding: '60px 50px', boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',borderRadius:'10px' }}>
+            <div style={{ background:'white',width: '1300px' ,border:'2px solid rgba(0, 0, 0, 0.2)',padding: '60px 50px', boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',borderRadius:'10px' }}>
             {noResults ? (
 
                 <div>
@@ -93,6 +93,8 @@ import { Link } from "react-router-dom";
                             <td>
                                 <Link className="action-button1"  to={`/update/${supplier.nic}`}>Edit</Link>
                                 <button className="action-button2" onClick={() => deleteSupplier(supplier.nic)}>Delete</button>
+                                <Link className="action-button1" style={{backgroundColor:'blue'}}  to={`/Sendmail/${supplier.nic}`}>Mail</Link>
+
                             </td>
                         </tr>
                     ))}

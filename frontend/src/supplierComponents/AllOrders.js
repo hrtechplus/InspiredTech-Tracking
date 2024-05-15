@@ -66,13 +66,13 @@ import {useReactToPrint} from "react-to-print";
         <div  className="container"> 
         <div>
         <h2 style={{fontSize:'28px',fontFamily:'Times New Roman',fontWeight:'bold'}}>All Orders</h2>
-        <button  style={{float:"right",fontWeight:"bold",color:"blue",cursor:"pointer",borderRadius:"5px",padding:"5px"}}><Link to={'/addOrder'}>Add Order</Link></button>
+        <button  style={{float:"right",fontWeight:"bold",color:"blue",cursor:"pointer",borderRadius:"5px",padding:"5px",backgroundColor:"White"}}><Link to={'/addOrder'}>Add Order</Link></button>
         <button style={{backgroundColor:'blue',border:'none',color:'white',padding:'8px 20px',fontSize:'16px',fontWeight:'bold',borderRadius:'10px',margin:'20px',cursor:'pointer'}} className="generate-report-button" onClick={handlePrint}>Generate Report</button>
         <button style={{backgroundColor:'red',border:'none',color:'white',padding:'8px 20px',fontSize:'16px',fontWeight:'bold',borderRadius:'10px',margin:'20px',cursor:'pointer'}} className="Clear-All-button" onClick={clearAll}>Clear All</button>
 
         </div>
             
-        <div  style={{ width: '100%' ,border:'2px solid rgba(0, 0, 0, 0.2)',padding: '60px 50px', boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',borderRadius:'10px' }} ref={ComponentsRef}>   
+        <div  style={{ width: '1400px' ,border:'2px solid rgba(0, 0, 0, 0.2)',padding: '60px 50px', boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',borderRadius:'10px',background:'white' }} ref={ComponentsRef}>   
             <table>
                 <thead>
                     <tr>
@@ -81,7 +81,7 @@ import {useReactToPrint} from "react-to-print";
                         <th>supllier</th>
                         <th>Date</th>
                         <th>Brand Name</th>
-                        <th>Quantity</th>
+                        <th>Quantity.</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,6 +104,7 @@ import {useReactToPrint} from "react-to-print";
             </table>
             </div>
             </div>
+
        
     )
 
